@@ -1,0 +1,1508 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mytheme," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="ggplot2本身自带了很漂亮的主题格式，如theme_gray和theme_bw。但是在工作用图上，很多时候对图表格式配色字体等均有明文的规定。ggplot2允许我们事先定制好图表样式，我们可以生成如mytheme或者myline这样的有明确配色主题的对象，到时候就可以定制保存图表模板或者格式刷，直接在生成的图表里引用格式刷型的主题配色，就可以快捷方便的更改图表内容，保持风格的统一了。
+画图前的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ggplot2 fine drawing using mytheme">
+<meta property="og:url" content="http://tiramisutes.github.io/2015/07/31/mytheme.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="ggplot2本身自带了很漂亮的主题格式，如theme_gray和theme_bw。但是在工作用图上，很多时候对图表格式配色字体等均有明文的规定。ggplot2允许我们事先定制好图表样式，我们可以生成如mytheme或者myline这样的有明确配色主题的对象，到时候就可以定制保存图表模板或者格式刷，直接在生成的图表里引用格式刷型的主题配色，就可以快捷方便的更改图表内容，保持风格的统一了。
+画图前的">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/Rplot01.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/Rplot.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/11.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/22.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/33.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/66.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/77.jpeg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/88.jpeg">
+<meta property="og:updated_time" content="2015-09-21T04:48:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ggplot2 fine drawing using mytheme">
+<meta name="twitter:description" content="ggplot2本身自带了很漂亮的主题格式，如theme_gray和theme_bw。但是在工作用图上，很多时候对图表格式配色字体等均有明文的规定。ggplot2允许我们事先定制好图表样式，我们可以生成如mytheme或者myline这样的有明确配色主题的对象，到时候就可以定制保存图表模板或者格式刷，直接在生成的图表里引用格式刷型的主题配色，就可以快捷方便的更改图表内容，保持风格的统一了。
+画图前的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2015/07/31/mytheme.html"/>
+
+
+
+
+
+  <title>ggplot2 fine drawing using mytheme | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2015/07/31/mytheme.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">ggplot2 fine drawing using mytheme</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-31T22:45:06+08:00">
+                2015-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/31/mytheme.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2015/07/31/mytheme.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2015/07/31/mytheme.html" class="leancloud_visitors" data-flag-title="ggplot2 fine drawing using mytheme">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  4,410
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  25
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ggplot2本身自带了很漂亮的主题格式，如theme_gray和theme_bw。但是在工作用图上，很多时候对图表格式配色字体等均有明文的规定。ggplot2允许我们事先定制好图表样式，我们可以生成如mytheme或者myline这样的有明确配色主题的对象，到时候就可以定制保存图表模板或者格式刷，直接在生成的图表里引用格式刷型的主题配色，就可以快捷方便的更改图表内容，保持风格的统一了。</p>
+<h2 id="画图前的准备：自定义ggplot2格式刷">画图前的准备：自定义ggplot2格式刷</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">library(ggplot2)</span><br><span class="line">library(dplyr)</span><br><span class="line">library(RColorBrewer)</span><br><span class="line">library(tidyr)</span><br><span class="line">library(grid)</span><br><span class="line"><span class="comment">#定义好字体</span></span><br><span class="line">windowsFonts(CA=windowsFont(<span class="string">"Calibri"</span>))</span><br><span class="line"><span class="comment">#事先定制好要加图形的形状、颜色、主题等</span></span><br><span class="line"><span class="comment">#定制主题，要求背景全白，没有边框。然后所有的字体都是某某颜色</span></span><br><span class="line">mytheme&lt;-theme_bw()+theme(legend.position=<span class="string">"right"</span>,</span><br><span class="line">                          panel.border=element_blank(),</span><br><span class="line">                          panel.grid.major=element_line(linetype=<span class="string">"dashed"</span>),</span><br><span class="line">                          panel.grid.minor=element_blank(),</span><br><span class="line">                          plot.title=element_text(size=<span class="number">15</span>,</span><br><span class="line">                                                  colour=<span class="string">"#003087"</span>,</span><br><span class="line">                                                  family=<span class="string">"CA"</span>),</span><br><span class="line">                          legend.text=element_text(size=<span class="number">9</span>,colour=<span class="string">"#003087"</span>,</span><br><span class="line">                                                   family=<span class="string">"CA"</span>),</span><br><span class="line">                          legend.key=element_blank(),</span><br><span class="line">                          axis.text=element_text(size=<span class="number">10</span>,colour=<span class="string">"#003087"</span>,</span><br><span class="line">                                                 family=<span class="string">"CA"</span>),</span><br><span class="line">                          strip.text=element_text(size=<span class="number">12</span>,colour=<span class="string">"#EF0808"</span>,</span><br><span class="line">                                                  family=<span class="string">"CA"</span>),</span><br><span class="line">                          strip.background=element_blank()</span><br><span class="line"></span><br><span class="line">                        )</span><br><span class="line"><span class="comment">#饼图主题</span></span><br><span class="line">pie_theme=mytheme+theme(axis.text=element_blank(),</span><br><span class="line">                        axis.ticks=element_blank(),</span><br><span class="line">                        axis.title=element_blank(),</span><br><span class="line">                        panel.grid.major=element_blank())</span><br><span class="line"><span class="comment">#定制线的大小</span></span><br><span class="line">myline_blue&lt;-geom_line(colour=<span class="string">"#085A9C"</span>,size=<span class="number">2</span>)</span><br><span class="line">myline_red&lt;-geom_line(colour=<span class="string">"#EF0808"</span>,size=<span class="number">2</span>)</span><br><span class="line">myarea=geom_area(colour=NA,fill=<span class="string">"#003087"</span>,alpha=.<span class="number">2</span>)</span><br><span class="line">mypoint=geom_point(size=<span class="number">3</span>,shape=<span class="number">21</span>,colour=<span class="string">"#003087"</span>,fill=<span class="string">"white"</span>)</span><br><span class="line">mybar=geom_bar(fill=<span class="string">"#0C8DC4"</span>,<span class="built_in">stat</span>=<span class="string">"identity"</span>)</span><br><span class="line"><span class="comment">#然后是配色（主要是图形配色），考虑到样本的多样性，可以事先设定颜色，如3种颜色或7种颜色的组合，如果想要用原来默认主题颜色则这部分注释掉即可</span></span><br><span class="line">mycolour_3&lt;-scale_fill_manual(values=c(<span class="string">"#085A9C"</span>,<span class="string">"#EF0808"</span>,<span class="string">"#526373"</span>))</span><br><span class="line">mycolour_7&lt;-scale_fill_manual(values=c(<span class="string">"#085A9C"</span>,<span class="string">"#EF0808"</span>,<span class="string">"#526373"</span>,</span><br><span class="line"><span class="string">"#FFFFE7"</span>,<span class="string">"#FF9418"</span>,<span class="string">"#219431"</span>,<span class="string">"#9C52AD"</span>))</span><br><span class="line">mycolour_line_7&lt;-scale_color_manual(values=c(<span class="string">"#085A9C"</span>,<span class="string">"#EF0808"</span>,<span class="string">"#526373"</span>,</span><br><span class="line">                                             <span class="string">"#0C8DC4"</span>,<span class="string">"#FF9418"</span>,<span class="string">"#219431"</span>,<span class="string">"#9C52AD"</span>))</span><br><span class="line"><span class="comment">#定制标题</span></span><br><span class="line">mytitle&lt;-labs(title = <span class="string">"hope 实例"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="载入例子数据">载入例子数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">require(ggplot2)</span><br><span class="line">data(diamonds)</span><br><span class="line">set.seed(<span class="number">42</span>)</span><br><span class="line">small &lt;- diamonds[sample(nrow(diamonds), <span class="number">1000</span>), ]</span><br><span class="line">head(small)</span><br></pre></td></tr></table></figure>
+<h3 id="不用自定义格式画图">不用自定义格式画图</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ggplot(small)+geom_bar(aes(x=clarity, fill=cut))+coord_polar()</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/Rplot01.jpeg" alt=""></p>
+<h3 id="利用自定义格式画图">利用自定义格式画图</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ggplot(small)+geom_bar(aes(x=clarity, fill=cut))+coord_polar()+ mytheme + mytitle</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/Rplot.jpeg" alt=""></p>
+<h2 id="画图前的准备：数据塑形利器dplyr/tidyr">画图前的准备：数据塑形利器dplyr/tidyr</h2><p>在R里，则是用一些常用的包，如dplyr及tidyr，基本用的都是reshape2+plyr的组合对数据进行重塑再造.</p>
+<h3 id="载入数据，数据来源:_股票的成交明细-">载入数据，数据来源: <a style="line-height: 1.5;" href="http://www.yucezhe.com/product?name=tick-data-push" target="_blank">股票的成交明细.</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; data&lt;-read.table(<span class="string">"gupiao.txt"</span>,header=TRUE)</span><br><span class="line">&gt; head(data)</span><br><span class="line">     Time Price BuySell Volume     Money</span><br><span class="line"><span class="number">1</span> <span class="number">9</span>:<span class="number">25</span>:<span class="number">08</span> <span class="number">18.03</span>    <span class="number">0.00</span>  <span class="number">73520</span> <span class="number">132557642</span></span><br><span class="line"><span class="number">2</span> <span class="number">9</span>:<span class="number">29</span>:<span class="number">59</span> <span class="number">17.99</span>   -<span class="number">0.04</span>  <span class="number">11034</span>  <span class="number">19857700</span></span><br><span class="line"><span class="number">3</span> <span class="number">9</span>:<span class="number">30</span>:<span class="number">09</span> <span class="number">17.99</span>    <span class="number">0.00</span>  <span class="number">28920</span>  <span class="number">52089378</span></span><br><span class="line"><span class="number">4</span> <span class="number">9</span>:<span class="number">30</span>:<span class="number">09</span> <span class="number">17.99</span>    <span class="number">0.00</span>   <span class="number">9272</span>  <span class="number">16681906</span></span><br><span class="line"><span class="number">5</span> <span class="number">9</span>:<span class="number">30</span>:<span class="number">14</span> <span class="number">17.96</span>   -<span class="number">0.03</span>    <span class="number">556</span>    <span class="number">998913</span></span><br><span class="line"><span class="number">6</span> <span class="number">9</span>:<span class="number">30</span>:<span class="number">19</span> <span class="number">17.96</span>    <span class="number">0.00</span>    <span class="number">873</span>   <span class="number">1567490</span></span><br><span class="line">&gt; dim(data)</span><br><span class="line">[<span class="number">1</span>] <span class="number">2345</span>    <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h3 id="将数据汇总(group_by_&amp;_summarize)_甚至再拆分_(spread)">将数据汇总(group_by &amp; summarize) 甚至再拆分 (spread)</h3><p>示例里面就是把成交记录按照成交Price和BuySell拆分<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; data %&gt;% group_by(Price,BuySell) %&gt;% summarize(Money=sum(Money,na.rm=TRUE)) %&gt;% spread(BuySell,Money)</span><br><span class="line">Source: <span class="built_in">local</span> data frame [<span class="number">46</span> x <span class="number">16</span>]</span><br><span class="line"></span><br><span class="line">   Price -<span class="number">0.07</span> -<span class="number">0.06</span> -<span class="number">0.05</span>    -<span class="number">0.04</span>   -<span class="number">0.03</span>    -<span class="number">0.02</span>    -<span class="number">0.01</span>        <span class="number">0</span>     <span class="number">0.01</span></span><br><span class="line"><span class="number">1</span>  <span class="number">17.58</span>    NA    NA    NA       NA      NA       NA <span class="number">41631769</span> <span class="number">29645465</span>       NA</span><br><span class="line"><span class="number">2</span>  <span class="number">17.59</span>    NA    NA    NA       NA      NA <span class="number">17173618</span> <span class="number">37029276</span>       NA <span class="number">24179724</span></span><br><span class="line"><span class="number">3</span>  <span class="number">17.60</span>    NA    NA    NA       NA      NA   <span class="number">318581</span> <span class="number">42756941</span> <span class="number">15987562</span> <span class="number">11197676</span></span><br><span class="line"><span class="number">4</span>  <span class="number">17.61</span>    NA    NA    NA       NA      NA       NA <span class="number">58098336</span> <span class="number">36701330</span> <span class="number">14999088</span></span><br><span class="line"><span class="number">5</span>  <span class="number">17.62</span>    NA    NA    NA       NA      NA       NA <span class="number">32385632</span> <span class="number">51156365</span> <span class="number">24341609</span></span><br><span class="line"><span class="number">6</span>  <span class="number">17.63</span>    NA    NA    NA       NA      NA  <span class="number">5191027</span> <span class="number">16112558</span> <span class="number">32054647</span> <span class="number">23599759</span></span><br><span class="line"><span class="number">7</span>  <span class="number">17.64</span>    NA    NA    NA <span class="number">24642084</span> <span class="number">3725529</span> <span class="number">14682967</span>  <span class="number">4791698</span> <span class="number">18864232</span>  <span class="number">4731619</span></span><br><span class="line"><span class="number">8</span>  <span class="number">17.65</span>    NA    NA    NA       NA <span class="number">3918096</span>  <span class="number">6003983</span> <span class="number">16293279</span> <span class="number">19115145</span> <span class="number">13177514</span></span><br><span class="line"><span class="number">9</span>  <span class="number">17.66</span>    NA    NA    NA       NA <span class="number">5175002</span>       NA <span class="number">54169855</span> <span class="number">16671362</span>  <span class="number">7801764</span></span><br><span class="line"><span class="number">10</span> <span class="number">17.67</span>    NA    NA    NA       NA      NA <span class="number">10951987</span> <span class="number">38090607</span>  <span class="number">8704892</span>  <span class="number">7911066</span></span><br><span class="line">..   ...   ...   ...   ...      ...     ...      ...      ...      ...      ...</span><br><span class="line">Variables not shown: <span class="number">0.02</span> (int), <span class="number">0.03</span> (int), <span class="number">0.04</span> (int), <span class="number">0.05</span> (int), <span class="number">0.06</span> (int),</span><br><span class="line">  <span class="number">0.07</span> (int)</span><br></pre></td></tr></table></figure></p>
+<p>然后便可用ggplot等包绘图。</p>
+<h2 id="常用图形">常用图形</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">简单柱形图+文本（单一变量） </span><br><span class="line">分面柱形图（facet_wrap/facet_grid) </span><br><span class="line">簇型柱形图(position=<span class="string">"dodge"</span>) </span><br><span class="line">堆积柱形图(需要先添加百分比，再对百分比的变量做柱形图) </span><br><span class="line">饼图、极坐标图 </span><br><span class="line">多重线性图</span><br></pre></td></tr></table></figure>
+<p>1)简单柱形图 </p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/11.jpeg" alt=""><br>代码组成如下，这里使用格式刷mybar和mytheme，然后用geom_text添加柱形图标签(vjust=1表示在柱形图里面显示)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data1&lt;-diamonds %&gt;% group_by(cut) %&gt;% summarize(avg_price=mean(price))</span><br><span class="line">bar_chart&lt;-ggplot(data1,aes(x=cut,y=avg_price,fill=as.factor(cut)))+</span><br><span class="line">        mybar+mytheme+mytitle+</span><br><span class="line">        geom_text(aes(label=round(avg_price)),vjust=<span class="number">1</span>,colour=<span class="string">"white"</span>)</span><br><span class="line">bar_chart</span><br></pre></td></tr></table></figure></p>
+<p>2）带分类的柱形图<br>使用facet_wrap或者facet_grid可以快速绘制相应图形。这也是ggplot2不太支持双坐标的原因：可以快速绘图，就不需要做那么多无用功了。<br><img src="http://7xk19o.com1.z0.glb.clouddn.com/22.jpeg" alt=""><br>代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#dplyr处理数据</span></span><br><span class="line">data2&lt;-diamonds %&gt;% group_by(cut,color) %&gt;% summarize(avg_price=mean(price))</span><br><span class="line"><span class="comment">#画图，套用设定好的绘图元素</span></span><br><span class="line">ggplot(data2,aes(x=color,y=avg_price))+facet_wrap(~cut,ncol = <span class="number">2</span>)+</span><br><span class="line">        mybar+mytheme+mytitle</span><br><span class="line"><span class="comment">#在facet_wrap里面，如果加上scales="free"的话，坐标就不一样了。</span></span><br></pre></td></tr></table></figure></p>
+<p>3）簇型图<br>制图要点是，对数据作图后，添加geom_bar时，position=”dodge”（分开的）如果去掉这部分，默认是生成堆积图.</p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/33.jpeg" alt=""><br>代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data3&lt;-diamonds %&gt;% filter(cut %<span class="keyword">in</span>% c(<span class="string">"Fair"</span>,<span class="string">"Very Good"</span>,<span class="string">"Ideal"</span>)) %&gt;%</span><br><span class="line">        group_by(cut,color) %&gt;% summarize(avg_price=mean(price))</span><br><span class="line"><span class="comment">#簇状图</span></span><br><span class="line">簇状柱形图&lt;-ggplot(data3,aes(x=color,y=avg_price,fill=cut))+</span><br><span class="line">        geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>,position=<span class="string">"dodge"</span>)+</span><br><span class="line">        mytheme+mytitle+mycolour_3</span><br></pre></td></tr></table></figure>
+<p>这里如果想要定义颜色的相应顺序的话，可以使用factor </p>
+<p>譬如以下,只是用这行代码对颜色重新定义一下，用levels改变factor顺序，再画图的时候，颜色以及柱子顺序就会跟着改变了。非常方便。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data3<span class="variable">$cut</span>&lt;-factor(data3<span class="variable">$cut</span>,levels=c(<span class="string">"Very Good"</span>,<span class="string">"Ideal"</span>,<span class="string">"Fair"</span>))</span><br></pre></td></tr></table></figure></p>
+<p>4）百分比堆积图<br>制图前要事先添加一个百分比的数据之后才好作图，这里我们用mutate(percent=n/sum(n))添加该百分比数据。同时去掉position=”dodge”<br><img src="http://7xk19o.com1.z0.glb.clouddn.com/66.jpeg" alt=""><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data4&lt;-diamonds %&gt;% filter(cut %<span class="keyword">in</span>% c(<span class="string">"Fair"</span>,<span class="string">"Very Good"</span>,<span class="string">"Ideal"</span>)) %&gt;%</span><br><span class="line">         count(color,cut) %&gt;% </span><br><span class="line">        mutate(percent=n/sum(n))</span><br><span class="line">堆积图&lt;-ggplot(data4,aes(x=color,y=percent,fill=cut))+mytitle+</span><br><span class="line">        geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>)+mytheme+mycolour_3</span><br></pre></td></tr></table></figure></p>
+<p>当然，也可以做面积图。不过如果数据有缺失，面积图出错几率蛮大的</p>
+<p>5）饼图以及极坐标图</p>
+<p>在ggplot2里并没有直接画饼图的方法，基本上都是先画出柱形图，再用coord_polar转化为饼图.<br>不指定x轴，直接用geom_bar生成y轴，然后fill=分类颜色，coord_polar直接投影y轴，该方法的好处代码是比较简单：coord_polar(“y”) 。<br>加标签方法请见： <a href="http://stackoverflow.com/questions/8952077/pie-plot-getting-its-text-on-top-of-each-other" target="_blank" rel="external">http://stackoverflow.com/questions/8952077/pie-plot-getting-its-text-on-top-of-each-other</a><br><img src="http://7xk19o.com1.z0.glb.clouddn.com/77.jpeg" alt=""><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data5&lt;-diamonds %&gt;% count(cut) %&gt;% </span><br><span class="line">        mutate(percent=n/sum(n))</span><br><span class="line">ggplot(data5,aes(x=factor(<span class="number">1</span>),y=percent,fill=cut))+geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>,width=<span class="number">3</span>)+mycolour_7+</span><br><span class="line">        coord_polar(<span class="string">"y"</span>)+pie_theme+mytitle</span><br></pre></td></tr></table></figure></p>
+<p>6、折线图<br><img src="http://7xk19o.com1.z0.glb.clouddn.com/88.jpeg" alt=""><br>要点是，先做成如A-B-变量这样的二联表，然后，x轴为A，group为b,colour为b<br>下面代码展示了这个处理<br>如果去掉group的话，折线图会不知道怎么去处理数字。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data6&lt;-diamonds %&gt;% count(color,cut) %&gt;% filter(color %<span class="keyword">in</span>% c(<span class="string">"D"</span>,<span class="string">"E"</span>,<span class="string">"F"</span>))%&gt;%</span><br><span class="line">        mutate(percent=n/sum(n))</span><br><span class="line">ggplot(data6,aes(x=cut,y=n,group=color,colour=color))+geom_line(size=<span class="number">1.5</span>)+mypoint+</span><br><span class="line">        mycolour_line_7+mytheme+mytitle</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2015/07/31/mytheme.html" title="ggplot2 fine drawing using mytheme">http://tiramisutes.github.io/2015/07/31/mytheme.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mytheme/" rel="tag"># mytheme</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/29/grep.html" rel="next" title="14 个 grep 命令的例子">
+                <i class="fa fa-chevron-left"></i> 14 个 grep 命令的例子
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/31/color.html" rel="prev" title="杂志图表的经典用色">
+                杂志图表的经典用色 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#画图前的准备：自定义ggplot2格式刷"><span class="nav-number">1.</span> <span class="nav-text">画图前的准备：自定义ggplot2格式刷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#载入例子数据"><span class="nav-number">1.1.</span> <span class="nav-text">载入例子数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不用自定义格式画图"><span class="nav-number">1.2.</span> <span class="nav-text">不用自定义格式画图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用自定义格式画图"><span class="nav-number">1.3.</span> <span class="nav-text">利用自定义格式画图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#画图前的准备：数据塑形利器dplyr/tidyr"><span class="nav-number">2.</span> <span class="nav-text">画图前的准备：数据塑形利器dplyr/tidyr</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#载入数据，数据来源:_股票的成交明细-"><span class="nav-number">2.1.</span> <span class="nav-text">载入数据，数据来源: 股票的成交明细.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将数据汇总(group_by_&_summarize)_甚至再拆分_(spread)"><span class="nav-number">2.2.</span> <span class="nav-text">将数据汇总(group_by & summarize) 甚至再拆分 (spread)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用图形"><span class="nav-number">3.</span> <span class="nav-text">常用图形</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2015/07/31/mytheme.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

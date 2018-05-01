@@ -1,0 +1,1494 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="function," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="在R中偶尔也需要对一些数据进行简短的处理，掌握一些基本函数是必须的，本文将持续收集那些短小精悍的R函数，正确的运用还是能起到四两拔千斤的效果，欢迎评论补充。
+aggregate功能:aggregate(formula, data, FUN)首先将数据进行分组（按行），然后对每一组数据进行函数统计，最后把结果组合成一个比较nice的表格返回.12345678910111213141516171819">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R中的基础函数">
+<meta property="og:url" content="http://tiramisutes.github.io/2015/11/08/R-fun.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="在R中偶尔也需要对一些数据进行简短的处理，掌握一些基本函数是必须的，本文将持续收集那些短小精悍的R函数，正确的运用还是能起到四两拔千斤的效果，欢迎评论补充。
+aggregate功能:aggregate(formula, data, FUN)首先将数据进行分组（按行），然后对每一组数据进行函数统计，最后把结果组合成一个比较nice的表格返回.12345678910111213141516171819">
+<meta property="og:updated_time" content="2016-11-04T11:57:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R中的基础函数">
+<meta name="twitter:description" content="在R中偶尔也需要对一些数据进行简短的处理，掌握一些基本函数是必须的，本文将持续收集那些短小精悍的R函数，正确的运用还是能起到四两拔千斤的效果，欢迎评论补充。
+aggregate功能:aggregate(formula, data, FUN)首先将数据进行分组（按行），然后对每一组数据进行函数统计，最后把结果组合成一个比较nice的表格返回.12345678910111213141516171819">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2015/11/08/R-fun.html"/>
+
+
+
+
+
+  <title>R中的基础函数 | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2015/11/08/R-fun.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">R中的基础函数</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-08T16:53:00+08:00">
+                2015-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/08/R-fun.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2015/11/08/R-fun.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2015/11/08/R-fun.html" class="leancloud_visitors" data-flag-title="R中的基础函数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  7,152
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  43
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在R中偶尔也需要对一些数据进行简短的处理，掌握一些基本函数是必须的，本文将持续收集那些短小精悍的R函数，正确的运用还是能起到四两拔千斤的效果，欢迎评论补充。</p>
+<h3 id="aggregate">aggregate</h3><p>功能:aggregate(formula, data, FUN)<br>首先将数据进行分组（按行），然后对每一组数据进行函数统计，最后把结果组合成一个比较nice的表格返回.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&gt; head(chickwts)</span><br><span class="line">  weight      feed</span><br><span class="line"><span class="number">1</span>    <span class="number">179</span> horsebean</span><br><span class="line"><span class="number">2</span>    <span class="number">160</span> horsebean</span><br><span class="line"><span class="number">3</span>    <span class="number">136</span> horsebean</span><br><span class="line"><span class="number">4</span>    <span class="number">227</span> horsebean</span><br><span class="line"><span class="number">5</span>    <span class="number">217</span> horsebean</span><br><span class="line"><span class="number">6</span>    <span class="number">168</span> horsebean</span><br><span class="line">&gt; unique(chickwts<span class="variable">$feed</span>)</span><br><span class="line">[<span class="number">1</span>] horsebean linseed   soybean   sunflower meatmeal  casein   </span><br><span class="line">Levels: casein horsebean linseed meatmeal soybean sunflower</span><br><span class="line">&gt; <span class="comment">#aggregate(chickwts$weight, by=list(chickwts$feed), FUN=mean)</span></span><br><span class="line">&gt; aggregate(weight ~ feed, data = chickwts, mean)</span><br><span class="line">       feed   weight</span><br><span class="line"><span class="number">1</span>    casein <span class="number">323.5833</span></span><br><span class="line"><span class="number">2</span> horsebean <span class="number">160.2000</span></span><br><span class="line"><span class="number">3</span>   linseed <span class="number">218.7500</span></span><br><span class="line"><span class="number">4</span>  meatmeal <span class="number">276.9091</span></span><br><span class="line"><span class="number">5</span>   soybean <span class="number">246.4286</span></span><br><span class="line"><span class="number">6</span> sunflower <span class="number">328.9167</span></span><br><span class="line">&gt; head(iris)</span><br><span class="line">  Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span><br><span class="line"><span class="number">1</span>          <span class="number">5.1</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">2</span>          <span class="number">4.9</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">3</span>          <span class="number">4.7</span>         <span class="number">3.2</span>          <span class="number">1.3</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">4</span>          <span class="number">4.6</span>         <span class="number">3.1</span>          <span class="number">1.5</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">5</span>          <span class="number">5.0</span>         <span class="number">3.6</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">6</span>          <span class="number">5.4</span>         <span class="number">3.9</span>          <span class="number">1.7</span>         <span class="number">0.4</span>  setosa</span><br><span class="line">&gt; unique(iris<span class="variable">$Species</span>)</span><br><span class="line">[<span class="number">1</span>] setosa     versicolor virginica </span><br><span class="line">Levels: setosa versicolor virginica</span><br><span class="line">&gt; aggregate(. ~ Species, data = iris, mean)</span><br><span class="line">     Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span><br><span class="line"><span class="number">1</span>     setosa        <span class="number">5.006</span>       <span class="number">3.428</span>        <span class="number">1.462</span>       <span class="number">0.246</span></span><br><span class="line"><span class="number">2</span> versicolor        <span class="number">5.936</span>       <span class="number">2.770</span>        <span class="number">4.260</span>       <span class="number">1.326</span></span><br><span class="line"><span class="number">3</span>  virginica        <span class="number">6.588</span>       <span class="number">2.974</span>        <span class="number">5.552</span>       <span class="number">2.026</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="paste">paste</h3><p>功能：paste(…, sep = “ “, collapse = NULL)<br>字符串连接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; paste(<span class="string">"CK"</span>, <span class="number">1</span>:<span class="number">6</span>, sep = <span class="string">""</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"CK1"</span> <span class="string">"CK2"</span> <span class="string">"CK3"</span> <span class="string">"CK4"</span> <span class="string">"CK5"</span> <span class="string">"CK6"</span></span><br><span class="line">&gt; <span class="comment">#设置collapse参数，连成一个字符串</span></span><br><span class="line">&gt; paste(<span class="string">"CK"</span>, <span class="number">1</span>:<span class="number">6</span>, sep = <span class="string">""</span>, collapse = <span class="string">"-"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"CK1-CK2-CK3-CK4-CK5-CK6"</span></span><br></pre></td></tr></table></figure></p>
+<p><i class="fa fa-binoculars" aria-hidden="true"></i>paste在不指定分割符的情况下，默认分割符是空格 ，paste0在不指定分割符的情况下，默认分割符是空。</p>
+<h3 id="strsplit">strsplit</h3><p>功能：strsplit(x, split, fixed = FALSE, perl = FALSE, useBytes = FALSE)<br>字符串拆分，生成一个list<br>参数解释：<br>x为字串向量，每个元素都将单独进行拆分。<br>split为拆分位置的字串向量（分隔符），默认为正则表达式匹配（fixed=FALSE）。如果你没接触过正则表达式，设置fixed=TRUE，表示使用普通文本匹配或正则表达式的精确匹配。普通文本的运算速度快。<br>perl=TRUE/FALSE的设置和perl语言版本有关，如果正则表达式很长，正确设置表达式并且使用perl=TRUE可以提高运算速度。<br>useBytes设置是否逐个字节进行匹配，默认为FALSE，即按字符而不是字节进行匹配。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; text &lt;- <span class="string">"Hello Adam!\nHello Ava!"</span></span><br><span class="line">&gt; strsplit(text, <span class="string">"\\s"</span>)</span><br><span class="line">[[<span class="number">1</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="string">"Hello"</span> <span class="string">"Adam!"</span> <span class="string">"Hello"</span> <span class="string">"Ava!"</span></span><br></pre></td></tr></table></figure></p>
+<p><i class="fa fa-bullhorn" aria-hidden="true"></i>如果要对一个向量使用该函数，需要注意。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分割向量的每一个元素，并取分割后的第一个元素</span></span><br><span class="line">unlist(lapply(X = c(<span class="string">"abc"</span>, <span class="string">"bcd"</span>, <span class="string">"dfafadf"</span>), FUN = <span class="keyword">function</span>(x) &#123;<span class="built_in">return</span>(strsplit(x, split = <span class="string">""</span>)[[<span class="number">1</span>]][<span class="number">1</span>])&#125;))</span><br><span class="line">[<span class="number">1</span>] <span class="string">"a"</span> <span class="string">"b"</span> <span class="string">"d"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="grep/regexpr/gregexpr/regexec">grep/regexpr/gregexpr/regexec</h3><p>功能:grep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE, fixed = FALSE, useBytes = FALSE, invert = FALSE)<br>grep仅返回匹配项的下标.<br>regexpr、gregexpr和regexec返回的结果包含了匹配的具体位置和字符串长度信息.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&gt; text &lt;- c(<span class="string">"Hellow, Adam!"</span>, <span class="string">"Hi, Adam!"</span>, <span class="string">"How are you, Adam."</span>)</span><br><span class="line">&gt; text</span><br><span class="line">[<span class="number">1</span>] <span class="string">"Hellow, Adam!"</span>      <span class="string">"Hi, Adam!"</span>          <span class="string">"How are you, Adam."</span></span><br><span class="line">&gt; grep(<span class="string">"Adam"</span>,text)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">&gt; regexpr(<span class="string">"Adam"</span>, text)</span><br><span class="line">[<span class="number">1</span>]  <span class="number">9</span>  <span class="number">5</span> <span class="number">14</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span> <span class="number">4</span> <span class="number">4</span></span><br><span class="line">attr(,<span class="string">"useBytes"</span>)</span><br><span class="line">[<span class="number">1</span>] TRUE</span><br><span class="line">&gt; gregexpr(<span class="string">"Adam"</span>, text)</span><br><span class="line">[[<span class="number">1</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">9</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span></span><br><span class="line">attr(,<span class="string">"useBytes"</span>)</span><br><span class="line">[<span class="number">1</span>] TRUE</span><br><span class="line"></span><br><span class="line">[[<span class="number">2</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">5</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span></span><br><span class="line">attr(,<span class="string">"useBytes"</span>)</span><br><span class="line">[<span class="number">1</span>] TRUE</span><br><span class="line"></span><br><span class="line">[[<span class="number">3</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">14</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span></span><br><span class="line">attr(,<span class="string">"useBytes"</span>)</span><br><span class="line">[<span class="number">1</span>] TRUE</span><br><span class="line"></span><br><span class="line">&gt; regexec(<span class="string">"Adam"</span>, text)</span><br><span class="line">[[<span class="number">1</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">9</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span></span><br><span class="line"></span><br><span class="line">[[<span class="number">2</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">5</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span></span><br><span class="line"></span><br><span class="line">[[<span class="number">3</span>]]</span><br><span class="line">[<span class="number">1</span>] <span class="number">14</span></span><br><span class="line">attr(,<span class="string">"match.length"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="substr">substr</h3><p>功能：substr(x, start, stop)<br>字符串提取<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; substr(text,<span class="number">9</span>,<span class="number">12</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"Adam"</span> <span class="string">"!"</span>    <span class="string">"you,"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="strtrim">strtrim</h3><p>功能：strtrim(x, width)<br>将字符串修剪到特定的显示宽度.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; head(iris)</span><br><span class="line">  Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span><br><span class="line"><span class="number">1</span>            <span class="number">5</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">2</span>            <span class="number">4</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">3</span>            <span class="number">4</span>         <span class="number">3.2</span>          <span class="number">1.3</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">4</span>            <span class="number">4</span>         <span class="number">3.1</span>          <span class="number">1.5</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">5</span>            <span class="number">5</span>         <span class="number">3.6</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">6</span>            <span class="number">5</span>         <span class="number">3.9</span>          <span class="number">1.7</span>         <span class="number">0.4</span>  setosa</span><br><span class="line">&gt; strtrim(head(iris)<span class="variable">$Sepal</span>.Length,<span class="number">1</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="string">"5"</span> <span class="string">"4"</span> <span class="string">"4"</span> <span class="string">"4"</span> <span class="string">"5"</span> <span class="string">"5"</span></span><br><span class="line">&gt; iris<span class="variable">$Sepal</span>.Length&lt;-strtrim(head(iris)<span class="variable">$Sepal</span>.Length,<span class="number">1</span>)</span><br><span class="line">&gt; head(iris)</span><br><span class="line">  Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span><br><span class="line"><span class="number">1</span>            <span class="number">5</span>         <span class="number">3.5</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">2</span>            <span class="number">4</span>         <span class="number">3.0</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">3</span>            <span class="number">4</span>         <span class="number">3.2</span>          <span class="number">1.3</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">4</span>            <span class="number">4</span>         <span class="number">3.1</span>          <span class="number">1.5</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">5</span>            <span class="number">5</span>         <span class="number">3.6</span>          <span class="number">1.4</span>         <span class="number">0.2</span>  setosa</span><br><span class="line"><span class="number">6</span>            <span class="number">5</span>         <span class="number">3.9</span>          <span class="number">1.7</span>         <span class="number">0.4</span>  setosa</span><br></pre></td></tr></table></figure></p>
+<h3 id="length/nchar">length/nchar</h3><p>nchar是向量元素的字符个数，而length是向量长度.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; length(<span class="string">"ATGGGAATGCATGAACTAGCAGCCAAAGTTGATGAGT"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1</span></span><br><span class="line">&gt; car &lt;- c(<span class="string">'bmw'</span>,<span class="string">'ford'</span>,<span class="string">'mini'</span>,<span class="string">'bmw'</span>,<span class="string">'mini'</span>)</span><br><span class="line">&gt; length(car)</span><br><span class="line">[<span class="number">1</span>] <span class="number">5</span></span><br><span class="line">&gt; length(unique(car))</span><br><span class="line">[<span class="number">1</span>] <span class="number">3</span></span><br><span class="line">&gt; nchar(<span class="string">"ATGGGAATGCATGAACTAGCAGCCAAAGTTGATGAGT"</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">37</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="round">round</h3><p>功能：round(x, digits = 0)<br>四舍五入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; round(c(<span class="number">1.1254</span>,<span class="number">0.1247844</span>),<span class="number">3</span>)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1.125</span> <span class="number">0.125</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="axes/axis">axes/axis</h3><p>axes=FALSE       暂时禁止坐标轴的生成|以便使用axis()函数添加你自己定制的坐标轴。默认情况是axes=TRUE，即包含坐标轴。<br>axis(side, . . . )<br>在当前图形的指定边上添加坐标，在哪个边上由第一个参数指定（1到4，从底部按照顺时针顺序）。其他参数控制坐标的位置|在图形内或图形外，以及标记的位置和标签。适合在调用参数为axes=FALSE的函数plot()后添加定制的坐标轴。</p>
+<h3 id="order()">order()</h3><p>A[order(A[,4],decreasing=T),] ＃按照第4列降序排序<br>data  #dataframe对象 含有v1,v2两列<br>data[sort(data$v1,index.return=TRUE)$ix,]　　#对data的数据按v1排列,v1须为numeric  as.numeric()</p>
+<h3 id="%in%">%in%</h3><p>功能：在数据框中选取某一列只含特定字符的行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&gt; library(dplyr)</span><br><span class="line">&gt; library(tidyr)</span><br><span class="line">&gt; df &lt;- data_frame(</span><br><span class="line">+   group = c(<span class="number">1</span>:<span class="number">2</span>, <span class="number">1</span>),</span><br><span class="line">+   item_name = c(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"b"</span>),</span><br><span class="line">+   value1 = <span class="number">1</span>:<span class="number">3</span>,</span><br><span class="line">+   value2 = <span class="number">4</span>:<span class="number">6</span></span><br><span class="line">+ )</span><br><span class="line">&gt; df</span><br><span class="line">Source: <span class="built_in">local</span> data frame [<span class="number">3</span> x <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">  group item_name value1 value2</span><br><span class="line">  (dbl)     (chr)  (int)  (int)</span><br><span class="line"><span class="number">1</span>     <span class="number">1</span>         a      <span class="number">1</span>      <span class="number">4</span></span><br><span class="line"><span class="number">2</span>     <span class="number">2</span>         b      <span class="number">2</span>      <span class="number">5</span></span><br><span class="line"><span class="number">3</span>     <span class="number">1</span>         b      <span class="number">3</span>      <span class="number">6</span></span><br><span class="line">&gt;<span class="comment">#选取item_name列中只含有a的行</span></span><br><span class="line">&gt; a&lt;-c(<span class="string">"a"</span>)</span><br><span class="line">&gt; df[df<span class="variable">$item_name</span> %<span class="keyword">in</span>% a,]</span><br><span class="line">Source: <span class="built_in">local</span> data frame [<span class="number">1</span> x <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">  group item_name value1 value2</span><br><span class="line">  (dbl)     (chr)  (int)  (int)</span><br><span class="line"><span class="number">1</span>     <span class="number">1</span>         a      <span class="number">1</span>      <span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="table">table</h3><p>功能：统计数据的频数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; a&lt;-c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">&gt; table(a)</span><br><span class="line">a</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> </span><br><span class="line"><span class="number">3</span> <span class="number">2</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="str()">str()</h3><p>功能：查看数据结构<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; str(reps )</span><br><span class="line"><span class="string">'data.frame'</span>:	<span class="number">255956</span> obs. of  <span class="number">17</span> variables:</span><br><span class="line"> $ bin      : int  <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> <span class="number">585</span> ...</span><br><span class="line"> $ swScore  : int  <span class="number">342</span> <span class="number">2271</span> <span class="number">3379</span> <span class="number">2704</span> <span class="number">180</span> <span class="number">380</span> <span class="number">1113</span> <span class="number">233</span> <span class="number">388</span> <span class="number">673</span> ...</span><br><span class="line"> $ milliDiv : int  <span class="number">0</span> <span class="number">159</span> <span class="number">80</span> <span class="number">108</span> <span class="number">0</span> <span class="number">131</span> <span class="number">168</span> <span class="number">302</span> <span class="number">256</span> <span class="number">182</span> ...</span><br><span class="line"> $ milliDel : int  <span class="number">0</span> <span class="number">37</span> <span class="number">4</span> <span class="number">31</span> <span class="number">0</span> <span class="number">0</span> <span class="number">19</span> <span class="number">0</span> <span class="number">0</span> <span class="number">7</span> ...</span><br><span class="line"> $ milliIns : int  <span class="number">0</span> <span class="number">25</span> <span class="number">0</span> <span class="number">10</span> <span class="number">0</span> <span class="number">14</span> <span class="number">19</span> <span class="number">68</span> <span class="number">14</span> <span class="number">90</span> ...</span><br><span class="line"> $ genoName : Factor w/ <span class="number">1</span> level <span class="string">"chrX"</span>: <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> ...</span><br><span class="line"> $ genoStart: int  <span class="number">0</span> <span class="number">41</span> <span class="number">1799</span> <span class="number">2290</span> <span class="number">2797</span> <span class="number">2945</span> <span class="number">3015</span> <span class="number">3565</span> <span class="number">5012</span> <span class="number">5164</span> ...</span><br><span class="line"> $ genoEnd  : int  <span class="number">38</span> <span class="number">446</span> <span class="number">2272</span> <span class="number">2703</span> <span class="number">2817</span> <span class="number">3015</span> <span class="number">3221</span> <span class="number">3757</span> <span class="number">5164</span> <span class="number">5186</span> ...</span><br><span class="line"> $ genoLeft : int  -<span class="number">154913716</span> -<span class="number">154913308</span> -<span class="number">154911482</span> -<span class="number">154911051</span> -<span class="number">154910937</span> -<span class="number">154910739</span> -<span class="number">154910533</span> -<span class="number">154909997</span> -<span class="number">154908590</span> -<span class="number">154908568</span> ...</span><br><span class="line"> $ strand   : Factor w/ <span class="number">2</span> levels <span class="string">"-"</span>,<span class="string">"+"</span>: <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">2</span> ...</span><br><span class="line"> $ repName  : Factor w/ <span class="number">1105</span> levels <span class="string">"(A)n"</span>,<span class="string">"(AAATG)n"</span>,..: <span class="number">90</span> <span class="number">519</span> <span class="number">656</span> <span class="number">579</span> <span class="number">90</span> <span class="number">183</span> <span class="number">248</span> <span class="number">284</span> <span class="number">940</span> <span class="number">240</span> ...</span><br><span class="line"> $ repClass : Factor w/ <span class="number">15</span> levels <span class="string">"DNA"</span>,<span class="string">"LINE"</span>,<span class="string">"Low_complexity"</span>,..: <span class="number">10</span> <span class="number">4</span> <span class="number">4</span> <span class="number">4</span> <span class="number">10</span> <span class="number">10</span> <span class="number">11</span> <span class="number">3</span> <span class="number">4</span> <span class="number">11</span> ...</span><br><span class="line"> $ repFamily: Factor w/ <span class="number">35</span> levels <span class="string">"AcHobo"</span>,<span class="string">"Alu"</span>,..: <span class="number">28</span> <span class="number">7</span> <span class="number">7</span> <span class="number">7</span> <span class="number">28</span> <span class="number">28</span> <span class="number">2</span> <span class="number">12</span> <span class="number">13</span> <span class="number">2</span> ...</span><br><span class="line"> $ repStart : int  <span class="number">3</span> <span class="number">741</span> <span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">1</span> -<span class="number">20</span> <span class="number">1</span> -<span class="number">200</span> <span class="number">1</span> ...</span><br><span class="line"> $ repEnd   : int  <span class="number">40</span> <span class="number">1150</span> <span class="number">475</span> <span class="number">422</span> <span class="number">21</span> <span class="number">69</span> <span class="number">292</span> <span class="number">179</span> <span class="number">228</span> <span class="number">22</span> ...</span><br><span class="line"> $ repLeft  : int  <span class="number">0</span> -<span class="number">104</span> -<span class="number">83</span> -<span class="number">79</span> <span class="number">0</span> <span class="number">0</span> <span class="number">87</span> <span class="number">0</span> <span class="number">37</span> -<span class="number">280</span> ...</span><br><span class="line"> $ id       : int  <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">1</span> ...</span><br></pre></td></tr></table></figure></p>
+<h3 id="ifelse">ifelse</h3><p>功能：条件判断<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&gt; set.seed(<span class="number">123</span>)</span><br><span class="line">&gt; col1 &lt;- runif (<span class="number">5</span>, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">&gt; col2 &lt;- rnorm (<span class="number">5</span>, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">&gt; col3 &lt;- rpois (<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">&gt; col4 &lt;- rchisq (<span class="number">5</span>, <span class="number">0.1</span>)</span><br><span class="line">&gt; df &lt;- data.frame (col1, col2, col3, col4)</span><br><span class="line">&gt; df</span><br><span class="line">       col1       col2 col3         col4</span><br><span class="line"><span class="number">1</span> <span class="number">0.5751550</span> -<span class="number">3.3791113</span>    <span class="number">5</span> <span class="number">2.771082</span>e-<span class="number">01</span></span><br><span class="line"><span class="number">2</span> <span class="number">1.5766103</span>  <span class="number">2.4789918</span>    <span class="number">2</span> <span class="number">3.888853</span>e-<span class="number">04</span></span><br><span class="line"><span class="number">3</span> <span class="number">0.8179538</span> -<span class="number">0.2179319</span>    <span class="number">0</span> <span class="number">8.652702</span>e-<span class="number">05</span></span><br><span class="line"><span class="number">4</span> <span class="number">1.7660348</span> -<span class="number">0.2344839</span>    <span class="number">2</span> <span class="number">6.492406</span>e-<span class="number">17</span></span><br><span class="line"><span class="number">5</span> <span class="number">1.8809346</span>  <span class="number">0.3661652</span>    <span class="number">6</span> <span class="number">2.963428</span>e-<span class="number">02</span></span><br><span class="line">&gt; output &lt;- ifelse ((df<span class="variable">$col1</span>) &gt; <span class="number">1</span> &amp; (df<span class="variable">$col3</span>) &gt; <span class="number">2</span>, <span class="string">"yes"</span>, <span class="string">"no"</span>)</span><br><span class="line">&gt; df<span class="variable">$output</span> &lt;- output</span><br><span class="line">&gt; df</span><br><span class="line">       col1       col2 col3         col4 output</span><br><span class="line"><span class="number">1</span> <span class="number">0.5751550</span> -<span class="number">3.3791113</span>    <span class="number">5</span> <span class="number">2.771082</span>e-<span class="number">01</span>     no</span><br><span class="line"><span class="number">2</span> <span class="number">1.5766103</span>  <span class="number">2.4789918</span>    <span class="number">2</span> <span class="number">3.888853</span>e-<span class="number">04</span>     no</span><br><span class="line"><span class="number">3</span> <span class="number">0.8179538</span> -<span class="number">0.2179319</span>    <span class="number">0</span> <span class="number">8.652702</span>e-<span class="number">05</span>     no</span><br><span class="line"><span class="number">4</span> <span class="number">1.7660348</span> -<span class="number">0.2344839</span>    <span class="number">2</span> <span class="number">6.492406</span>e-<span class="number">17</span>     no</span><br><span class="line"><span class="number">5</span> <span class="number">1.8809346</span>  <span class="number">0.3661652</span>    <span class="number">6</span> <span class="number">2.963428</span>e-<span class="number">02</span>    yes</span><br></pre></td></tr></table></figure></p>
+<h3 id="gsub和sub">gsub和sub</h3><p>字符串替换<br>gsub替换匹配到的全部<br>sub 替换匹配到的第一个</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将b替换为B</span></span><br><span class="line">gsub(pattern = <span class="string">"b"</span>, replacement = <span class="string">"B"</span>, x = c(<span class="string">"abcb"</span>, <span class="string">"boy"</span>, <span class="string">"baby"</span>))</span><br><span class="line">[<span class="number">1</span>] <span class="string">"aBcB"</span> <span class="string">"Boy"</span>  <span class="string">"BaBy</span><br><span class="line"># 只替换第一个b</span><br><span class="line">sub(pattern = "</span>b<span class="string">", replacement = "</span>B<span class="string">", x = c("</span>abcb<span class="string">", "</span>baby<span class="string">"))</span><br><span class="line">[1] "</span>aBcb<span class="string">" "</span>Baby<span class="string">"</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串中字符统计">字符串中字符统计</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s &lt;- <span class="string">"aababac"</span></span><br><span class="line">p &lt;- <span class="string">"a"</span></span><br><span class="line">countCharOccurrences &lt;- <span class="keyword">function</span>(char, s) &#123;</span><br><span class="line">    s2 &lt;- gsub(char,<span class="string">""</span>,s)</span><br><span class="line">    <span class="built_in">return</span> (nchar(s) - nchar(s2))</span><br><span class="line">&#125;</span><br><span class="line">countCharOccurrences(p,s)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2015/11/08/R-fun.html" title="R中的基础函数">http://tiramisutes.github.io/2015/11/08/R-fun.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/function/" rel="tag"># function</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/08/ANOVA.html" rel="next" title="ANOVA单因素方差分析与R实现">
+                <i class="fa fa-chevron-left"></i> ANOVA单因素方差分析与R实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/08/fa-length.html" rel="prev" title="批量求fasta格式序列长度">
+                批量求fasta格式序列长度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#aggregate"><span class="nav-number">1.</span> <span class="nav-text">aggregate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paste"><span class="nav-number">2.</span> <span class="nav-text">paste</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strsplit"><span class="nav-number">3.</span> <span class="nav-text">strsplit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep/regexpr/gregexpr/regexec"><span class="nav-number">4.</span> <span class="nav-text">grep/regexpr/gregexpr/regexec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#substr"><span class="nav-number">5.</span> <span class="nav-text">substr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strtrim"><span class="nav-number">6.</span> <span class="nav-text">strtrim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#length/nchar"><span class="nav-number">7.</span> <span class="nav-text">length/nchar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#round"><span class="nav-number">8.</span> <span class="nav-text">round</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#axes/axis"><span class="nav-number">9.</span> <span class="nav-text">axes/axis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order()"><span class="nav-number">10.</span> <span class="nav-text">order()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%in%"><span class="nav-number">11.</span> <span class="nav-text">%in%</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#table"><span class="nav-number">12.</span> <span class="nav-text">table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#str()"><span class="nav-number">13.</span> <span class="nav-text">str()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifelse"><span class="nav-number">14.</span> <span class="nav-text">ifelse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gsub和sub"><span class="nav-number">15.</span> <span class="nav-text">gsub和sub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串中字符统计"><span class="nav-number">16.</span> <span class="nav-text">字符串中字符统计</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2015/11/08/R-fun.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

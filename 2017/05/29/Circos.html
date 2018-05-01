@@ -1,0 +1,1623 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Circos," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="安装主页
+安装主页已发表文章circos图(http://circos.ca/in_literature/scientific/)教程和数据下载Creating Circos Plots&quot;&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Circos安装和使用">
+<meta property="og:url" content="http://tiramisutes.github.io/2017/05/29/Circos.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="安装主页
+安装主页已发表文章circos图(http://circos.ca/in_literature/scientific/)教程和数据下载Creating Circos Plots&quot;&amp;gt;">
+<meta property="og:image" content="http://i.imgur.com/XrKrXqj.jpg">
+<meta property="og:image" content="http://i.imgur.com/ZkOgjPN.jpg">
+<meta property="og:image" content="http://i.imgur.com/JK17z8t.png">
+<meta property="og:image" content="http://i.imgur.com/YyH4sq4.jpg">
+<meta property="og:image" content="http://i.imgur.com/lFmo23A.jpg">
+<meta property="og:image" content="http://i.imgur.com/LqhtHZN.png">
+<meta property="og:image" content="http://i.imgur.com/LpR2JnK.png">
+<meta property="og:image" content="http://i.imgur.com/qsdpv6d.png">
+<meta property="og:image" content="http://i.imgur.com/VXdqigG.png">
+<meta property="og:image" content="http://i.imgur.com/nxyUHDW.png">
+<meta property="og:updated_time" content="2017-07-15T08:24:42.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Circos安装和使用">
+<meta name="twitter:description" content="安装主页
+安装主页已发表文章circos图(http://circos.ca/in_literature/scientific/)教程和数据下载Creating Circos Plots&quot;&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2017/05/29/Circos.html"/>
+
+
+
+
+
+  <title>Circos安装和使用 | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2017/05/29/Circos.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Circos安装和使用</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-29T17:51:59+08:00">
+                2017-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bioinformatics/" itemprop="url" rel="index">
+                    <span itemprop="name">Bioinformatics</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/29/Circos.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/05/29/Circos.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/05/29/Circos.html" class="leancloud_visitors" data-flag-title="Circos安装和使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  14,190
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  78
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="安装主页">安装主页</h2><p><img src="http://i.imgur.com/XrKrXqj.jpg" alt=""></p>
+<h5 id="安装主页-1"><a href="http://www.circos.ca/documentation/tutorials/configuration/" target="_blank" rel="external">安装主页</a></h5><h5 id="已发表文章circos图(http://circos-ca/in_literature/scientific/)"><a href="http://circos.ca/images/scientific_literature/" target="_blank" rel="external">已发表文章circos图</a>(<a href="http://circos.ca/in_literature/scientific/" target="_blank" rel="external">http://circos.ca/in_literature/scientific/</a>)</h5><h5 id="教程和数据下载"><a href="http://www.circos.ca/software/download/tutorials/" target="_blank" rel="external">教程和数据下载</a></h5><h5 id="Creating_Circos_Plots"><a href="http://jura.wi.mit.edu/bio/education/hot_topics/Circos/Circos.pdf" target="_blank" rel="external">Creating Circos Plots</a></h5><h2 id="<!-more->"><a id="more"></a></h2><h3 id="下载最新版circos"><a href="http://circos.ca/software/download/circos/" target="_blank" rel="external">下载最新版circos</a></h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget <span class="string">http:</span><span class="comment">//circos.ca/distribution/circos-0.69-4.tgz</span></span><br><span class="line">$ tar -xzvf circos-<span class="number">0.69</span>-<span class="number">4.</span>tgz</span><br></pre></td></tr></table></figure>
+<h3 id="检查perl模块缺失情况"><a href="http://www.circos.ca/documentation/tutorials/configuration/perl_and_modules/" target="_blank" rel="external">检查perl模块缺失情况</a></h3><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">$ cd circos<span class="subst">-</span><span class="number">0.69</span><span class="subst">-</span><span class="number">4</span></span><br><span class="line">$ bin/circos <span class="attribute">-modules</span></span><br><span class="line">ok       <span class="number">1.38</span> Carp</span><br><span class="line">ok       <span class="number">0.38</span> Clone</span><br><span class="line">missing            Config<span class="tag">::General</span></span><br><span class="line">ok        <span class="number">3.3</span> Cwd</span><br><span class="line">ok      <span class="number">2.154</span> <span class="built_in">Data</span><span class="tag">::Dumper</span></span><br><span class="line">ok       <span class="number">2.39</span> Digest<span class="tag">::MD5</span></span><br><span class="line">ok       <span class="number">2.77</span> File<span class="tag">::Basename</span></span><br><span class="line">ok        <span class="number">3.3</span> File<span class="tag">::Spec</span><span class="tag">::Functions</span></span><br><span class="line">ok       <span class="number">0.22</span> File<span class="tag">::Temp</span></span><br><span class="line">ok       <span class="number">1.50</span> FindBin</span><br><span class="line">ok       <span class="number">0.39</span> Font<span class="tag">::TTF</span><span class="tag">::Font</span></span><br><span class="line">ok       <span class="number">2.44</span> GD</span><br><span class="line">ok        <span class="number">0.2</span> GD<span class="tag">::Polyline</span></span><br><span class="line">ok       <span class="number">2.38</span> Getopt<span class="tag">::Long</span></span><br><span class="line">ok       <span class="number">1.14</span> IO<span class="tag">::File</span></span><br><span class="line">ok      <span class="number">0.416</span> <span class="built_in">List</span><span class="tag">::MoreUtils</span></span><br><span class="line">ok       <span class="number">1.46</span> <span class="built_in">List</span><span class="tag">::Util</span></span><br><span class="line">ok       <span class="number">0.01</span> Math<span class="tag">::Bezier</span></span><br><span class="line">ok       <span class="number">1.60</span> Math<span class="tag">::BigFloat</span></span><br><span class="line">ok       <span class="number">0.07</span> Math<span class="tag">::Round</span></span><br><span class="line">ok       <span class="number">0.08</span> Math<span class="tag">::VecStat</span></span><br><span class="line">ok    <span class="number">1.01</span>_03 Memoize</span><br><span class="line">ok       <span class="number">1.17</span> POSIX</span><br><span class="line">missing            <span class="keyword">Params</span><span class="tag">::Validate</span></span><br><span class="line">ok       <span class="number">1.36</span> Pod<span class="tag">::Usage</span></span><br><span class="line">missing            Readonly</span><br><span class="line">ok <span class="number">2016060801</span> Regexp<span class="tag">::Common</span></span><br><span class="line">missing            SVG</span><br><span class="line">missing            <span class="built_in">Set</span><span class="tag">::IntSpan</span></span><br><span class="line">missing            Statistics<span class="tag">::Basic</span></span><br><span class="line">ok       <span class="number">2.20</span> Storable</span><br><span class="line">ok       <span class="number">1.11</span> Sys<span class="tag">::Hostname</span></span><br><span class="line">ok      <span class="number">2.0</span><span class="built_in">.0</span> Text<span class="tag">::Balanced</span></span><br><span class="line">missing            Text<span class="tag">::Format</span></span><br><span class="line">ok     <span class="number">1.9721</span> Time<span class="tag">::HiRes</span></span><br></pre></td></tr></table></figure>
+<p><code>cpanm</code>来安装缺失模块</p>
+<h3 id="检测GD是否能用于画图，最终能生成diag-png文件">检测GD是否能用于画图，最终能生成diag.png文件</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/gddiag</span><br></pre></td></tr></table></figure>
+<h3 id="检测circos最终是否正确安装">检测circos最终是否正确安装</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bin/circos </span>-help</span><br></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> example</span><br><span class="line">./<span class="keyword">run</span></span><br></pre></td></tr></table></figure></p>
+<p>将在当前example目录下生成如下circos.png图和run.out记录屏幕输出<br><img src="http://i.imgur.com/ZkOgjPN.jpg" alt=""></p>
+<h3 id="Circos的使用">Circos的使用</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">circos -<span class="keyword">conf</span> etc/circos.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="参数解释如下：">参数解释如下：</h3><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">version             查询circos版本</span><br><span class="line"></span>-<span class="ruby">modules             检测perl模块</span><br><span class="line"></span>-<span class="ruby">conf &lt;string&gt;       输入主配置文件</span></span><br></pre></td></tr></table></figure>
+<p>详细参数见：<a href="http://www.circos.ca/documentation/tutorials/reference/command_line/" target="_blank" rel="external">COMMAND LINE PARAMETERS</a><br><code>image.generic.conf</code> 配置文件设置图形输出文件夹和名称；</p>
+<h3 id="Circos配置文件详解"><a href="https://www.plob.org/article/8424.html" target="_blank" rel="external">Circos配置文件详解</a></h3><p>Circos的使用主要通过输入一个主配置文件<code>circos.conf</code> 和 若干其他类型的配制文件。<br>该主配置文件的内容格式主要以各种区块表示，大区块中可以包含小区块。<br>此外，有些配置信息一般不需要改动，比如颜色，字体等。我们一般将这类信息保存到一个独立的配置文件中。只需要在主配置文件中通过include声明包含这些独立的配置文件名，即表示使用其配置信息。<br>例如，最常用的放置到主配置文件头部的数行包括：</p>
+<ul>
+<li>基因组染色体组型数据文件karyotype<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;<span class="keyword">include</span> karyotype.<span class="keyword">and</span>.layout.conf<span class="prompt">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>例如，最常用的放置到主配置文件尾部的数行包括：</p>
+<ul>
+<li><p>设置生成的图片参数</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">image</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;&lt;<span class="attribute">include</span> <span class="attribute">etc</span>/<span class="attribute">image.conf</span>&gt;</span>&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="title">image</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置颜色，字体，填充模式的配置信息</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;<span class="keyword">include</span> etc/colors_fonts_patterns.conf<span class="prompt">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统与debug参数</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;<span class="keyword">include</span> etc/housekeeping.conf<span class="prompt">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>一般绘图需要以下配置文件：</strong></p>
+<table>
+<thead>
+<tr>
+<th>conf配置文件</th>
+<th>内容和作用说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>circos.conf</td>
+<td>主配置文件</td>
+</tr>
+<tr>
+<td>karyotype.and.layout.conf</td>
+<td>基因组染色体组型数据</td>
+</tr>
+<tr>
+<td>ideogram.conf</td>
+<td>描述基因组染色体组型数据中染色体展示形式</td>
+</tr>
+<tr>
+<td>ticks.conf</td>
+<td>描述基因组染色体组型数据中染色体大小展示形式</td>
+</tr>
+<tr>
+<td>image.conf</td>
+<td>生成图片参数</td>
+</tr>
+<tr>
+<td>highlight.conf</td>
+<td>基因组染色体组型数据</td>
+</tr>
+<tr>
+<td>colors_fonts_patterns.conf</td>
+<td>颜色，字体，填充模式的配置信息</td>
+</tr>
+<tr>
+<td>ousekeeping.conf</td>
+<td>系统与debug参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>运行<code>circos -conf etc/circos.conf</code>程序时，circos先从circos.conf所在路径文件夹下搜索所需的配置文件</strong></p>
+<h2 id="1-_karyotype-and-layout-conf_指定主要数据配置文件">1. <code>karyotype.and.layout.conf</code> 指定主要数据配置文件</h2><ul>
+<li><strong>karyotype 染色体组型</strong><ul>
+<li>指定基因组 karyotype文件存放路径</li>
+<li>karyotype 文件定义 names, sizes and colors of chromosomes that you will use in the image.<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#25351;&#23450;&#26579;&#33394;&#20307;&#32452;&#22411;&#30340;&#25991;&#20214;&#10;karyotype = data/karyotype/karyotype.human.txt,data/karyotype/karyotype.mouse.txt,data/karyotype/karyotype.rat.txt&#10;chromosomes_order_by_karyotype = yes&#10;# &#35774;&#32622;&#38271;&#24230;&#21333;&#20301;&#65292;&#20197;&#19979;&#35774;&#32622;&#34920;&#31034; 1M &#38271;&#24230;&#30340;&#24207;&#21015;&#20195;&#34920;&#20026; 1u&#10;chromosomes_units              = 1000000&#10;&#40664;&#35748;&#35774;&#32622;&#19979;&#26159;&#23558; karyotype &#25991;&#20214;&#20013;&#25152;&#26377;&#30340;&#26579;&#33394;&#20307;&#37117;&#23637;&#31034;&#20986;&#26469;&#12290;&#24403;&#28982;&#65292;&#20063;&#21487;&#33021;&#26681;&#25454;&#38656;&#35201;&#20165;&#23637;&#31034;&#25351;&#23450;&#30340; chromosomes, &#20351;&#29992;&#22914;&#19979;&#30340;&#21442;&#25968;&#36827;&#34892;&#35774;&#32622;&#10;chromosomes_display_default    = no&#10;# &#20197;&#19979;&#21442;&#25968;&#35774;&#32622;&#25351;&#23450;&#30340; chromosomes &#29992;&#20110;&#23637;&#31034;&#21040;&#22280;&#22270;&#20013;&#12290;// &#20013;&#26159;&#19968;&#20010;&#27491;&#21017;&#34920;&#36798;&#24335;&#65292;&#21305;&#37197;&#30340; chromosomes &#29992;&#20110;&#23637;&#31034;&#21040;&#22280;&#22270;&#20013;&#12290;&#20854;&#21305;&#37197;&#30340;&#23545;&#35937;&#26159; karyotype &#25991;&#20214;&#20013;&#30340;&#31532; 3 &#21015;&#12290;&#20063;&#21487;&#20197;&#30452;&#25509;&#21015;&#20986;&#38656;&#35201;&#23637;&#31034;&#30340; chromosomes&#65292; &#20363;&#22914;&#65306;hs1;hs2;hs3;hs4 &#12290;&#10;#chromosomes         = -/[XY]/;-/hs(1[1-9]|2\d)$/;-/rn/;-/mm/;rn1;mm1&#10;chromosomes          = -/[XY]/;-/rn/;-/mm/;rn1;mm1&#10;#chromosomes         = hs4;hs3;hs5;hs7;hs8;hs12;hs6;hs11;hs14;hs13;mm1&#10;#chromosomes_order   = hs1,hs2,mm2,mm1&#10;#&#35774;&#32622;&#21508;&#20010; ideograms &#30340;&#39068;&#33394;&#65292;karyotype &#25991;&#20214;&#26368;&#21518;&#19968;&#21015;&#25351;&#23450;&#20102;&#21508;&#20010; chromosomes &#30340;&#39068;&#33394;&#65292;&#32780;&#20351;&#29992; chromosomes_color &#21442;&#25968;&#20063;&#33021;&#20462;&#25913;&#39068;&#33394;&#12290;&#10;chromosomes_color    = /mm/=blues-5-seq-4,/rn/=reds-5-seq-4&#10;#&#20351; hs2&#65292; hs3 &#21644; hs4 &#22312;&#22280;&#22270;&#19978;&#30340;&#23637;&#31034;&#26041;&#21521;&#26159;&#21453;&#21521;&#30340;&#12290;&#10;chromosomes_reverse  = /hs[234]/&#10;# rn1 and mm1 scaled to each occupy 1/4 of the figure&#10;# &#20197;&#19979;&#35774;&#32622;&#21508;&#20010; ideograms &#30340;&#22823;&#23567;&#12290;&#20854;&#24635;&#38271;&#24230;&#20026; 1 &#65292;hs1 &#30340;&#38271;&#24230;&#20026; 0.5&#65292; hs2&#65292;hs3 &#21644; hs4 &#36825; 3 &#20010; chromosomes &#30340;&#24635;&#38271;&#24230;&#20026; 0.5&#65292;&#24182;&#19988;&#36825; 3 &#20010; chromosomes &#30340;&#38271;&#24230;&#26159;&#20998;&#24067;&#22343;&#21248;&#30340;&#12290;&#27880;&#24847;&#21069;&#32773;&#30340;&#21333;&#20301;&#26159; r&#65292; &#21518;&#32773;&#20351;&#29992;&#20102;&#27491;&#21017;&#34920;&#36798;&#24335;&#23545;&#24212;&#22810;&#20010; chromosomes&#65292; &#20854;&#21333;&#20301;&#20110;&#26159;&#20026; rn &#12290;&#10;chromosomes_scale   = rn1=0.25r,mm1:0.25r&#10;# /hs/=0.5rn - relative scaling, normalized by number of ideograms matching /hs/&#10;#              this is equivalent to /hs/=0.0227r (0.5/22).&#10;#chromosomes_scale   = /hs/=0.5rn&#10;#&#40664;&#35748;&#19979;&#22312; ideogram.conf &#20013;&#32479;&#19968;&#35774;&#32622;&#20102; ideogram &#30340;&#20301;&#32622;&#65292;&#21487;&#20197;&#20351;&#29992;&#27492;&#21442;&#25968;&#35843;&#25972;&#25351;&#23450; ideogram &#30340;&#20301;&#32622;&#12290;&#10;chromosomes_radius = hs2:1.05r;hs3:1.20r;hs4:1.35r;hs5:1.15r;hs6:1.05r&#10;# karyotype &#25991;&#20214;&#26368;&#21518;&#19968;&#21015;&#25351;&#23450;&#20102;&#21508;&#20010; chromosomes &#30340;&#39068;&#33394;&#65292;&#32780;&#20351;&#29992; chromosomes_color &#21442;&#25968;&#20063;&#33021;&#20462;&#25913;&#39068;&#33394;&#12290;&#24403;&#28982;&#65292;&#20351;&#29992;&#22914;&#19979;&#26041;&#24335;&#36827;&#34892;&#39068;&#33394;&#30340;&#20462;&#25913;&#65292;&#21017;&#26356;&#21152;&#30452;&#35266;&#12290;&#20197;&#19979;&#26041;&#24335;&#26159;&#23545;&#39068;&#33394;&#37325;&#26032;&#36827;&#34892;&#23450;&#20041;&#12290;chr1&#65292;chr2&#65292;chr3 &#21644; chr4 &#23545;&#24212;&#30528; karyotype &#25991;&#20214;&#26368;&#21518;&#19968;&#21015;&#30340;&#20540;&#65292;&#20195;&#34920;&#30528;&#39068;&#33394;&#30340;&#31867;&#22411;&#12290;&#27492;&#22788;&#20351;&#29992; color block &#26469;&#23545;&#20854;&#36827;&#34892;&#37325;&#26032;&#23450;&#20041;&#12290;&#27880;&#24847;&#37325;&#26032;&#23450;&#20041;&#30340;&#26102;&#20505;&#38656;&#35201;&#21152;&#31526;&#21495; * &#10;&#60;colors&#62;&#10;chr1* = red&#10;chr2* = orange&#10;chr3* = green&#10;chr4* = blue&#10;&#60;/colors&#62;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://i.imgur.com/JK17z8t.png" alt=""></p>
+<ul>
+<li><strong>染色体组型数据文件格式和内容</strong><ul>
+<li>[x] 内容: <a href="http://circos.ca/documentation/tutorials/ideograms/karyotype" target="_blank" rel="external">制作自己基因组的karyotype file</a></li>
+<li>[x]脚本制作自己的karyotype文件，其中的颜色值可从<code>/public/home/zpxu/bin/circos-0.69-4/etc/colors.unix.txt</code> 或 <code>/public/home/zpxu/bin/circos-0.69-4/etc/colors.ucsc.conf</code>文件中选取</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">#</span>染色体 -   染色体编号<span class="params">(ID)</span> 图显示名称<span class="params">(Label)</span>     起始   结束    颜色</span><br><span class="line"><span class="built_in">chr</span> -   Gmax01  <span class="number">1</span>   <span class="number">0</span>   <span class="number">56831624</span>    chr1</span><br><span class="line"><span class="built_in">chr</span> -   Gmax02  <span class="number">2</span>   <span class="number">0</span>   <span class="number">48577505</span>   	chr2</span><br><span class="line"><span class="built_in">chr</span> -   Gmax03  <span class="number">3</span>   <span class="number">0</span>   <span class="number">45779781</span>    chr3</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>[x] 解释:</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">染色体：<span class="built_in">chr</span>，这一列定义表明这是一个染色体；</span><br><span class="line">   - ：短线占位符，这个占位符通常用来定义所属关系，对于染色体来说，没有所属；</span><br><span class="line">染色体编号<span class="params">(ID)</span>： ID是染色体唯一且不能重复的标识。如果一个染色体组型文件里面包含多个不同来源的染色体组，设置ID最好的办法就是使用前缀。</span><br><span class="line">                    比如hs=homo sapiens, mm=mus musculus等等。有时候你可以使用hs19做为前缀来明示数据来源版本。</span><br><span class="line">                    其实，即使是只有一个来源的染色体组，也最好使用前缀，以规范文件格式。</span><br><span class="line">                    比如上面的示例，就是我绘图的大豆的基因组，因而我在设置染色体编号（ID）的时候，使用了Gmax01 …的格式，</span><br><span class="line">                    自己可以根据自己的染色体来设置。</span><br><span class="line">图显名称<span class="params">(Label)</span>：是将来用于显示在图上的文本。Label主要是在图中显示的名称，我这里就直接使用<span class="number">1</span>,<span class="number">2</span>, …表示，</span><br><span class="line">                    但是如果有多个物种的基因组，或者来自不同的样品，品系的，还是要加以区分。</span><br><span class="line">起始、结束<span class="params">(START和END)</span>：定义了染色体的大小。</span><br><span class="line">                    对于染色体组型文件，需要指明的是，这里的START和END应该是染色体本身的大小，而不是你想绘制部分的起止位置。</span><br><span class="line">                    对于指定绘制部分将由其它文件来定义。</span><br><span class="line">颜色<span class="params">(COLOR)</span>：是于定义显示的颜色。如果染色体组不以条纹<span class="params">(cytogenetic bands)</span>图谱覆盖的话，那么就会以这里设置的颜色显示。</span><br><span class="line">                对于人类基因组而言，circos预设了与染色体相同的名字做为颜色名，比如chr1, chr2, … chrX, chrY, chrUn.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[x] 关于染色体上加上条纹图谱的信息：<strong>可选内容</strong></p>
+</li>
+<li><p>[x] 一般的，我们都会在染色体组型文件当中加上条纹图谱的信息，这样才会让染色体图谱看上去有被染色的效果。文件格式与之前的一致，也只有七列。这里的DOMAIN就是染色体组型当中的ID就好了，其它的定义与前面的一致。下面就是一个例子。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">band</span>    <span class="tag">DOMAIN</span>  <span class="tag">ID</span>  <span class="tag">LABEL</span>   <span class="tag">START</span>   <span class="tag">END</span> <span class="tag">COLOR</span></span><br><span class="line"><span class="tag">band</span>    <span class="tag">hs1</span>     <span class="tag">p36</span><span class="class">.33</span>  <span class="tag">p36</span><span class="class">.33</span>  0   2300000     <span class="tag">gneg</span></span><br><span class="line"><span class="tag">band</span>    <span class="tag">hs1</span>     <span class="tag">p36</span><span class="class">.32</span>  <span class="tag">p36</span><span class="class">.32</span>  2300000     5400000     <span class="tag">gpos25</span></span><br><span class="line"><span class="tag">band</span>    <span class="tag">hs1</span>     <span class="tag">p36</span><span class="class">.31</span>  <span class="tag">p36</span><span class="class">.31</span>  5400000     7200000     <span class="tag">gneg</span></span><br><span class="line"><span class="tag">band</span>    <span class="tag">hs1</span>     <span class="tag">p36</span><span class="class">.23</span>  <span class="tag">p36</span><span class="class">.23</span>  7200000     9200000     <span class="tag">gpos25</span></span><br><span class="line"><span class="tag">band</span>    <span class="tag">hs1</span>     <span class="tag">p36</span><span class="class">.22</span>  <span class="tag">p36</span><span class="class">.22</span>  9200000     12700000    <span class="tag">gneg</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[x] cytogenetic bands的名称例子：1p36.33</p>
+</li>
+<li>[x] 其命名规则是之前的数字、字母为染色体代号，一般是数字或者X,Y。而之后会有字母p或者q。p代表短臂，q代表长臂。而每个band都会有颜色深浅的不同，这里主要以gpos和gneg来区别。为了和真实值更接近，circos还定义了一系列的灰度。<br><img src="http://i.imgur.com/YyH4sq4.jpg" alt=""><a href="http://miss.ieph.net/archives/628" target="_blank" rel="external"><img src="http://i.imgur.com/lFmo23A.jpg" alt="alt text"></a><ul>
+<li><strong>自己额外显示的数据文件</strong></li>
+</ul>
+</li>
+<li><p>SNP的密度显示track，那么就拿这样一个track来做一个示例：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#染色体编号 起始位置    终止位置    value</span><br><span class="line">Gmax01  0   999999  <span class="number">0.000301</span></span><br><span class="line">Gmax01  <span class="number">1000000</span>     <span class="number">1999999</span>     <span class="number">0.001321</span></span><br><span class="line">Gmax01  <span class="number">2000000</span>     <span class="number">2999999</span>     <span class="number">0.001050</span></span><br><span class="line">Gmax01  <span class="number">3000000</span>     <span class="number">3999999</span>     <span class="number">0.003027</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件内容解释：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">染色体编号：一定要与基因组信息文件中的染色体编号保持一致，不然绘图的时候会出错；</span><br><span class="line">起始位置、终止位置：这是你要统计的这个区段的的范围；</span><br><span class="line"><span class="keyword">value</span>：则是值，根据情况，比如我这里是统计的SNP的密度，那么这个值就是在这个染色体区段范围类，染色体的密度，</span><br><span class="line">           如果是统计数量，那么这个值就是数目。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每个track都有自己对应的数据，而且不同的绘图类型，所需要的数据结构可能都不一样，这时你就需要根据自己的需求来准备数据文件。</p>
+</li>
+<li>不同显示数据的track对应的数据文件的格式，其实数据的格式都很好理解，如果你想绘制什么样的图，可以在官网上找到相关的数据类型结构，你只要根据这个结构来做好你的数据，就没什么问题。</li>
+</ul>
+<h2 id="2-_ideogram-conf_显示染色体：不需要额外指定文件">2. <code>ideogram.conf</code> 显示染色体：不需要额外指定文件</h2><p>将染色体在圈图上展示出来，代表每个染色体的图形，称为ideogram。<br>更详细解释见：<a href="https://www.plob.org/article/10638.html" target="_blank" rel="external">circos绘图ideogram.conf文件的配置</a> 和 <a href="http://blog.qiubio.com:8080/archives/2519" target="_blank" rel="external">Circos系列教程（二）染色体示意图ideograms</a>(有各种细节修改解释)<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;ideogram&gt;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">### 设定 ideograms 之间的空隙</span></span><br><span class="line">&lt;spacing&gt;</span><br><span class="line"><span class="preprocessor"># 设置圈图中染色体之间的空隙大小，以下设置为每个空隙大小为周长的 0.5%</span></span><br><span class="line"><span class="keyword">default</span> = <span class="number">0.005</span>r</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 也可以设置指定两条染色体之间的空隙</span></span><br><span class="line"><span class="preprocessor">#&lt;pairwise hsY;hs1&gt;</span></span><br><span class="line"><span class="preprocessor"># 以下设定为两条染色体之间的空隙约为圆的 20 度角。</span></span><br><span class="line"><span class="preprocessor">#spacing = 20r</span></span><br><span class="line"><span class="preprocessor">#&lt;/pairwise&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;/spacing&gt;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">## 设定 ideograms </span></span><br><span class="line"><span class="preprocessor"># 设定 ideograms 的位置，以下设定 ideograms 在图离圆心的 90% 处，修改染色体圆圈的大小，即空出较多边缘空间</span></span><br><span class="line">radius           = <span class="number">0.90</span>r</span><br><span class="line"><span class="preprocessor"># 设定 ideograms 的厚度，可以使用 r（比例关系） 或 p（像素）作为单位</span></span><br><span class="line">thickness        = <span class="number">20</span>p</span><br><span class="line"><span class="preprocessor"># 设定 ideograms 是否填充颜色。填充的颜色取决于 karyotype 指定的文件的最后一列。</span></span><br><span class="line">fill             = yes</span><br><span class="line"><span class="preprocessor"># 设定 ideograms 轮廓的颜色及其厚度。如果没有该参数或设定其厚度为0，则表示没有轮廓。</span></span><br><span class="line">stroke_color     = dgrey</span><br><span class="line">stroke_thickness = <span class="number">2</span>p</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">## 设定 label 的显示</span></span><br><span class="line"><span class="preprocessor"># 设定是否显示 label 。 label 对应着 karyotype 文件的第 4 列。如果其值为 yes，则必须要有 label_radius 参数来设定 label 的位置，否则会报错并不能生成结果。</span></span><br><span class="line">show_label       = yes</span><br><span class="line"><span class="preprocessor"># 设定 label 的字体</span></span><br><span class="line">label_font       = <span class="keyword">default</span></span><br><span class="line"><span class="preprocessor"># 设定 label 的位置</span></span><br><span class="line">label_radius     = <span class="number">1</span>r+<span class="number">90</span>p</span><br><span class="line"><span class="preprocessor"># 设定 label 的字体大小</span></span><br><span class="line">label_size       = <span class="number">40</span></span><br><span class="line"><span class="preprocessor"># 设定 label 的字体方向，yes 是易于浏览的方向。</span></span><br><span class="line">label_parallel   = yes</span><br><span class="line"></span><br><span class="line">&lt;/ideogram&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="染色体标签显示：LABELS">染色体标签显示：<a href="http://www.circos.ca/documentation/tutorials/ideograms/labels/images" target="_blank" rel="external">LABELS</a></h3><h2 id="3-_ticks-conf_以刻度形式显示染色体大小：不需要额外指定文件">3. <code>ticks.conf</code> 以刻度形式显示染色体大小：不需要额外指定文件</h2><p>将染色体的大小以刻度的形式在圈图上展示出来。<br><img src="http://i.imgur.com/LqhtHZN.png" alt=""><br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否显示 ticks</span></span><br><span class="line"><span class="constant">show_ticks</span>         = yes</span><br><span class="line"><span class="comment"># 是否显示 ticks 的 lables</span></span><br><span class="line"><span class="constant">show_tick_labels</span>    = yes</span><br><span class="line"></span><br><span class="line"><span class="comment">## 设定 ticks</span></span><br><span class="line">&lt;ticks&gt;</span><br><span class="line"><span class="comment">## ticks 的设置</span></span><br><span class="line"><span class="comment"># 设定 ticks 的位置</span></span><br><span class="line"><span class="constant">radius</span>           = 1r</span><br><span class="line"><span class="comment"># 设定 ticks 的颜色</span></span><br><span class="line"><span class="constant">color</span>            = black</span><br><span class="line"><span class="comment"># 设定 ticks 的厚度</span></span><br><span class="line"><span class="constant">thickness</span>        = 2p</span><br><span class="line"><span class="comment"># 设定 ticks' label 的值的计算。将该刻度对应位置的值 * multiplier 得到能展示到圈图上的 label 值。</span></span><br><span class="line"><span class="constant">multiplier</span>       = 1e-6</span><br><span class="line"><span class="comment"># label 值的格式化方法。%d 表示结果为整数；%f 结果为浮点数； %.1f 结果为小数点后保留1位； %.2f 结果为小数点后保留2位。</span></span><br><span class="line"><span class="constant">format</span>           = %d</span><br><span class="line"></span><br><span class="line"><span class="comment">## 以下设置了 2 个 ticks，前者是小刻度，后者是大刻度。</span></span><br><span class="line">&lt;tick&gt;</span><br><span class="line"><span class="comment"># 设置每个刻度代表的长度。若其单位为 u，则必须要设置 chromosomes_units 参数。比如设置 chromosomes_units = 1000000，则如下 5u 表示每个刻度代表 5M 长度的基因组序列。</span></span><br><span class="line"><span class="constant">spacing</span>        = 5u</span><br><span class="line"><span class="comment"># 设置 tick 的长度</span></span><br><span class="line"><span class="constant">size</span>           = 10p</span><br><span class="line">&lt;/tick&gt;</span><br><span class="line"></span><br><span class="line">&lt;tick&gt;</span><br><span class="line"><span class="constant">spacing</span>        = 25u</span><br><span class="line"><span class="constant">size</span>           = 15p</span><br><span class="line"><span class="comment"># 由于设置的是大刻度，以下用于设置展示 ticks' label。</span></span><br><span class="line"><span class="constant">show_label</span>     = yes</span><br><span class="line"><span class="comment"># 设置 ticks' label 的字体大小</span></span><br><span class="line"><span class="constant">label_size</span>     = 20p</span><br><span class="line"><span class="comment"># 设置 ticks' label 离 ticks 的距离</span></span><br><span class="line"><span class="constant">label_offset</span>   = 10p</span><br><span class="line"><span class="constant">format</span>         = %d</span><br><span class="line">&lt;/tick&gt;</span><br><span class="line"></span><br><span class="line">&lt;/ticks&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-_links-conf_以曲线连接显示基因组内部区域之间的联系_：需指定links文件">4. <code>links.conf</code> 以曲线连接显示基因组内部区域之间的联系 ：需指定links文件</h2><p>基因组内部不同的序列区域之间有联系，将之使用线条进行连接，从而展示到圈图上。常见的是重复序列之间的连接。<br>更多详细内容见：<a href="http://blog.qiubio.com:8080/archives/2554" target="_blank" rel="external">Circos系列教程（四）连线 links</a><br><img src="http://i.imgur.com/LpR2JnK.png" alt=""></p>
+<h3 id="数据结构">数据结构</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LABEL	ID	START	END</span><br><span class="line">segdup00001	hs<span class="number">1	465	30</span>596</span><br><span class="line">segdup00001	hs<span class="number">2	114046768</span>	<span class="number">114076456</span></span><br><span class="line">segdup00002	hs<span class="number">1	486	76</span>975</span><br><span class="line">segdup00002	hs<span class="number">15	100263879</span>	<span class="number">100338121</span></span><br></pre></td></tr></table></figure>
+<p>这里的LABEL是连线的名称，因为两点确定一条线，所以基本上连线的数据都是同一个名称出现两行数据，分别记录线两端对应的染色体组位置。ID对应的是karyotypes数据文件当中的ID，start和end分别定义起始和终止的位置。</p>
+<h3 id="或者是：">或者是：</h3><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ID1    START    END    ID2    START    END</span><br><span class="line"><span class="keyword">A</span><span class="number">01 27231996</span> <span class="number">27234600</span> D<span class="number">01 19250453</span> <span class="number">19253070</span></span><br><span class="line"><span class="keyword">A</span><span class="number">03 98657717</span> <span class="number">98660412</span> <span class="keyword">A</span><span class="number">13 3532356</span> <span class="number">3534210</span></span><br><span class="line"><span class="keyword">A</span><span class="number">03 97671503</span> <span class="number">97673317</span> D<span class="number">02 64857836</span> <span class="number">64860545</span></span><br><span class="line"><span class="keyword">A</span><span class="number">03 98657717</span> <span class="number">98660412</span> D<span class="number">02 65834252</span> <span class="number">65836940</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置文件">配置文件</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;links&gt;</span><br><span class="line"></span><br><span class="line">&lt;link&gt;</span><br><span class="line"># 指定 link 文件的路径，其文件格式为：</span><br><span class="line"># chr1  start   end     chr2    start   end</span><br><span class="line"># hs1   465     30596   hs2     114046768       114076456</span><br><span class="line"># 表明这两个染色体区域有联系，例如这个区域的序列长度&gt;1kb且序列相似性&gt;=90%。</span><br><span class="line">file          = data/5/segdup.txt</span><br><span class="line"># 设置 link 曲线的半径</span><br><span class="line">radius        = 0.8r</span><br><span class="line"># 设置贝塞尔曲线半径，该值设大后曲线扁平，使图像不太好看。</span><br><span class="line">bezier_radius = 0r</span><br><span class="line"># 设置 link 曲线的颜色</span><br><span class="line">color         = black_a4</span><br><span class="line"># 设置 link 曲线的厚度</span><br><span class="line">thickness     = 2</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line"># 以下可以设置多个 rules，用来对 link 文件的每一行进行过滤或展示进行设定。每个 <span class="keyword">rule</span> 都有一个 condition 参数；如果该 condition 为真，除非 flow=continue ，则不</span><br><span class="line"></span><br><span class="line"># 如果 link 文件中该行数据是染色体内部的 link，则不对其进行展示</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition     = var(intrachr)</span><br><span class="line">show          = no</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line"># 设置 link 曲线的颜色与 ideogram 的颜色一致，否则为统一的颜色。</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line"># condition 为真，则执行该 block 的内容</span><br><span class="line">condition     = 1</span><br><span class="line"># 设置 link 曲线的颜色为第 2 条染色体的颜色。对应这 link 文件中第 4 列数据对应的染色体的名称</span><br><span class="line">color         = eval(var(chr2))</span><br><span class="line"># 虽然 condition 为真，但依然检测下一个 <span class="keyword">rule</span></span><br><span class="line">flow          = continue</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line"># 如果 link 起始于 hs1，则其 link 曲线半径为 0.99r</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition     = from(hs1)</span><br><span class="line">radius1       = 0.99r</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line"># 如果 link 结束于 hs1，则其 link 曲线半径为 0.99r</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition     = to(hs1)</span><br><span class="line">radius2       = 0.99r</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/link&gt;</span><br><span class="line"></span><br><span class="line">&lt;/links&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-_plots_histogram-conf_以直方图形式展示数据：需指定额外数据">5. <code>plots_histogram.conf</code> 以直方图形式展示数据：需指定额外数据</h2><p>将基因组序列的GC含量，表达量等以直方图的形式在圈图中展示出来。以下作了两个直方图，并对分别添上背景或网格线。<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="comment"># 设定为直方图</span></span><br><span class="line"><span class="variable">type =</span> histogram</span><br><span class="line"><span class="comment"># 数据文件格式，为 4 列：</span></span><br><span class="line"><span class="comment"># chromosome	start	end	data</span></span><br><span class="line"><span class="comment"># hs1	0	1999999	180.0000</span></span><br><span class="line"><span class="variable">file =</span> data/<span class="number">5</span>/segdup.hs1234.hist.txt</span><br><span class="line"><span class="comment"># 设置直方图的位置，r1 要比 r0 大。直方图的方向默认为向外。</span></span><br><span class="line"><span class="variable">r1   =</span> <span class="number">0.88</span>r</span><br><span class="line"><span class="variable">r0   =</span> <span class="number">0.81</span>r</span><br><span class="line"><span class="comment"># 直方图的填充颜色</span></span><br><span class="line"><span class="variable">fill_color =</span> vdgrey</span><br><span class="line"><span class="comment"># 默认下直方图轮廓厚度为 1px，若不需要轮廓，则设置其厚度为0，或在 etc/tracks/histogram.conf 中修改。</span></span><br><span class="line"><span class="variable">thickness =</span> <span class="number">0</span>p</span><br><span class="line"><span class="comment"># 直方图是由 bins （条行框）所构成的。若 bins 在坐标上不相连，最好设置不要将其bins连接到一起。例如：</span></span><br><span class="line"><span class="comment"># hs1 10 20 0.5</span></span><br><span class="line"><span class="comment"># hs1 30 40 0.25</span></span><br><span class="line"><span class="comment"># 上述数据设置值为 yes 和 no 时，图形是不一样的。</span></span><br><span class="line"><span class="variable">extend_bin =</span> no</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下添加 rule ，不在 hs1 上添加直方图。</span></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定直方图的背景颜色</span></span><br><span class="line">&lt;backgrounds&gt;</span><br><span class="line"><span class="variable">show  =</span> data</span><br><span class="line"></span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="variable">color =</span> vvlgrey</span><br><span class="line">&lt;/background&gt;</span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="variable">color =</span> vlgrey</span><br><span class="line"><span class="variable">y0    =</span> <span class="number">0.2</span>r</span><br><span class="line"><span class="variable">y1    =</span> <span class="number">0.5</span>r</span><br><span class="line">&lt;/background&gt;</span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="variable">color =</span> lgrey</span><br><span class="line"><span class="variable">y0    =</span> <span class="number">0.5</span>r</span><br><span class="line"><span class="variable">y1    =</span> <span class="number">0.8</span>r</span><br><span class="line">&lt;/background&gt;</span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="variable">color =</span> grey</span><br><span class="line"><span class="variable">y0    =</span> <span class="number">0.8</span>r</span><br><span class="line">&lt;/background&gt;</span><br><span class="line"></span><br><span class="line">&lt;/backgrounds&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="variable">type =</span> histogram</span><br><span class="line"><span class="comment"># 此处直方图的数据文件第 4 列是多个由逗号分割的数值，需要制作叠加的直方图。</span></span><br><span class="line"><span class="variable">file =</span> data/<span class="number">5</span>/segdup.hs1234.stacked.txt</span><br><span class="line"><span class="variable">r1   =</span> <span class="number">0.99</span>r</span><br><span class="line"><span class="variable">r0   =</span> <span class="number">0.92</span>r</span><br><span class="line"><span class="comment"># 给 4 个值按顺序填充不同的颜色</span></span><br><span class="line"><span class="variable">fill_color  =</span> hs1,hs2,hs3,hs4</span><br><span class="line"><span class="variable">thickness =</span> <span class="number">0</span>p</span><br><span class="line"><span class="variable">orientation =</span> <span class="keyword">in</span></span><br><span class="line"><span class="variable">extend_bin  =</span> no</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在直方图中添加坐标网格线</span></span><br><span class="line">&lt;axes&gt;</span><br><span class="line"><span class="variable">show =</span> data</span><br><span class="line"><span class="variable">thickness =</span> <span class="number">1</span></span><br><span class="line"><span class="variable">color     =</span> lgrey</span><br><span class="line"></span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="variable">spacing   =</span> <span class="number">0.1</span>r</span><br><span class="line">&lt;/axis&gt;</span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="variable">spacing   =</span> <span class="number">0.2</span>r</span><br><span class="line"><span class="variable">color     =</span> grey</span><br><span class="line">&lt;/axis&gt;</span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="variable">position  =</span> <span class="number">0.5</span>r</span><br><span class="line"><span class="variable">color     =</span> red</span><br><span class="line">&lt;/axis&gt;</span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="variable">position  =</span> <span class="number">0.85</span>r</span><br><span class="line"><span class="variable">color     =</span> green</span><br><span class="line"><span class="variable">thickness =</span> <span class="number">2</span></span><br><span class="line">&lt;/axis&gt;</span><br><span class="line"></span><br><span class="line">&lt;/axes&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-_plots_heatmap-conf_以热图形式显示数据_：需额外指定数据">6. <code>plots_heatmap.conf</code> 以热图形式显示数据 ：需额外指定数据</h2><p>基因组一个区域内有多组数据时，适合以热图形式显示数据。比如基因表达量。<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">&lt;plot&gt;</span><br><span class="line"># 绘制 heat map</span><br><span class="line">type  = heatmap</span><br><span class="line"># 设定数据文件路径。</span><br><span class="line">#文件格式描述：文件有 5 列</span><br><span class="line"># chrID start   end     data    class</span><br><span class="line"># hs1 0 1999999 113.0000 id=hs1</span><br><span class="line"># hs1 0 1999999 40.0000 id=hs4</span><br><span class="line"># hs1 0 1999999 20.0000 id=hs2</span><br><span class="line"># hs1 0 1999999 7.0000 id=hs3</span><br><span class="line">file  = data/5/segdup.hs1234.heatmap.txt</span><br><span class="line"># 设定图形所处位置</span><br><span class="line">r1    = 0.89r</span><br><span class="line">r0    = 0.88r</span><br><span class="line"># 设定热图的颜色。颜色为 hs3 ，以及相应带不同透明程度的 5 种颜色。</span><br><span class="line">color = hs1_a5,hs1_a4,hs1_a3,hs1_a2,hs1_a1,hs1</span><br><span class="line"># 设定 scale_log_base 参数。计算颜色的方法如下：</span><br><span class="line"># f = (value - min) / ( max - min )    热图中每个方块代表着一个值，并给予相应的颜色标示。一系列的值 <span class="comment">[min,max]</span> 对应一系列的颜色 c<span class="comment">[n]</span>, i=0..N</span><br><span class="line"># n = N * f ** (1/scale_log_base)</span><br><span class="line"># 由上面两个公式计算出代表颜色的 n 值。</span><br><span class="line"># 若 scale_log_base = 1，则数值与颜色的变化是线性的；</span><br><span class="line"># 若 scale_log_base &gt; 1，则颜色向小方向靠近；</span><br><span class="line"># 若 scale_log_base &lt; 1，则颜色向大方向靠近。</span><br><span class="line">scale_log_base = 5</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.<span class="keyword">rule</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line"># 仅显示 id = hs1 的数据</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition = var(id) ne <span class="string">"hs1"</span></span><br><span class="line">show      = no</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line">type  = heatmap</span><br><span class="line">file  = data/5/segdup.hs1234.heatmap.txt</span><br><span class="line">r1    = 0.90r</span><br><span class="line">r0    = 0.89r</span><br><span class="line">color = hs2_a5,hs2_a4,hs2_a3,hs2_a2,hs2_a1,hs2</span><br><span class="line">scale_log_base = 5</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.<span class="keyword">rule</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition = var(id) ne <span class="string">"hs2"</span></span><br><span class="line">show      = no</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line">type  = heatmap</span><br><span class="line">file  = data/5/segdup.hs1234.heatmap.txt</span><br><span class="line">r1    = 0.91r</span><br><span class="line">r0    = 0.90r</span><br><span class="line">color = hs3_a5,hs3_a4,hs3_a3,hs3_a2,hs3_a1,hs3</span><br><span class="line">scale_log_base = 5</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.<span class="keyword">rule</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition = var(id) ne <span class="string">"hs3"</span></span><br><span class="line">show      = no</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line">type  = heatmap</span><br><span class="line">file  = data/5/segdup.hs1234.heatmap.txt</span><br><span class="line">r1    = 0.92r</span><br><span class="line">r0    = 0.91r</span><br><span class="line">color = hs4_a5,hs4_a4,hs4_a3,hs4_a2,hs4_a1,hs4</span><br><span class="line">scale_log_base = 5</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.<span class="keyword">rule</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition = var(id) ne <span class="string">"hs4"</span></span><br><span class="line">show      = no</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7-_plots_text-conf_以文本形式显示数据_：需额外指定数据">7. <code>plots_text.conf</code> 以文本形式显示数据 ：需额外指定数据</h2><p>若需要在圈图上显示一些基因的名称，此时需要以文本形式显示数据。<br><strong>参数的图形解释见 ：<a href="http://www.circos.ca/documentation/tutorials/2d_tracks/text_1/images" target="_blank" rel="external">6 — 2D DATA TRACKS</a></strong><br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;plot&gt;</span><br><span class="line"># 显示出文字</span><br><span class="line">type  = text</span><br><span class="line"># 数据文件路径</span><br><span class="line">file  = data/6/genes.labels.txt</span><br><span class="line"># 显示在图形中的位置,r1值需大于r0值，r0 = 1r时表示标签显示在圆圈外；</span><br><span class="line"># r1和r0间的差值空间是用来显示标签的区域，所以当所显示标签文本很长时必须加大这一空间，否则标签文本不能显示；</span><br><span class="line">r1    = 0.8r</span><br><span class="line">r0    = 0.6r</span><br><span class="line">r0    = 1r</span><br><span class="line">r1    = 1r+800p</span><br><span class="line"># 标签的字体</span><br><span class="line">label_font = light</span><br><span class="line"># 标签大小</span><br><span class="line">label_size = 12p</span><br><span class="line"># 文字边缘的大小，设置较小则不同单词就可能会连接到一起了。</span><br><span class="line"># padding  - text margin in angular direction</span><br><span class="line"># rpadding - text margin in radial direction</span><br><span class="line">rpadding   = 5p</span><br><span class="line"># 设置是否需要在 label 前加一条线，用来指出 lable 的位置。</span><br><span class="line">show_links     = no</span><br><span class="line">link_dims      = 0p,2p,5p,2p,2p</span><br><span class="line">link_thickness = 2p</span><br><span class="line">link_color     = black</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.<span class="keyword">rule</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line"># 设置 <span class="keyword">rule</span> ，对 label 中含有字母 a 或 b 的特异性显示</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition  = var(value) =~ /a/i</span><br><span class="line">label_font = bold</span><br><span class="line">flow       = continue</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line">&lt;<span class="keyword">rule</span>&gt;</span><br><span class="line">condition  = var(value) =~ /b/i</span><br><span class="line">color      = blue</span><br><span class="line">&lt;/<span class="keyword">rule</span>&gt;</span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="生成自己的_text_数据文件">生成自己的 text 数据文件</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat exon-ixon.gff3 | <span class="keyword">grep</span> <span class="string">"mRNA"</span> | \<span class="keyword">grep</span> -v <span class="string">"scaff"</span> | cut -f <span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span> | cut -f <span class="number">1</span> -d\; | sed <span class="string">"s/ID=//g"</span> | \</span><br><span class="line"><span class="keyword">sort</span> -k1,<span class="number">1</span>V | sed <span class="string">"s/\t/ /g"</span> &gt; ..<span class="regexp">/bin/</span>circos-<span class="number">0.69</span>-<span class="number">4</span><span class="regexp">/xzp/G</span>h.cysteine_proteinase.text.txt</span><br></pre></td></tr></table></figure>
+<p>更多关于这一部分的修改见：<code>/public/home/zpxu/bin/circos-0.69-4/circos-tutorials-0.67/tutorials/6/7</code> 目录；</p>
+<h3 id="label_snuggle_解释"><code>label_snuggle</code> 解释</h3><p><img src="http://i.imgur.com/qsdpv6d.png" alt=""></p>
+<h3 id="max_snuggle_distance_解释"><code>max_snuggle_distance</code> 解释</h3><p><img src="http://i.imgur.com/VXdqigG.png" alt=""></p>
+<h2 id="8-_rules-conf_放置常用的规则配置">8. <code>rules.conf</code> 放置常用的规则配置</h2><h2 id="9-_circos-conf_主配置文件">9. <code>circos.conf</code> 主配置文件</h2><p>在主配置文件 circos.conf 中，包含以上所需要的配置文件信息，则可以画出所需要的track。此外，可以设置一些全局的设置。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"># 额外信息显示与否</span><br><span class="line">show_links      = yes</span><br><span class="line">show_highlights = yes</span><br><span class="line">show_text       = yes</span><br><span class="line">show_heatmaps   = yes</span><br><span class="line">show_scatter    = yes</span><br><span class="line">show_histogram  = yes</span><br><span class="line"># 从外部引用来指定染色体组型文件</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> karyotype.and.layout.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line">### 绘制 <span class="keyword">plot</span> 图</span><br><span class="line">&lt;plots&gt;</span><br><span class="line"></span><br><span class="line">&lt;&lt;<span class="keyword">include</span> plots_histogram.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> plots_heatmap.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> plots_text.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plots&gt;</span><br><span class="line"></span><br><span class="line">&lt;&lt;<span class="keyword">include</span> highlights.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> ideogram.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> ticks.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> links.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line"></span><br><span class="line">################################################################</span><br><span class="line"># 插入必须的并不常修改的标准参数</span><br><span class="line">&lt;image&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> etc/image.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;/image&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> etc/colors_fonts_patterns.<span class="keyword">conf</span>&gt;&gt;</span><br><span class="line">&lt;&lt;<span class="keyword">include</span> etc/housekeeping.<span class="keyword">conf</span>&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>circos配置的单位概念</strong><br>一共有4种单位：p, r, u, b<br>p表示像素，1p表示1像素<br>r表示相对大小，0.95r表示95% ring 大小。<br>u表示相对chromosomes_unit的长度，如果chromosomes_unit = 1000，则1u就是千分之一的染色体长度。<br>b表示碱基，如果染色体长1M，那么1b就是百万分之一的长度。</p>
+</blockquote>
+<h2 id="特殊图形展示(带链接)">特殊图形展示(带链接)</h2><p><a href="http://www.circos.ca/documentation/tutorials/ideograms/spacing_breaks/images" target="_blank" rel="external"><img src="http://i.imgur.com/nxyUHDW.png" alt=""></a></p>
+<h2 id="参考链接">参考链接</h2><ol>
+<li><a href="http://starsyi.github.io/2016/06/23/Circos%E6%95%99%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">Circos教程(二):基础使用</a></li>
+<li><a href="http://www.chenlianfu.com/?p=2342" target="_blank" rel="external">陈连福：Circos的安装和简单使用</a></li>
+<li><a href="https://irenexzwen.gitbooks.io/hello-gitbook/content/" target="_blank" rel="external">Circos tutorial</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2017/05/29/Circos.html" title="Circos安装和使用">http://tiramisutes.github.io/2017/05/29/Circos.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Circos/" rel="tag"># Circos</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/28/LIANTI.html" rel="next" title="单细胞扩增之：LIANTI">
+                <i class="fa fa-chevron-left"></i> 单细胞扩增之：LIANTI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/04/Illumina-QC.html" rel="prev" title="你真的懂Illumina数据质量控制吗？">
+                你真的懂Illumina数据质量控制吗？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装主页"><span class="nav-number">1.</span> <span class="nav-text">安装主页</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装主页-1"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">安装主页</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#已发表文章circos图(http://circos-ca/in_literature/scientific/)"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">已发表文章circos图(http://circos.ca/in_literature/scientific/)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#教程和数据下载"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">教程和数据下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Creating_Circos_Plots"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">Creating Circos Plots</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#<!-more->"><span class="nav-number">2.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载最新版circos"><span class="nav-number">2.1.</span> <span class="nav-text">下载最新版circos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查perl模块缺失情况"><span class="nav-number">2.2.</span> <span class="nav-text">检查perl模块缺失情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测GD是否能用于画图，最终能生成diag-png文件"><span class="nav-number">2.3.</span> <span class="nav-text">检测GD是否能用于画图，最终能生成diag.png文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测circos最终是否正确安装"><span class="nav-number">2.4.</span> <span class="nav-text">检测circos最终是否正确安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Circos的使用"><span class="nav-number">2.5.</span> <span class="nav-text">Circos的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数解释如下："><span class="nav-number">2.6.</span> <span class="nav-text">参数解释如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Circos配置文件详解"><span class="nav-number">2.7.</span> <span class="nav-text">Circos配置文件详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_karyotype-and-layout-conf_指定主要数据配置文件"><span class="nav-number">3.</span> <span class="nav-text">1. karyotype.and.layout.conf 指定主要数据配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_ideogram-conf_显示染色体：不需要额外指定文件"><span class="nav-number">4.</span> <span class="nav-text">2. ideogram.conf 显示染色体：不需要额外指定文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#染色体标签显示：LABELS"><span class="nav-number">4.1.</span> <span class="nav-text">染色体标签显示：LABELS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_ticks-conf_以刻度形式显示染色体大小：不需要额外指定文件"><span class="nav-number">5.</span> <span class="nav-text">3. ticks.conf 以刻度形式显示染色体大小：不需要额外指定文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-_links-conf_以曲线连接显示基因组内部区域之间的联系_：需指定links文件"><span class="nav-number">6.</span> <span class="nav-text">4. links.conf 以曲线连接显示基因组内部区域之间的联系 ：需指定links文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">6.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#或者是："><span class="nav-number">6.2.</span> <span class="nav-text">或者是：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">6.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-_plots_histogram-conf_以直方图形式展示数据：需指定额外数据"><span class="nav-number">7.</span> <span class="nav-text">5. plots_histogram.conf 以直方图形式展示数据：需指定额外数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-_plots_heatmap-conf_以热图形式显示数据_：需额外指定数据"><span class="nav-number">8.</span> <span class="nav-text">6. plots_heatmap.conf 以热图形式显示数据 ：需额外指定数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-_plots_text-conf_以文本形式显示数据_：需额外指定数据"><span class="nav-number">9.</span> <span class="nav-text">7. plots_text.conf 以文本形式显示数据 ：需额外指定数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成自己的_text_数据文件"><span class="nav-number">9.1.</span> <span class="nav-text">生成自己的 text 数据文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#label_snuggle_解释"><span class="nav-number">9.2.</span> <span class="nav-text">label_snuggle 解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max_snuggle_distance_解释"><span class="nav-number">9.3.</span> <span class="nav-text">max_snuggle_distance 解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-_rules-conf_放置常用的规则配置"><span class="nav-number">10.</span> <span class="nav-text">8. rules.conf 放置常用的规则配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-_circos-conf_主配置文件"><span class="nav-number">11.</span> <span class="nav-text">9. circos.conf 主配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊图形展示(带链接)"><span class="nav-number">12.</span> <span class="nav-text">特殊图形展示(带链接)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">13.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2017/05/29/Circos.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

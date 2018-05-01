@@ -1,0 +1,1498 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="WGCNA," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="在转录组数据处理过程中我们经常会用到差异表达分析这一概念，通过比较不同处理或不同组织间基因表达量(FPKM)差异来寻找特异基因，但这前提是你的不同处理或不同组织样本较少，当不同处理或组织有较多样本，如40个，此时的两两比较有780组比较^_^,这根本不是我们想要的结果；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习WGCNA总结">
+<meta property="og:url" content="http://tiramisutes.github.io/2016/09/14/WGCNA.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="在转录组数据处理过程中我们经常会用到差异表达分析这一概念，通过比较不同处理或不同组织间基因表达量(FPKM)差异来寻找特异基因，但这前提是你的不同处理或不同组织样本较少，当不同处理或组织有较多样本，如40个，此时的两两比较有780组比较^_^,这根本不是我们想要的结果；">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA2.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA3.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA4.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA5.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA6.png">
+<meta property="og:updated_time" content="2017-01-09T02:57:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习WGCNA总结">
+<meta name="twitter:description" content="在转录组数据处理过程中我们经常会用到差异表达分析这一概念，通过比较不同处理或不同组织间基因表达量(FPKM)差异来寻找特异基因，但这前提是你的不同处理或不同组织样本较少，当不同处理或组织有较多样本，如40个，此时的两两比较有780组比较^_^,这根本不是我们想要的结果；">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2016/09/14/WGCNA.html"/>
+
+
+
+
+
+  <title>学习WGCNA总结 | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2016/09/14/WGCNA.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">学习WGCNA总结</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-14T16:59:41+08:00">
+                2016-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/14/WGCNA.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2016/09/14/WGCNA.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2016/09/14/WGCNA.html" class="leancloud_visitors" data-flag-title="学习WGCNA总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  7,913
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  45
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA2.png" alt=""><br>在转录组数据处理过程中我们经常会用到差异表达分析这一概念，通过比较不同处理或不同组织间基因表达量(FPKM)差异来寻找特异基因，但这前提是你的不同处理或不同组织样本较少，当不同处理或组织有较多样本，如40个，此时的两两比较有780组比较^_^,这根本不是我们想要的结果；<br><a id="more"></a><br>此时就需要<strong><a href="https://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/index.html" target="_blank">WGCNA(weighted gene co-expression network analysis)</a>将复杂的数据进行归纳整理</strong>。除了这种最常见的比较差异表达，我们还想知道在不同处理或不同组织间是否有些基因的表达存在内在的联系或相关性？WGCNA同样可以帮助我们预测基因间的相互作用关系。</p>
+<h2 id="WGCNA术语">WGCNA术语</h2><h3 id="权重(weghted)">权重(weghted)</h3><p><img src="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA3.png" alt=""></p>
+<h3 id="Module">Module</h3><p><strong>模块(module)：</strong>表达模式相似的基因分为一类，这样的一类基因成为模块；</p>
+<h3 id="Eigengene">Eigengene</h3><p><strong>Eigengene（eigen- +‎ gene）：</strong>基因和样本构成的矩阵，<a href="https://en.wiktionary.org/wiki/eigengene；" target="_blank" rel="external">https://en.wiktionary.org/wiki/eigengene；</a></p>
+<h3 id="Adjacency_Matrix">Adjacency Matrix</h3><p><strong>邻近矩阵：</strong>是图的一种存储形式，用一个一维数组存放图中所有顶点数据；用一个二维数组存放顶点间关系（边或弧）的数据，这个二维数组称为邻接矩阵；<br><img src="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA4.png" alt=""></p>
+<h3 id="Topological_Overlap_Matrix(TOM)">Topological Overlap Matrix(TOM)</h3><p><img src="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA5.png" alt=""></p>
+<h2 id="整体思路">整体思路</h2><p><a href="#" class="myButton">先对数据进行处理→分层聚类→表达模式相似的基因组成模块→研究某一个模块中相关基因的功能富集(GO,KEGG)，各个模块与样本表型数据间的相关性，各个模块与样本本身间的相关性(没有表型数据的情况，如不同组织)→具体到特定模块后分析其所包含基因间的相互作用网络关系，并找出其中的关键基因。</a></p>
+<h3 id="分析构建的网络寻找以下有用信息">分析构建的网络寻找以下有用信息</h3><p><li>这类处于调控网络中心的基因称为核心基因（hub gene），这类基因通常是转录因子等关键的调控因子，是值得我们优先深入分析和挖掘的对象。</li></p>
+<p><li>在网络中，被调控线连接的基因，其表达模式是相似的。那么它们潜在有相似的功能。所以，在这个网络中，如果线条一端的基因功能是已知的，那么就可以预测线条另一端的功能未知的基因也有相似的功能。</li></p>
+<h2 id="R脚本">R脚本</h2><p><strong>输入数据为RNA-seq不同处理或组织所有样本的FPKM值组成的矩阵，切记含有 0 的要去掉；</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br></pre></td><td class="code"><pre><span class="line">setwd(<span class="string">"F:/WGCNA"</span>)</span><br><span class="line">library(WGCNA)</span><br><span class="line">options(stringsAsFactors = FALSE)</span><br><span class="line"><span class="built_in">enable</span>WGCNAThreads()</span><br><span class="line"><span class="comment">#1. 数据读入，处理和保存</span></span><br><span class="line">fpkm&lt;- read.csv(<span class="string">"trans_counts.counts.matrix.TMM_normalized.FPKM.nozero.csv"</span>)</span><br><span class="line">head(fpkm)</span><br><span class="line">dim(fpkm)</span><br><span class="line">names(fpkm)</span><br><span class="line">datExpr0=as.data.frame(t(fpkm[,-c(<span class="number">1</span>)]));</span><br><span class="line">names(datExpr0)=fpkm<span class="variable">$trans</span>;</span><br><span class="line">rownames(datExpr0)=names(fpkm)[-c(<span class="number">1</span>)];</span><br><span class="line"><span class="comment">#data&lt;-log10(date[,-1]+0.01)</span></span><br><span class="line">gsg = goodSamplesGenes(datExpr0, verbose = <span class="number">3</span>);</span><br><span class="line">gsg<span class="variable">$allOK</span></span><br><span class="line">sampleTree = hclust(dist(datExpr0), method = <span class="string">"average"</span>)</span><br><span class="line"><span class="comment">#sizeGrWindow(12,9)</span></span><br><span class="line">par(cex = <span class="number">0.6</span>)</span><br><span class="line">par(mar = c(<span class="number">0</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">0</span>))</span><br><span class="line">plot(sampleTree, main = <span class="string">"Sample clustering to detect outliers"</span>, sub=<span class="string">""</span>, xlab=<span class="string">""</span>, cex.lab = <span class="number">1.5</span>,</span><br><span class="line">     cex.axis = <span class="number">1.5</span>, cex.main = <span class="number">2</span>)</span><br><span class="line">abline(h = <span class="number">80000</span>, col = <span class="string">"red"</span>);</span><br><span class="line">clust = cutreeStatic(sampleTree, cutHeight = <span class="number">80000</span>, minSize = <span class="number">10</span>)</span><br><span class="line">table(clust)</span><br><span class="line">keepSamples = (clust==<span class="number">1</span>)</span><br><span class="line">datExpr = datExpr0[keepSamples, ]</span><br><span class="line">nGenes = ncol(datExpr)</span><br><span class="line">nSamples = nrow(datExpr)</span><br><span class="line">save(datExpr, file = <span class="string">"AS-green-FPKM-01-dataInput.RData"</span>)</span><br><span class="line"><span class="comment">#2. 选择合适的阀值</span></span><br><span class="line">powers = c(c(<span class="number">1</span>:<span class="number">10</span>), seq(from = <span class="number">12</span>, to=<span class="number">20</span>, by=<span class="number">2</span>))</span><br><span class="line"><span class="comment"># Call the network topology analysis function</span></span><br><span class="line">sft = pickSoftThreshold(datExpr, powerVector = powers, verbose = <span class="number">5</span>)</span><br><span class="line"><span class="comment"># Plot the results:</span></span><br><span class="line"><span class="comment">##sizeGrWindow(9, 5)</span></span><br><span class="line">par(mfrow = c(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line">cex1 = <span class="number">0.9</span>;</span><br><span class="line"><span class="comment"># Scale-free topology fit index as a function of the soft-thresholding power</span></span><br><span class="line">plot(sft<span class="variable">$fitIndices</span>[,<span class="number">1</span>], -sign(sft<span class="variable">$fitIndices</span>[,<span class="number">3</span>])*sft<span class="variable">$fitIndices</span>[,<span class="number">2</span>],</span><br><span class="line">     xlab=<span class="string">"Soft Threshold (power)"</span>,ylab=<span class="string">"Scale Free Topology Model Fit,signed R^2"</span>,<span class="built_in">type</span>=<span class="string">"n"</span>,</span><br><span class="line">     main = paste(<span class="string">"Scale independence"</span>));</span><br><span class="line">text(sft<span class="variable">$fitIndices</span>[,<span class="number">1</span>], -sign(sft<span class="variable">$fitIndices</span>[,<span class="number">3</span>])*sft<span class="variable">$fitIndices</span>[,<span class="number">2</span>],</span><br><span class="line">     labels=powers,cex=cex1,col=<span class="string">"red"</span>);</span><br><span class="line"><span class="comment"># this line corresponds to using an R^2 cut-off of h</span></span><br><span class="line">abline(h=<span class="number">0.90</span>,col=<span class="string">"red"</span>)</span><br><span class="line"><span class="comment"># Mean connectivity as a function of the soft-thresholding power</span></span><br><span class="line">plot(sft<span class="variable">$fitIndices</span>[,<span class="number">1</span>], sft<span class="variable">$fitIndices</span>[,<span class="number">5</span>],</span><br><span class="line">     xlab=<span class="string">"Soft Threshold (power)"</span>,ylab=<span class="string">"Mean Connectivity"</span>, <span class="built_in">type</span>=<span class="string">"n"</span>,</span><br><span class="line">     main = paste(<span class="string">"Mean connectivity"</span>))</span><br><span class="line">text(sft<span class="variable">$fitIndices</span>[,<span class="number">1</span>], sft<span class="variable">$fitIndices</span>[,<span class="number">5</span>], labels=powers, cex=cex1,col=<span class="string">"red"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line"><span class="comment"># 网络构建有两种方法，One-step和Step-by-step；</span></span><br><span class="line"><span class="comment">#  第一种：一步法进行网络构建</span></span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3. 一步法网络构建：One-step network construction and module detection</span></span><br><span class="line">net = blockwiseModules(datExpr, power = <span class="number">6</span>, maxBlockSize = <span class="number">6000</span>,</span><br><span class="line">                       TOMType = <span class="string">"unsigned"</span>, minModuleSize = <span class="number">30</span>,</span><br><span class="line">                       reassignThreshold = <span class="number">0</span>, mergeCutHeight = <span class="number">0.25</span>,</span><br><span class="line">                       numericLabels = TRUE, pamRespectsDendro = FALSE,</span><br><span class="line">                       saveTOMs = TRUE,</span><br><span class="line">                       saveTOMFileBase = <span class="string">"AS-green-FPKM-TOM"</span>,</span><br><span class="line">                       verbose = <span class="number">3</span>)</span><br><span class="line">table(net<span class="variable">$colors</span>)</span><br><span class="line"><span class="comment">#4. 绘画结果展示</span></span><br><span class="line"><span class="comment"># open a graphics window</span></span><br><span class="line"><span class="comment">#sizeGrWindow(12, 9)</span></span><br><span class="line"><span class="comment"># Convert labels to colors for plotting</span></span><br><span class="line">mergedColors = labels2colors(net<span class="variable">$colors</span>)</span><br><span class="line"><span class="comment"># Plot the dendrogram and the module colors underneath</span></span><br><span class="line">plotDendroAndColors(net<span class="variable">$dendrograms</span>[[<span class="number">1</span>]], mergedColors[net<span class="variable">$blockGenes</span>[[<span class="number">1</span>]]],</span><br><span class="line">                    <span class="string">"Module colors"</span>,</span><br><span class="line">                    dendroLabels = FALSE, hang = <span class="number">0.03</span>,</span><br><span class="line">                    addGuide = TRUE, guideHang = <span class="number">0.05</span>)</span><br><span class="line"><span class="comment">#5.结果保存</span></span><br><span class="line">moduleLabels = net<span class="variable">$colors</span></span><br><span class="line">moduleColors = labels2colors(net<span class="variable">$colors</span>)</span><br><span class="line">table(moduleColors)</span><br><span class="line">MEs = net<span class="variable">$MEs</span>;</span><br><span class="line">geneTree = net<span class="variable">$dendrograms</span>[[<span class="number">1</span>]];</span><br><span class="line">save(MEs, moduleLabels, moduleColors, geneTree,</span><br><span class="line">     file = <span class="string">"AS-green-FPKM-02-networkConstruction-auto.RData"</span>)</span><br><span class="line"><span class="comment">#6. 导出网络到Cytoscape</span></span><br><span class="line"><span class="comment"># Recalculate topological overlap if needed</span></span><br><span class="line">TOM = TOMsimilarityFromExpr(datExpr, power = <span class="number">6</span>);</span><br><span class="line"><span class="comment"># Read in the annotation file</span></span><br><span class="line"><span class="comment"># annot = read.csv(file = "GeneAnnotation.csv");</span></span><br><span class="line"><span class="comment"># Select modules需要修改，选择需要导出的模块颜色</span></span><br><span class="line">modules = c(<span class="string">"turquoise"</span>, <span class="string">"blue"</span>);</span><br><span class="line"><span class="comment"># Select module probes选择模块探测</span></span><br><span class="line">probes = names(datExpr)</span><br><span class="line"><span class="keyword">in</span>Module = is.finite(match(moduleColors, modules));</span><br><span class="line">modProbes = probes[<span class="keyword">in</span>Module];</span><br><span class="line"><span class="comment">#modGenes = annot$gene_symbol[match(modProbes, annot$substanceBXH)];</span></span><br><span class="line"><span class="comment"># Select the corresponding Topological Overlap</span></span><br><span class="line">modTOM = TOM[<span class="keyword">in</span>Module, <span class="keyword">in</span>Module];</span><br><span class="line">dimnames(modTOM) = list(modProbes, modProbes)</span><br><span class="line"><span class="comment"># Export the network into edge and node list files Cytoscape can read</span></span><br><span class="line">cyt = <span class="built_in">export</span>NetworkToCytoscape(modTOM,</span><br><span class="line">                               edgeFile = paste(<span class="string">"AS-green-FPKM-One-step-CytoscapeInput-edges-"</span>, paste(modules, collapse=<span class="string">"-"</span>), <span class="string">".txt"</span>, sep=<span class="string">""</span>),</span><br><span class="line">                               nodeFile = paste(<span class="string">"AS-green-FPKM-One-step-CytoscapeInput-nodes-"</span>, paste(modules, collapse=<span class="string">"-"</span>), <span class="string">".txt"</span>, sep=<span class="string">""</span>),</span><br><span class="line">                               weighted = TRUE,</span><br><span class="line">                               threshold = <span class="number">0.02</span>,</span><br><span class="line">                               nodeNames = modProbes,</span><br><span class="line">                               <span class="comment">#altNodeNames = modGenes,</span></span><br><span class="line">                               nodeAttr = moduleColors[<span class="keyword">in</span>Module]);</span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line"><span class="comment">#  分析网络可视化，用heatmap可视化权重网络，heatmap每一行或列对应一个基因，颜色越深表示有较高的邻近</span></span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line">options(stringsAsFactors = FALSE);</span><br><span class="line">lnames = load(file = <span class="string">"AS-green-FPKM-01-dataInput.RData"</span>);</span><br><span class="line">lnames</span><br><span class="line">lnames = load(file = <span class="string">"AS-green-FPKM-02-networkConstruction-auto.RData"</span>);</span><br><span class="line">lnames</span><br><span class="line">nGenes = ncol(datExpr)</span><br><span class="line">nSamples = nrow(datExpr)</span><br><span class="line"><span class="comment">#1. 可视化全部基因网络</span></span><br><span class="line"><span class="comment"># Calculate topological overlap anew: this could be done more efficiently by saving the TOM</span></span><br><span class="line"><span class="comment"># calculated during module detection, but let us do it again here.</span></span><br><span class="line">dissTOM = <span class="number">1</span>-TOMsimilarityFromExpr(datExpr, power = <span class="number">6</span>);</span><br><span class="line"><span class="comment"># Transform dissTOM with a power to make moderately strong connections more visible in the heatmap</span></span><br><span class="line">plotTOM = dissTOM^<span class="number">7</span>;</span><br><span class="line"><span class="comment"># Set diagonal to NA for a nicer plot</span></span><br><span class="line">diag(plotTOM) = NA;</span><br><span class="line"><span class="comment"># Call the plot function</span></span><br><span class="line"><span class="comment">#sizeGrWindow(9,9)</span></span><br><span class="line">TOMplot(plotTOM, geneTree, moduleColors, main = <span class="string">"Network heatmap plot, all genes"</span>)</span><br><span class="line"><span class="comment">#随便选取1000个基因来可视化</span></span><br><span class="line">nSelect = <span class="number">1000</span></span><br><span class="line"><span class="comment"># For reproducibility, we set the random seed</span></span><br><span class="line">set.seed(<span class="number">10</span>);</span><br><span class="line">select = sample(nGenes, size = nSelect);</span><br><span class="line">selectTOM = dissTOM[select, select];</span><br><span class="line"><span class="comment"># There's no simple way of restricting a clustering tree to a subset of genes, so we must re-cluster.</span></span><br><span class="line">selectTree = hclust(as.dist(selectTOM), method = <span class="string">"average"</span>)</span><br><span class="line">selectColors = moduleColors[select];</span><br><span class="line"><span class="comment"># Open a graphical window</span></span><br><span class="line"><span class="comment">#sizeGrWindow(9,9)</span></span><br><span class="line"><span class="comment"># Taking the dissimilarity to a power, say 10, makes the plot more informative by effectively changing</span></span><br><span class="line"><span class="comment"># the color palette; setting the diagonal to NA also improves the clarity of the plot</span></span><br><span class="line">plotDiss = selectTOM^<span class="number">7</span>;</span><br><span class="line">diag(plotDiss) = NA;</span><br><span class="line">TOMplot(plotDiss, selectTree, selectColors, main = <span class="string">"Network heatmap plot, selected genes"</span>)</span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line"><span class="comment">#  第二种：一步步的进行网络构建</span></span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line"><span class="comment">###################Step-by-step network construction and module detection</span></span><br><span class="line"><span class="comment">#2.选择合适的阀值，同上</span></span><br><span class="line"><span class="comment">#3. 网络构建：(1) Co-expression similarity and adjacency</span></span><br><span class="line">softPower = <span class="number">6</span>;</span><br><span class="line">adjacency = adjacency(datExpr, power = softPower);</span><br><span class="line"><span class="comment">#(2) 邻近矩阵到拓扑矩阵的转换，Turn adjacency into topological overlap</span></span><br><span class="line">TOM = TOMsimilarity(adjacency);</span><br><span class="line">dissTOM = <span class="number">1</span>-TOM</span><br><span class="line"><span class="comment"># (3) 聚类拓扑矩阵</span></span><br><span class="line"><span class="comment">#Call the hierarchical clustering function</span></span><br><span class="line">geneTree = hclust(as.dist(dissTOM), method = <span class="string">"average"</span>);</span><br><span class="line"><span class="comment"># Plot the resulting clustering tree (dendrogram)</span></span><br><span class="line"><span class="comment">#sizeGrWindow(12,9)</span></span><br><span class="line">plot(geneTree, xlab=<span class="string">""</span>, sub=<span class="string">""</span>, main = <span class="string">"Gene clustering on TOM-based dissimilarity"</span>,</span><br><span class="line">     labels = FALSE, hang = <span class="number">0.04</span>);</span><br><span class="line"><span class="comment">#(4) 聚类分支的休整dynamicTreeCut</span></span><br><span class="line"><span class="comment"># We like large modules, so we set the minimum module size relatively high:</span></span><br><span class="line">minModuleSize = <span class="number">30</span>;</span><br><span class="line"><span class="comment"># Module identification using dynamic tree cut:</span></span><br><span class="line">dynamicMods = cutreeDynamic(dendro = geneTree, distM = dissTOM,</span><br><span class="line">                            deepSplit = <span class="number">2</span>, pamRespectsDendro = FALSE,</span><br><span class="line">                            minClusterSize = minModuleSize);</span><br><span class="line">table(dynamicMods)</span><br><span class="line"><span class="comment">#4. 绘画结果展示</span></span><br><span class="line"><span class="comment"># Convert numeric lables into colors</span></span><br><span class="line">dynamicColors = labels2colors(dynamicMods)</span><br><span class="line">table(dynamicColors)</span><br><span class="line"><span class="comment"># Plot the dendrogram and colors underneath</span></span><br><span class="line"><span class="comment">#sizeGrWindow(8,6)</span></span><br><span class="line">plotDendroAndColors(geneTree, dynamicColors, <span class="string">"Dynamic Tree Cut"</span>,</span><br><span class="line">                    dendroLabels = FALSE, hang = <span class="number">0.03</span>,</span><br><span class="line">                    addGuide = TRUE, guideHang = <span class="number">0.05</span>,</span><br><span class="line">                    main = <span class="string">"Gene dendrogram and module colors"</span>)</span><br><span class="line"><span class="comment">#5. 聚类结果相似模块的融合，Merging of modules whose expression profiles are very similar</span></span><br><span class="line"><span class="comment">#在聚类树中每一leaf是一个短线，代表一个基因，</span></span><br><span class="line"><span class="comment">#不同分之间靠的越近表示有高的共表达基因，将共表达极其相似的modules进行融合</span></span><br><span class="line"><span class="comment"># Calculate eigengenes</span></span><br><span class="line">MEList = moduleEigengenes(datExpr, colors = dynamicColors)</span><br><span class="line">MEs = MEList<span class="variable">$eigengenes</span></span><br><span class="line"><span class="comment"># Calculate dissimilarity of module eigengenes</span></span><br><span class="line">MEDiss = <span class="number">1</span>-cor(MEs);</span><br><span class="line"><span class="comment"># Cluster module eigengenes</span></span><br><span class="line">METree = hclust(as.dist(MEDiss), method = <span class="string">"average"</span>);</span><br><span class="line"><span class="comment"># Plot the result</span></span><br><span class="line"><span class="comment">#sizeGrWindow(7, 6)</span></span><br><span class="line">plot(METree, main = <span class="string">"Clustering of module eigengenes"</span>,</span><br><span class="line">     xlab = <span class="string">""</span>, sub = <span class="string">""</span>)</span><br><span class="line"><span class="comment">#选择有75%相关性的进行融合</span></span><br><span class="line">MEDissThres = <span class="number">0.25</span></span><br><span class="line"><span class="comment"># Plot the cut line into the dendrogram</span></span><br><span class="line">abline(h=MEDissThres, col = <span class="string">"red"</span>)</span><br><span class="line"><span class="comment"># Call an automatic merging function</span></span><br><span class="line">merge = mergeCloseModules(datExpr, dynamicColors, cutHeight = MEDissThres, verbose = <span class="number">3</span>)</span><br><span class="line"><span class="comment"># The merged module colors</span></span><br><span class="line">mergedColors = merge<span class="variable">$colors</span>;</span><br><span class="line"><span class="comment"># Eigengenes of the new merged modules:</span></span><br><span class="line">mergedMEs = merge<span class="variable">$newMEs</span>;</span><br><span class="line"><span class="comment">#绘制融合前(Dynamic Tree Cut)和融合后(Merged dynamic)的聚类图</span></span><br><span class="line"><span class="comment">#sizeGrWindow(12, 9)</span></span><br><span class="line"><span class="comment">#pdf(file = "Plots/geneDendro-3.pdf", wi = 9, he = 6)</span></span><br><span class="line">plotDendroAndColors(geneTree, cbind(dynamicColors, mergedColors),</span><br><span class="line">                    c(<span class="string">"Dynamic Tree Cut"</span>, <span class="string">"Merged dynamic"</span>),</span><br><span class="line">                    dendroLabels = FALSE, hang = <span class="number">0.03</span>,</span><br><span class="line">                    addGuide = TRUE, guideHang = <span class="number">0.05</span>)</span><br><span class="line"><span class="comment">#dev.off()</span></span><br><span class="line"><span class="comment"># 只是绘制融合后聚类图</span></span><br><span class="line">plotDendroAndColors(geneTree,mergedColors,<span class="string">"Merged dynamic"</span>,</span><br><span class="line">                    dendroLabels = FALSE, hang = <span class="number">0.03</span>,</span><br><span class="line">                    addGuide = TRUE, guideHang = <span class="number">0.05</span>)</span><br><span class="line"><span class="comment">#5.结果保存</span></span><br><span class="line"><span class="comment"># Rename to moduleColors</span></span><br><span class="line">moduleColors = mergedColors</span><br><span class="line"><span class="comment"># Construct numerical labels corresponding to the colors</span></span><br><span class="line">colorOrder = c(<span class="string">"grey"</span>, standardColors(<span class="number">50</span>));</span><br><span class="line">moduleLabels = match(moduleColors, colorOrder)-<span class="number">1</span>;</span><br><span class="line">MEs = mergedMEs;</span><br><span class="line"><span class="comment"># Save module colors and labels for use in subsequent parts</span></span><br><span class="line">save(MEs, moduleLabels, moduleColors, geneTree, file = <span class="string">"AS-green-FPKM-02-networkConstruction-stepByStep.RData"</span>)</span><br><span class="line"><span class="comment">#6. 导出网络到Cytoscape</span></span><br><span class="line"><span class="comment"># Recalculate topological overlap if needed</span></span><br><span class="line">TOM = TOMsimilarityFromExpr(datExpr, power = <span class="number">6</span>);</span><br><span class="line"><span class="comment"># Read in the annotation file</span></span><br><span class="line"><span class="comment"># annot = read.csv(file = "GeneAnnotation.csv");</span></span><br><span class="line"><span class="comment"># Select modules需要修改</span></span><br><span class="line">modules = c(<span class="string">"brown"</span>, <span class="string">"red"</span>);</span><br><span class="line"><span class="comment"># Select module probes</span></span><br><span class="line">probes = names(datExpr)</span><br><span class="line"><span class="keyword">in</span>Module = is.finite(match(moduleColors, modules));</span><br><span class="line">modProbes = probes[<span class="keyword">in</span>Module];</span><br><span class="line"><span class="comment">#modGenes = annot$gene_symbol[match(modProbes, annot$substanceBXH)];</span></span><br><span class="line"><span class="comment"># Select the corresponding Topological Overlap</span></span><br><span class="line">modTOM = TOM[<span class="keyword">in</span>Module, <span class="keyword">in</span>Module];</span><br><span class="line">dimnames(modTOM) = list(modProbes, modProbes)</span><br><span class="line"><span class="comment"># Export the network into edge and node list files Cytoscape can read</span></span><br><span class="line">cyt = <span class="built_in">export</span>NetworkToCytoscape(modTOM,</span><br><span class="line">                               edgeFile = paste(<span class="string">"AS-green-FPKM-Step-by-step-CytoscapeInput-edges-"</span>, paste(modules, collapse=<span class="string">"-"</span>), <span class="string">".txt"</span>, sep=<span class="string">""</span>),</span><br><span class="line">                               nodeFile = paste(<span class="string">"AS-green-FPKM-Step-by-step-CytoscapeInput-nodes-"</span>, paste(modules, collapse=<span class="string">"-"</span>), <span class="string">".txt"</span>, sep=<span class="string">""</span>),</span><br><span class="line">                               weighted = TRUE,</span><br><span class="line">                               threshold = <span class="number">0.02</span>,</span><br><span class="line">                               nodeNames = modProbes,</span><br><span class="line">                               <span class="comment">#altNodeNames = modGenes,</span></span><br><span class="line">                               nodeAttr = moduleColors[<span class="keyword">in</span>Module]);</span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line"><span class="comment">#  分析网络可视化，用heatmap可视化权重网络，heatmap每一行或列对应一个基因，颜色越深表示有较高的邻近</span></span><br><span class="line"><span class="comment">#=====================================================================================</span></span><br><span class="line">options(stringsAsFactors = FALSE);</span><br><span class="line">lnames = load(file = <span class="string">"AS-green-FPKM-01-dataInput.RData"</span>);</span><br><span class="line">lnames</span><br><span class="line">lnames = load(file = <span class="string">"AS-green-FPKM-02-networkConstruction-stepByStep.RData"</span>);</span><br><span class="line">lnames</span><br><span class="line">nGenes = ncol(datExpr)</span><br><span class="line">nSamples = nrow(datExpr)</span><br><span class="line"><span class="comment">#1. 可视化全部基因网络</span></span><br><span class="line"><span class="comment"># Calculate topological overlap anew: this could be done more efficiently by saving the TOM</span></span><br><span class="line"><span class="comment"># calculated during module detection, but let us do it again here.</span></span><br><span class="line">dissTOM = <span class="number">1</span>-TOMsimilarityFromExpr(datExpr, power = <span class="number">6</span>);</span><br><span class="line"><span class="comment"># Transform dissTOM with a power to make moderately strong connections more visible in the heatmap</span></span><br><span class="line">plotTOM = dissTOM^<span class="number">7</span>;</span><br><span class="line"><span class="comment"># Set diagonal to NA for a nicer plot</span></span><br><span class="line">diag(plotTOM) = NA;</span><br><span class="line"><span class="comment"># Call the plot function</span></span><br><span class="line"><span class="comment">#sizeGrWindow(9,9)</span></span><br><span class="line">TOMplot(plotTOM, geneTree, moduleColors, main = <span class="string">"Network heatmap plot, all genes"</span>)</span><br><span class="line"><span class="comment">#随便选取1000个基因来可视化</span></span><br><span class="line">nSelect = <span class="number">1000</span></span><br><span class="line"><span class="comment"># For reproducibility, we set the random seed</span></span><br><span class="line">set.seed(<span class="number">10</span>);</span><br><span class="line">select = sample(nGenes, size = nSelect);</span><br><span class="line">selectTOM = dissTOM[select, select];</span><br><span class="line"><span class="comment"># There's no simple way of restricting a clustering tree to a subset of genes, so we must re-cluster.</span></span><br><span class="line">selectTree = hclust(as.dist(selectTOM), method = <span class="string">"average"</span>)</span><br><span class="line">selectColors = moduleColors[select];</span><br><span class="line"><span class="comment"># Open a graphical window</span></span><br><span class="line"><span class="comment">#sizeGrWindow(9,9)</span></span><br><span class="line"><span class="comment"># Taking the dissimilarity to a power, say 10, makes the plot more informative by effectively changing</span></span><br><span class="line"><span class="comment"># the color palette; setting the diagonal to NA also improves the clarity of the plot</span></span><br><span class="line">plotDiss = selectTOM^<span class="number">7</span>;</span><br><span class="line">diag(plotDiss) = NA;</span><br><span class="line">TOMplot(plotDiss, selectTree, selectColors, main = <span class="string">"Network heatmap plot, selected genes"</span>)</span><br><span class="line"><span class="comment">#此处画的是根据基因间表达量进行聚类所得到的各模块间的相关性图</span></span><br><span class="line">MEs = moduleEigengenes(datExpr, moduleColors)<span class="variable">$eigengenes</span></span><br><span class="line">MET = orderMEs(MEs)</span><br><span class="line">sizeGrWindow(<span class="number">7</span>, <span class="number">6</span>) </span><br><span class="line">plotEigengeneNetworks(MET, <span class="string">"Eigengene adjacency heatmap"</span>, marHeatmap = c(<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">2</span>), plotDendrograms = FALSE, xLabelsAngle = <span class="number">90</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="部分结果图简单解释">部分结果图简单解释</h3><p><img src="http://7xk19o.com1.z0.glb.clouddn.com/WGCNA6.png" alt=""></p>
+<h2 id="Cytoscape生成网络图">Cytoscape生成网络图</h2><p>只需要第二个edges文件就能构建网络图。导入该文件后，在软件的导入设置中，将第一列设置为fromNode，第二列设置为toNode，最后把第三列设为网络关系属性，完成设置，便可生成网络图了。 </p>
+<h2 id="WGCNA样本要求">WGCNA样本要求</h2><p>由于WGCNA是基于相关系数的表达调控网络分析方法。当样本数过低的时候，相关系数的计算是不可靠的，得到的调控网络价值不大。所以，我们推荐的样本数如下：</p>
+<p><li>当独立样本数≥8（非重复样本）时，可以考虑基于Pearson相关系数的WGCNA共表达网络的方法（效果看实际情况而定）；</li></p>
+<p><li>当样本数≥15（可以包含生物学重复）时，WGCNA方法会有更好的效果。</li></p>
+<p><li>当样品数＜8时，不建议进行该项分析。</li></p>
+<p><li><strong>该方法对于不同材料或不同组织进行分析更有意义，对于不同时间点处理相同样品意义不大。</strong></li></p>
+<h2 id="报错暨解决办法">报错暨解决办法</h2><p>按照WGCNA手册第五步Network visualization using WGCNA functions时报错如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; TOMplot(plotTOM, geneTree, moduleColors, main = <span class="string">"Network heatmap plot, all genes"</span>)</span><br><span class="line"></span><br><span class="line">Error <span class="keyword">in</span> .heatmap(as.matrix(dissim), Rowv = as.dendrogram(dendro, hang = <span class="number">0.1</span>),  :</span><br><span class="line">row dendrogram ordering gave index of wrong length</span><br></pre></td></tr></table></figure></p>
+<p>看到<em>row dendrogram ordering gave index of wrong length</em>这句报错内容，分别察看plotTOM, geneTree, moduleColors这三个变量length;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; dim(plotTOM)</span><br><span class="line">&gt; geneTree</span><br><span class="line">&gt; moduleColors</span><br></pre></td></tr></table></figure></p>
+<p>果然，三者的length不同，发现geneTree少了一些，往回找geneTree来源 <strong>geneTree = net$dendrograms[[1]]</strong>，net来源于网络构建过程：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">net = blockwiseModules(datExpr, power = <span class="number">6</span>,</span><br><span class="line">TOMType = <span class="string">"unsigned"</span>, minModuleSize = <span class="number">30</span>,</span><br><span class="line">reassignThreshold = <span class="number">0</span>, mergeCutHeight = <span class="number">0.25</span>,</span><br><span class="line">numericLabels = TRUE, pamRespectsDendro = FALSE,</span><br><span class="line">saveTOMs = TRUE,</span><br><span class="line">saveTOMFileBase = <span class="string">"femaleMouseTOM"</span>,</span><br><span class="line">verbose = <span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
+<p>所以，这是问题所在，继续察看文档发现blockwiseModules函数默认最大maxBlockSize=5000，而我们的数据超过了这个值，所以函数自动做了拆分处理，<strong>而解决办法也很简单，设置maxBlockSize参数大于我们的值即可。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2016/09/14/WGCNA.html" title="学习WGCNA总结">http://tiramisutes.github.io/2016/09/14/WGCNA.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WGCNA/" rel="tag"># WGCNA</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/13/paper.html" rel="next" title="Congratulations For My First Paper">
+                <i class="fa fa-chevron-left"></i> Congratulations For My First Paper
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/19/Insert-Size.html" rel="prev" title="评估文库 Average Insert Size">
+                评估文库 Average Insert Size <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WGCNA术语"><span class="nav-number">1.</span> <span class="nav-text">WGCNA术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权重(weghted)"><span class="nav-number">1.1.</span> <span class="nav-text">权重(weghted)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Module"><span class="nav-number">1.2.</span> <span class="nav-text">Module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eigengene"><span class="nav-number">1.3.</span> <span class="nav-text">Eigengene</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adjacency_Matrix"><span class="nav-number">1.4.</span> <span class="nav-text">Adjacency Matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Topological_Overlap_Matrix(TOM)"><span class="nav-number">1.5.</span> <span class="nav-text">Topological Overlap Matrix(TOM)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整体思路"><span class="nav-number">2.</span> <span class="nav-text">整体思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析构建的网络寻找以下有用信息"><span class="nav-number">2.1.</span> <span class="nav-text">分析构建的网络寻找以下有用信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#R脚本"><span class="nav-number">3.</span> <span class="nav-text">R脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#部分结果图简单解释"><span class="nav-number">3.1.</span> <span class="nav-text">部分结果图简单解释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cytoscape生成网络图"><span class="nav-number">4.</span> <span class="nav-text">Cytoscape生成网络图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WGCNA样本要求"><span class="nav-number">5.</span> <span class="nav-text">WGCNA样本要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#报错暨解决办法"><span class="nav-number">6.</span> <span class="nav-text">报错暨解决办法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2016/09/14/WGCNA.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1501 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ANOVA," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="单因子方差分析&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;方差分析(analysis of variance, 简写为ANOVA)是工农业生产和科学研究中分析试验数据的一种有效的统计方法. 引起观测值不同(波动)的原因主要有两类: 一类是试验过程中随机因素的干扰或观测误差所引起不可控制的的波动, 另一类则是由于试验中处理方式不同或试验条件不同引起">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ANOVA单因素方差分析与R实现">
+<meta property="og:url" content="http://tiramisutes.github.io/2015/10/08/ANOVA.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="单因子方差分析&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;方差分析(analysis of variance, 简写为ANOVA)是工农业生产和科学研究中分析试验数据的一种有效的统计方法. 引起观测值不同(波动)的原因主要有两类: 一类是试验过程中随机因素的干扰或观测误差所引起不可控制的的波动, 另一类则是由于试验中处理方式不同或试验条件不同引起">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/aoc.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/aov2.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/aov3.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/aoc2.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/aov.png">
+<meta property="og:updated_time" content="2017-06-30T13:10:06.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ANOVA单因素方差分析与R实现">
+<meta name="twitter:description" content="单因子方差分析&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;方差分析(analysis of variance, 简写为ANOVA)是工农业生产和科学研究中分析试验数据的一种有效的统计方法. 引起观测值不同(波动)的原因主要有两类: 一类是试验过程中随机因素的干扰或观测误差所引起不可控制的的波动, 另一类则是由于试验中处理方式不同或试验条件不同引起">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2015/10/08/ANOVA.html"/>
+
+
+
+
+
+  <title>ANOVA单因素方差分析与R实现 | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2015/10/08/ANOVA.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">ANOVA单因素方差分析与R实现</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-08T23:37:43+08:00">
+                2015-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/08/ANOVA.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2015/10/08/ANOVA.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2015/10/08/ANOVA.html" class="leancloud_visitors" data-flag-title="ANOVA单因素方差分析与R实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  7,620
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  43
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="单因子方差分析">单因子方差分析</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;方差分析(analysis of variance, 简写为ANOVA)是工农业生产和科学研究中分析试验数据的一种有效的统计方法. 引起观测值不同(波动)的原因主要有两类: 一类是试验过程中随机因素的干扰或观测误差所引起不可控制的的波动, 另一类则是由于试验中处理方式不同或试验条件不同引起的可以控制的波动.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>方差分析</strong>的主要工作就是将观测数据的总变异(波动)按照变异的原因的不同分解为因子效应与试验误差，并对其作出数量分析，发现多组数据之间的差异显著行，比较各种原因在总变异中所占的重要程度，以此作为进一步统计推断的依据.<br><strong>在进行方差分析之前先对几条假设进行检验，由于随机抽取，假设总体满足独立、正态，考察方差齐次性（用bartlett检验）.</strong></p>
+<p><iframe width="420" height="315" src="https://www.youtube.com/embed/bklkCjiY3E0" frameborder="0" allowfullscreen></iframe></p>
+<h3 id="正态性检验">正态性检验</h3><p>在进行方差分析前先对输入数据做正态性检验。<br>对数据的正态性，利用Shapiro-Wilk正态检验方法(W检验)，它通常用于样本容量n≤50时，检验样本是否符合正态分布。</p>
+<p>R中，函数shapiro.test()提供了W统计量和相应P值，所以可以直接使用P值作为判断标准(<strong>P值大于0.05说明数据正态</strong>)，其调用格式为shapiro.test(x)，参数x即所要检验的数据集，它是长度在3到5000之间的向量。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">nx &lt;- c(rnorm(<span class="number">10</span>))</span><br><span class="line">nx</span><br><span class="line">[<span class="number">1</span>] -<span class="number">0.83241783</span> -<span class="number">0.29609562</span> -<span class="number">0.06736888</span> -<span class="number">0.02366562</span></span><br><span class="line"><span class="number">0.23652392</span> <span class="number">0.97570959</span></span><br><span class="line">[<span class="number">7</span>] -<span class="number">0.85301145</span> <span class="number">1.51769488</span> -<span class="number">0.84866517</span> <span class="number">0.20691119</span></span><br><span class="line">shapiro.test(nx)</span><br><span class="line">Shapiro-Wilk normality <span class="built_in">test</span></span><br><span class="line">data: nx</span><br><span class="line">W = <span class="number">0.9084</span>, p-value = <span class="number">0.2699</span></span><br><span class="line"><span class="comment">#检验结果，因为p 值小于W 值，所以数据为正态分布.</span></span><br></pre></td></tr></table></figure></p>
+<p>更多正态性检验见：<a href="http://www.cnblogs.com/blueicely/archive/2013/01/08/2850929.html" target="_blank">R语言做正态分布检验</a><br>其中，<strong>D检验(Kolmogorov - Smirnov)是比较精确的正态检验法。</strong></p>
+<p><li><strong>SPSS 规定:当样本含量3 ≤n ≤5000 时,结果以Shapiro - Wilk (W 检验) 为准,当样本含量n &gt; 5000 结果以Kolmogorov - Smirnov 为准。</strong></li></p>
+<p><li><strong>SAS 规定:当样本含量n ≤2000 时,结果以Shapiro - Wilk (W 检验) 为准,当样本含量n &gt;2000 时,结果以Kolmogorov - Smirnov (D 检验) 为准。</strong></li></p>
+<h3 id="方差齐性检验">方差齐性检验</h3><p>方差分析的另一个假设：方差齐性，需要检验不同水平下的数据方差是否相等。R中最常用的是Bartlett检验,bartlett.test()调用格式为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bartlett.test(x，g…)</span><br></pre></td></tr></table></figure></p>
+<p>其中，参数X是数据向量或列表(list) ; g是因子向量，如果X是列表则忽略g.当使用数据集时，也通过formula调用函数:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bartlett.test(formala, data, subset，na.action…)</span><br></pre></td></tr></table></figure></p>
+<p>formula是形如lhs一rhs的方差分析公式;data指明数据集:subset是可选项，可以用来指定观测值的一个子集用于分析:na.action表示遇到缺失值时应当采取的行为。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; x=c(x1,x2,x3)</span><br><span class="line">&gt; account=data.frame(x,A=factor(rep(<span class="number">1</span>:<span class="number">3</span>,each=<span class="number">7</span>)))</span><br><span class="line">&gt; bartlett.test(x~A,data=account)</span><br><span class="line"> </span><br><span class="line">Bartlett <span class="built_in">test</span> of homogeneity of variances</span><br><span class="line"> </span><br><span class="line">data: x by A</span><br><span class="line">Bartlett<span class="string">'s K-squared = 0.13625, df = 2, p-value = 0.9341</span></span><br></pre></td></tr></table></figure></p>
+<p>由于P值远远大于显著性水平a=0.05，因此不能拒绝原假设，我们认为不同水平下的数据是等方差的。</p>
+<h3 id="方差分析：F-Test">方差分析：F-Test</h3><p>In R the function var.test allows for the comparison of two variances using an F-test.Although it is possible to compare values of s2 for two samples, there is no capability within R for comparing the variance of a sample,s2,to the variance of a population, σ2. The syntax for the testing variances is :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var.test(X, Y, ratio = <span class="number">1</span>, alternative = <span class="string">"two.sided"</span>, conf.level = <span class="number">0.95</span>)</span><br></pre></td></tr></table></figure></p>
+<p>where X and Y are vectors containing the two samples.<br>The optional command ratio is the null hypothesis; the default value is 1 if not specified.<br>The command alternative gives the alternative hypothesis should the experimental F-ratio is found to be significantly different than that specified by ratio. The default for alternative is “two-sided” with the other possible choices being “less” or “greater” .<br>The command conf.level gives the confidence level to be used in the test and the default value of 0.95 is equivalent to α = 0.05.<br>Here is a typical result using the objects std.method and new.method.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; std.method&lt;-c( <span class="number">21.62</span>, <span class="number">22.20</span>, <span class="number">24.27</span>, <span class="number">23.54</span>, <span class="number">24.25</span>, <span class="number">23.09</span>, <span class="number">21.01</span> )</span><br><span class="line">&gt; new.method&lt;-c(<span class="number">21.54</span> ,<span class="number">20.51</span> ,<span class="number">22.31</span>, <span class="number">21.30</span>, <span class="number">24.62</span>, <span class="number">25.72</span>, <span class="number">21.54</span> ) </span><br><span class="line">&gt; var(std.method); var(new.method) </span><br><span class="line">[<span class="number">1</span>] <span class="number">1.638495</span></span><br><span class="line">[<span class="number">1</span>] <span class="number">3.690329</span></span><br><span class="line">&gt; var.test(std.method, new.method)    </span><br><span class="line"></span><br><span class="line">	F <span class="built_in">test</span> to compare two variances</span><br><span class="line"></span><br><span class="line">data:  std.method and new.method</span><br><span class="line">F = <span class="number">0.444</span>, num df = <span class="number">6</span>, denom df = <span class="number">6</span>, p-value = <span class="number">0.3462</span></span><br><span class="line">alternative hypothesis: <span class="literal">true</span> ratio of variances is not equal to <span class="number">1</span></span><br><span class="line"><span class="number">95</span> percent confidence interval:</span><br><span class="line"> <span class="number">0.07629135</span> <span class="number">2.58395513</span></span><br><span class="line">sample estimates:</span><br><span class="line">ratio of variances </span><br><span class="line">         <span class="number">0.4439971</span></span><br></pre></td></tr></table></figure></p>
+<p><i class="fa fa-hand-o-right"></i>There are two ways to interpret the results provided by R.<br>First, the p-value provides the smallest value of α for which the F-ratio is significantly different from the hypothesized value.<br>If this value is larger than the desired α, then there is insufficient evidence to reject the null hypothesis; otherwise, the null hypothesis is rejected. Second, R provides the desired confidence interval for the F-ratio;<br>if the calculated value falls within the confidence interval, then the null hypothesis is retained. For this example, the null hypothesis is retained and we find no evidence for a difference in the variances for the objects std.method and new.method. Note that R does not restrict the F-ratio to values greater than 1.<br>1）判断组间是否有差别<br>R中的函数aov()用于方差分析的计算，其调用格式为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aov(formula, data = NULL, projections =FALSE, qr = TRUE,contrasts = NULL, ...)</span><br></pre></td></tr></table></figure></p>
+<p>其中的参数formula表示方差分析的公式，在单因素方差分析中即为x~A ;<br>data表示做方差分析的数据框:projections为逻辑值，表示是否返回预测结果;<br>qr同样是逻辑值，表示是否返回QR分解结果，默认为TRUE;<br>contrasts是公式中的一些因子的对比列表;<br>通过函数summary()可列出方差分析表的详细结果。<br>以淀粉为原料生产葡萄的过程中, 残留许多糖蜜, 可作为生产酱色的原料. 在生产酱色的过程之前应尽可能彻彻底底除杂, 以保证酱色质量.为此对除杂方法进行选择. 在实验中选用5种不同的除杂方法, 每种方法做4次试验, 即重复4次, 结果见表.<br><img src="http://7xk19o.com1.z0.glb.clouddn.com/aoc.png" alt=""><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&gt; X&lt;-c(<span class="number">25.6</span>, <span class="number">22.2</span>, <span class="number">28.0</span>, <span class="number">29.8</span>, <span class="number">24.4</span>, <span class="number">30.0</span>, <span class="number">29.0</span>, <span class="number">27.5</span>, <span class="number">25.0</span>, <span class="number">27.7</span>,</span><br><span class="line">       <span class="number">23.0</span>, <span class="number">32.2</span>, <span class="number">28.8</span>, <span class="number">28.0</span>, <span class="number">31.5</span>, <span class="number">25.9</span>, <span class="number">20.6</span>, <span class="number">21.2</span>, <span class="number">22.0</span>, <span class="number">21.2</span>)</span><br><span class="line">&gt; A&lt;-factor(rep(<span class="number">1</span>:<span class="number">5</span>, each=<span class="number">4</span>))</span><br><span class="line">&gt; miscellany&lt;-data.frame(X, A)</span><br><span class="line">&gt; miscellany</span><br><span class="line">      X A</span><br><span class="line"><span class="number">1</span>  <span class="number">25.6</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span>  <span class="number">22.2</span> <span class="number">1</span></span><br><span class="line"><span class="number">3</span>  <span class="number">28.0</span> <span class="number">1</span></span><br><span class="line"><span class="number">4</span>  <span class="number">29.8</span> <span class="number">1</span></span><br><span class="line"><span class="number">5</span>  <span class="number">24.4</span> <span class="number">2</span></span><br><span class="line"><span class="number">6</span>  <span class="number">30.0</span> <span class="number">2</span></span><br><span class="line"><span class="number">7</span>  <span class="number">29.0</span> <span class="number">2</span></span><br><span class="line"><span class="number">8</span>  <span class="number">27.5</span> <span class="number">2</span></span><br><span class="line"><span class="number">9</span>  <span class="number">25.0</span> <span class="number">3</span></span><br><span class="line"><span class="number">10</span> <span class="number">27.7</span> <span class="number">3</span></span><br><span class="line"><span class="number">11</span> <span class="number">23.0</span> <span class="number">3</span></span><br><span class="line"><span class="number">12</span> <span class="number">32.2</span> <span class="number">3</span></span><br><span class="line"><span class="number">13</span> <span class="number">28.8</span> <span class="number">4</span></span><br><span class="line"><span class="number">14</span> <span class="number">28.0</span> <span class="number">4</span></span><br><span class="line"><span class="number">15</span> <span class="number">31.5</span> <span class="number">4</span></span><br><span class="line"><span class="number">16</span> <span class="number">25.9</span> <span class="number">4</span></span><br><span class="line"><span class="number">17</span> <span class="number">20.6</span> <span class="number">5</span></span><br><span class="line"><span class="number">18</span> <span class="number">21.2</span> <span class="number">5</span></span><br><span class="line"><span class="number">19</span> <span class="number">22.0</span> <span class="number">5</span></span><br><span class="line"><span class="number">20</span> <span class="number">21.2</span> <span class="number">5</span></span><br><span class="line">&gt; aov.mis&lt;-aov(X~A, data=miscellany)</span><br><span class="line">&gt; summary(aov.mis)</span><br><span class="line">            Df Sum Sq Mean Sq F value Pr(&gt;F)  </span><br><span class="line">A            <span class="number">4</span>  <span class="number">132.0</span>   <span class="number">32.99</span>   <span class="number">4.306</span> <span class="number">0.0162</span> *</span><br><span class="line">Residuals   <span class="number">15</span>  <span class="number">114.9</span>    <span class="number">7.66</span>                 </span><br><span class="line">---</span><br><span class="line">Signif. codes: <span class="number">0</span> <span class="string">'***'</span> <span class="number">0.001</span> <span class="string">'**'</span> <span class="number">0.01</span> <span class="string">'*'</span> <span class="number">0.05</span> <span class="string">'.'</span> <span class="number">0.1</span> <span class="string">' '</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p><i class="fa fa-hand-o-right"></i>代码解释<br>上述结果中, Df表示自由度; sum Sq表示平方和; Mean Sq表示均方和;<br>F value表示F检验统计量的值, 即F比; Pr(&gt;F)表示检验的p值; A就是因素A;<br>Residuals为残差.<br>可以看出, F = 4.3061 &gt; F0.05(5-1, 20-5) = 3.06, 或者p=0.01618&lt;0.05,<br>说明有理由拒绝原假设, 即认为五种除杂方法有显著差异.<br>2）如果有差别，判断是哪两组间有差别<br>其中，上述所得结果为5个除杂方法之间的差异显著性分析，如果假设上述5中处理中A1为对照组，其余A2,A3,A4,A5均为处理组，现在若想分析一个对照和多个处理间的差异显著性，可以通过以下代码实现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; A1A2&lt;-miscellany[<span class="number">1</span>:<span class="number">8</span>,]</span><br><span class="line">&gt; A1A2</span><br><span class="line">     X A</span><br><span class="line"><span class="number">1</span> <span class="number">25.6</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">22.2</span> <span class="number">1</span></span><br><span class="line"><span class="number">3</span> <span class="number">28.0</span> <span class="number">1</span></span><br><span class="line"><span class="number">4</span> <span class="number">29.8</span> <span class="number">1</span></span><br><span class="line"><span class="number">5</span> <span class="number">24.4</span> <span class="number">2</span></span><br><span class="line"><span class="number">6</span> <span class="number">30.0</span> <span class="number">2</span></span><br><span class="line"><span class="number">7</span> <span class="number">29.0</span> <span class="number">2</span></span><br><span class="line"><span class="number">8</span> <span class="number">27.5</span> <span class="number">2</span></span><br><span class="line">&gt; an.aov.mis&lt;-aov(X~A, data=A1A2)</span><br><span class="line">&gt; summary(an.aov.mis)</span><br><span class="line">            Df Sum Sq Mean Sq F value Pr(&gt;F)</span><br><span class="line">A            <span class="number">1</span>   <span class="number">3.51</span>   <span class="number">3.511</span>   <span class="number">0.419</span>  <span class="number">0.542</span></span><br><span class="line">Residuals    <span class="number">6</span>  <span class="number">50.31</span>   <span class="number">8.385</span></span><br></pre></td></tr></table></figure>
+<p>即选取对照为一组数据，处理为另一组，缺点是对于多个处理一个对照需要重复此操作，现在还没找到好的处理办法，希望以后能学到或者有谁知道望相告。<br><i class="fa fa-bullhorn"></i>最近总结出的另一个比较有效的办法：<br><i class="fa fa-level-up"></i>接上aov()的F检验通过summary(aov.mis)看出五种除杂方法有显著差异.接下来考察具体的差异（多重比较）通过 <strong>TukeyHSD()</strong>函数：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">  &gt; TukeyHSD(aov.mis)</span><br><span class="line">  Tukey multiple comparisons of means</span><br><span class="line">    <span class="number">95</span>% family-wise confidence level</span><br><span class="line"></span><br><span class="line">Fit: aov(formula = X ~ A, data = miscellany)</span><br><span class="line"></span><br><span class="line"><span class="variable">$A</span></span><br><span class="line">      diff        lwr        upr     p adj</span><br><span class="line"><span class="number">2</span>-<span class="number">1</span>  <span class="number">1.325</span>  -<span class="number">4.718582</span>  <span class="number">7.3685818</span> <span class="number">0.9584566</span></span><br><span class="line"><span class="number">3</span>-<span class="number">1</span>  <span class="number">0.575</span>  -<span class="number">5.468582</span>  <span class="number">6.6185818</span> <span class="number">0.9981815</span></span><br><span class="line"><span class="number">4</span>-<span class="number">1</span>  <span class="number">2.150</span>  -<span class="number">3.893582</span>  <span class="number">8.1935818</span> <span class="number">0.8046644</span></span><br><span class="line"><span class="number">5</span>-<span class="number">1</span> -<span class="number">5.150</span> -<span class="number">11.193582</span>  <span class="number">0.8935818</span> <span class="number">0.1140537</span></span><br><span class="line"><span class="number">3</span>-<span class="number">2</span> -<span class="number">0.750</span>  -<span class="number">6.793582</span>  <span class="number">5.2935818</span> <span class="number">0.9949181</span></span><br><span class="line"><span class="number">4</span>-<span class="number">2</span>  <span class="number">0.825</span>  -<span class="number">5.218582</span>  <span class="number">6.8685818</span> <span class="number">0.9926905</span></span><br><span class="line"><span class="number">5</span>-<span class="number">2</span> -<span class="number">6.475</span> -<span class="number">12.518582</span> -<span class="number">0.4314182</span> <span class="number">0.0330240</span></span><br><span class="line"><span class="number">4</span>-<span class="number">3</span>  <span class="number">1.575</span>  -<span class="number">4.468582</span>  <span class="number">7.6185818</span> <span class="number">0.9251337</span></span><br><span class="line"><span class="number">5</span>-<span class="number">3</span> -<span class="number">5.725</span> -<span class="number">11.768582</span>  <span class="number">0.3185818</span> <span class="number">0.0675152</span></span><br><span class="line"><span class="number">5</span>-<span class="number">4</span> -<span class="number">7.300</span> -<span class="number">13.343582</span> -<span class="number">1.2564182</span> <span class="number">0.0146983</span> </span><br><span class="line">  &gt; miscellany</span><br><span class="line">      X A</span><br><span class="line"><span class="number">1</span>  <span class="number">25.6</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span>  <span class="number">22.2</span> <span class="number">1</span></span><br><span class="line"><span class="number">3</span>  <span class="number">28.0</span> <span class="number">1</span></span><br><span class="line"><span class="number">4</span>  <span class="number">29.8</span> <span class="number">1</span></span><br><span class="line"><span class="number">5</span>  <span class="number">24.4</span> <span class="number">2</span></span><br><span class="line"><span class="number">6</span>  <span class="number">30.0</span> <span class="number">2</span></span><br><span class="line"><span class="number">7</span>  <span class="number">29.0</span> <span class="number">2</span></span><br><span class="line"><span class="number">8</span>  <span class="number">27.5</span> <span class="number">2</span></span><br><span class="line"><span class="number">9</span>  <span class="number">25.0</span> <span class="number">3</span></span><br><span class="line"><span class="number">10</span> <span class="number">27.7</span> <span class="number">3</span></span><br><span class="line"><span class="number">11</span> <span class="number">23.0</span> <span class="number">3</span></span><br><span class="line"><span class="number">12</span> <span class="number">32.2</span> <span class="number">3</span></span><br><span class="line"><span class="number">13</span> <span class="number">28.8</span> <span class="number">4</span></span><br><span class="line"><span class="number">14</span> <span class="number">28.0</span> <span class="number">4</span></span><br><span class="line"><span class="number">15</span> <span class="number">31.5</span> <span class="number">4</span></span><br><span class="line"><span class="number">16</span> <span class="number">25.9</span> <span class="number">4</span></span><br><span class="line"><span class="number">17</span> <span class="number">20.6</span> <span class="number">5</span></span><br><span class="line"><span class="number">18</span> <span class="number">21.2</span> <span class="number">5</span></span><br><span class="line"><span class="number">19</span> <span class="number">22.0</span> <span class="number">5</span></span><br><span class="line"><span class="number">20</span> <span class="number">21.2</span> <span class="number">5</span></span><br><span class="line"><span class="comment">#TukeyHSD图</span></span><br><span class="line"> &gt; plot(TukeyHSD(aov.mis))</span><br></pre></td></tr></table></figure></p>
+<p> 注意：<strong>可以看出上述结果是所有分组间的两两比较，但经常我们所需要的仅仅是一个对照组和其他几个处理组间的比较，这时multcomp包是不错的选择；</strong><br><strong>Dunnett</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = c(<span class="number">56</span>,<span class="number">60</span>,<span class="number">44</span>,<span class="number">53</span>)</span><br><span class="line">b = c(<span class="number">29</span>,<span class="number">38</span>,<span class="number">18</span>,<span class="number">35</span>)</span><br><span class="line">c = c(<span class="number">11</span>,<span class="number">25</span>,<span class="number">7</span>,<span class="number">18</span>)</span><br><span class="line">d = c(<span class="number">26</span>,<span class="number">44</span>,<span class="number">20</span>,<span class="number">32</span>)</span><br><span class="line">strains.frame = data.frame(a, b, c, d)</span><br><span class="line">strains = stack(strains.frame)  <span class="comment">#stack是reshape2包中的一个函数，用于将宽格式数据转化为长格式；</span></span><br><span class="line">colnames(strains) = c(<span class="string">"weight"</span>, <span class="string">"group"</span>)</span><br><span class="line"><span class="comment">##常规的两两相互比较计算</span></span><br><span class="line">TukeyHSD( aov(weight ~ group, data=strains) )</span><br><span class="line">library(multcomp)</span><br><span class="line">summary(glht(aov(weight ~ group, data=strains), linfct=mcp(group=<span class="string">"Dunnett"</span>)))</span><br><span class="line"><span class="comment">## The first group ("a" in this example) is used as the reference group. </span></span><br><span class="line"><span class="comment">## If this is not the case, use the relevel() command to set the reference.</span></span><br><span class="line">strains<span class="variable">$group</span> = relevel(strains<span class="variable">$group</span>, <span class="string">"b"</span>)</span><br><span class="line">summary(glht(aov(weight ~ group, data=strains), linfct=mcp(group=<span class="string">"Dunnett"</span>)))</span><br><span class="line">plot(glht(aov(weight ~ group, data=strains), linfct=mcp(group=<span class="string">"Dunnett"</span>)))</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/aov2.png" alt=""><br>More: <a href="http://barcwiki.wi.mit.edu/wiki/SOPs/anova" target="_blank" rel="external">http://barcwiki.wi.mit.edu/wiki/SOPs/anova</a><br><img src="http://7xk19o.com1.z0.glb.clouddn.com/aov3.png" alt=""><br><i class="fa fa-book" aria-hidden="true"></i>multcomp包部分参数解释：<br><i class="fa fa-pencil-square-o" aria-hidden="true"></i><strong>glht</strong>：General Linear Hypotheses，General linear hypotheses and multiple comparisons for parametric models, including generalized linear models, linear mixed effects models, and survival models.<br><i class="fa fa-pencil-square-o" aria-hidden="true"></i><strong>linfct</strong>：a specification of the linear hypotheses to be tested，即指定之前的线性model将用于何种检验。<br><i class="fa fa-pencil-square-o" aria-hidden="true"></i><strong>mcp (Multiple comparisons)</strong>：多重比较的意思，For each factor, which is included in model as independent variable, a contrast matrix or a symbolic description of the contrasts can be specified as arguments to mcp，其参数意思为Tukey’s all-pair comparisons or Dunnett’s comparison with a control.</p>
+<p><i class="fa fa-bullhorn"></i>同样高效的办法：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&gt; person &lt;- rep(c(<span class="number">1</span>:<span class="number">10</span>),<span class="number">2</span>)</span><br><span class="line">&gt; treat &lt;- c(<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>)</span><br><span class="line">&gt; phase &lt;- rep(c(<span class="number">1</span>,<span class="number">2</span>),each=<span class="number">10</span>)</span><br><span class="line">&gt; x &lt;- c(<span class="number">760</span>,<span class="number">860</span>,<span class="number">568</span>,<span class="number">780</span>,<span class="number">960</span>,<span class="number">940</span>,<span class="number">635</span>,<span class="number">440</span>,<span class="number">528</span>,<span class="number">800</span>,<span class="number">770</span>,<span class="number">855</span>,<span class="number">602</span>,<span class="number">800</span>,<span class="number">958</span>,<span class="number">952</span>,<span class="number">650</span>,<span class="number">450</span>,<span class="number">530</span>,<span class="number">803</span>)</span><br><span class="line">&gt; data46 &lt;- data.frame(person,treat,phase,x)</span><br><span class="line">&gt; data46<span class="variable">$person</span>&lt;-factor(data46<span class="variable">$person</span>)</span><br><span class="line">&gt; data46</span><br><span class="line">   person treat phase   x</span><br><span class="line"><span class="number">1</span>       <span class="number">1</span>     A     <span class="number">1</span> <span class="number">760</span></span><br><span class="line"><span class="number">2</span>       <span class="number">2</span>     B     <span class="number">1</span> <span class="number">860</span></span><br><span class="line"><span class="number">3</span>       <span class="number">3</span>     A     <span class="number">1</span> <span class="number">568</span></span><br><span class="line"><span class="number">4</span>       <span class="number">4</span>     A     <span class="number">1</span> <span class="number">780</span></span><br><span class="line"><span class="number">5</span>       <span class="number">5</span>     B     <span class="number">1</span> <span class="number">960</span></span><br><span class="line"><span class="number">6</span>       <span class="number">6</span>     B     <span class="number">1</span> <span class="number">940</span></span><br><span class="line"><span class="number">7</span>       <span class="number">7</span>     A     <span class="number">1</span> <span class="number">635</span></span><br><span class="line"><span class="number">8</span>       <span class="number">8</span>     B     <span class="number">1</span> <span class="number">440</span></span><br><span class="line"><span class="number">9</span>       <span class="number">9</span>     A     <span class="number">1</span> <span class="number">528</span></span><br><span class="line"><span class="number">10</span>     <span class="number">10</span>     B     <span class="number">1</span> <span class="number">800</span></span><br><span class="line"><span class="number">11</span>      <span class="number">1</span>     B     <span class="number">2</span> <span class="number">770</span></span><br><span class="line"><span class="number">12</span>      <span class="number">2</span>     A     <span class="number">2</span> <span class="number">855</span></span><br><span class="line"><span class="number">13</span>      <span class="number">3</span>     B     <span class="number">2</span> <span class="number">602</span></span><br><span class="line"><span class="number">14</span>      <span class="number">4</span>     B     <span class="number">2</span> <span class="number">800</span></span><br><span class="line"><span class="number">15</span>      <span class="number">5</span>     A     <span class="number">2</span> <span class="number">958</span></span><br><span class="line"><span class="number">16</span>      <span class="number">6</span>     A     <span class="number">2</span> <span class="number">952</span></span><br><span class="line"><span class="number">17</span>      <span class="number">7</span>     B     <span class="number">2</span> <span class="number">650</span></span><br><span class="line"><span class="number">18</span>      <span class="number">8</span>     A     <span class="number">2</span> <span class="number">450</span></span><br><span class="line"><span class="number">19</span>      <span class="number">9</span>     B     <span class="number">2</span> <span class="number">530</span></span><br><span class="line"><span class="number">20</span>     <span class="number">10</span>     A     <span class="number">2</span> <span class="number">803</span></span><br><span class="line">&gt; result&lt;-aov(x~phase+person+treat,data=data46)</span><br><span class="line">&gt; summary(result)</span><br><span class="line">            Df Sum Sq Mean Sq  F value   Pr(&gt;F)    </span><br><span class="line">phase        <span class="number">1</span>    <span class="number">490</span>     <span class="number">490</span>    <span class="number">9.925</span>   <span class="number">0.0136</span> *  </span><br><span class="line">person       <span class="number">9</span> <span class="number">551111</span>   <span class="number">61235</span> <span class="number">1240.195</span> <span class="number">1.32</span>e-<span class="number">11</span> ***</span><br><span class="line">treat        <span class="number">1</span>    <span class="number">198</span>     <span class="number">198</span>    <span class="number">4.019</span>   <span class="number">0.0799</span> .  </span><br><span class="line">Residuals    <span class="number">8</span>    <span class="number">395</span>      <span class="number">49</span>                      </span><br><span class="line">---</span><br><span class="line">Signif. codes:  <span class="number">0</span> ?**?<span class="number">0.001</span> ?*?<span class="number">0.01</span> ??<span class="number">0.05</span> ??<span class="number">0.1</span> ??<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p> 观察p adj值发现两两二者间的方差显著性.<br>据上述结果可以填写下面的方差分析表:<br><img src="http://7xk19o.com1.z0.glb.clouddn.com/aoc2.png" alt=""><br>再通过函数plot( )绘图可直观描述5种不同除杂方法之间的差异, R中运行命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; plot(miscellany<span class="variable">$X</span>~miscellany<span class="variable">$A</span>)</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/aov.png" alt=""><br>从图形上也可以看出, 5种除杂方法产生的除杂量有显著差异, 特别第5种与前面的4种, 而方法1与3, 方法2与4的差异不<br>明显.</p>
+<p></p><p></p><br><i class="fa fa-link"></i> Contribution from ：<a href="http://www.cnblogs.com/jpld/p/4594003.html" target="_blank" rel="external">http://www.cnblogs.com/jpld/p/4594003.html</a><p></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2015/10/08/ANOVA.html" title="ANOVA单因素方差分析与R实现">http://tiramisutes.github.io/2015/10/08/ANOVA.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ANOVA/" rel="tag"># ANOVA</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/08/bar.html" rel="next" title="bar">
+                <i class="fa fa-chevron-left"></i> bar
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/08/R-fun.html" rel="prev" title="R中的基础函数">
+                R中的基础函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单因子方差分析"><span class="nav-number">1.</span> <span class="nav-text">单因子方差分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正态性检验"><span class="nav-number">1.1.</span> <span class="nav-text">正态性检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方差齐性检验"><span class="nav-number">1.2.</span> <span class="nav-text">方差齐性检验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方差分析：F-Test"><span class="nav-number">1.3.</span> <span class="nav-text">方差分析：F-Test</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2015/10/08/ANOVA.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

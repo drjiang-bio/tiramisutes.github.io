@@ -1,0 +1,1530 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Basics_R," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Author: hope @Huazhong Agricultural University">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Beginner’s Guide to Learn R Programming">
+<meta property="og:url" content="http://tiramisutes.github.io/2017/12/15/R-class.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="Author: hope @Huazhong Agricultural University">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/Rclass.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/20111210_WOC210.gif">
+<meta property="og:updated_time" content="2017-12-15T02:36:11.968Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Beginner’s Guide to Learn R Programming">
+<meta name="twitter:description" content="Author: hope @Huazhong Agricultural University">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2017/12/15/R-class.html"/>
+
+
+
+
+
+  <title>A Beginner’s Guide to Learn R Programming | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2017/12/15/R-class.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">A Beginner’s Guide to Learn R Programming</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-15T09:57:52+08:00">
+                2017-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/15/R-class.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/15/R-class.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/12/15/R-class.html" class="leancloud_visitors" data-flag-title="A Beginner’s Guide to Learn R Programming">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  12,097
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  74
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>Author: hope @Huazhong Agricultural University</strong></p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/Rclass.png" alt=""><br><a id="more"></a></p>
+<h1 id="一、数据操作">一、数据操作</h1><h2 id="循环_(Loops)">循环 (Loops)</h2><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">library<span class="params">(tibble)</span></span><br><span class="line">set.seed<span class="params">(<span class="number">7</span>)</span></span><br><span class="line">df &lt;- tibble<span class="params">(</span><br><span class="line">  a = rnorm<span class="params">(<span class="number">10</span>)</span>,</span><br><span class="line">  b = rnorm<span class="params">(<span class="number">10</span>)</span>,</span><br><span class="line">  c = rnorm<span class="params">(<span class="number">10</span>)</span>,</span><br><span class="line">  d = rnorm<span class="params">(<span class="number">10</span>)</span></span><br><span class="line">  )</span></span><br><span class="line">median<span class="params">(df$a)</span></span><br><span class="line">median<span class="params">(df$b)</span></span><br><span class="line">median<span class="params">(df$c)</span></span><br><span class="line">median<span class="params">(df$d)</span></span><br><span class="line">output &lt;- vector<span class="params">(<span class="string">"double"</span>, ncol<span class="params">(df)</span>)</span>  <span class="built_in">#</span> <span class="number">1</span>. output</span><br><span class="line"><span class="keyword">for</span> <span class="params">(i in seq_along<span class="params">(df)</span>)</span> &#123;            <span class="built_in">#</span> <span class="number">2</span>. sequence</span><br><span class="line">  output[[i]] &lt;- median<span class="params">(df[[i]])</span>      <span class="built_in">#</span> <span class="number">3</span>. body</span><br><span class="line">  &#125;</span><br><span class="line">output</span><br><span class="line">apply<span class="params">(df,<span class="number">2</span>,median)</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据转换_(Data_transformation)_清洗和整理">数据转换 (Data transformation) 清洗和整理</h2><h3 id="数据环境载入">数据环境载入</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(nycflights13)</span></span></span><br><span class="line"><span class="function"><span class="title">library</span><span class="params">(tidyverse)</span></span></span><br><span class="line"><span class="function"><span class="title">head</span><span class="params">(flights)</span></span></span><br><span class="line"><span class="function"><span class="title">unique</span><span class="params">(flights<span class="variable">$month</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="1-1_筛选:_filter()">1.1 筛选: filter()</h3><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">jan1</span> &lt;- filter<span class="list">(<span class="keyword">flights</span>, month == <span class="number">1</span>, day == <span class="number">1</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2_排列:_arrange()">1.2 排列: arrange()</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arrange<span class="list">(<span class="keyword">flights</span>, year, month, day)</span></span><br><span class="line">arrange<span class="list">(<span class="keyword">flights</span>, desc<span class="list">(<span class="keyword">arr_delay</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-3_选择:_select()">1.3 选择: select()</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">select</span>(flights, <span class="keyword">year</span>, <span class="keyword">month</span>, <span class="keyword">day</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-4_变形:_mutate()">1.4 变形: mutate()</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flights_sml &lt;- select<span class="list">(<span class="keyword">flights</span>, </span><br><span class="line">                      year<span class="keyword">:day</span>, </span><br><span class="line">                      ends_with<span class="list">(<span class="string">"delay"</span>)</span>, </span><br><span class="line">                      distance, </span><br><span class="line">                      air_time</span><br><span class="line">)</span></span><br></pre></td></tr></table></figure>
+<h4 id="新添加的列可以用于后续计算">新添加的列可以用于后续计算</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mutate(flights_sml,</span><br><span class="line">       <span class="variable">gain =</span> arr_delay - dep_delay,</span><br><span class="line">       <span class="variable">hours =</span> air_time / <span class="number">60</span>,</span><br><span class="line">       <span class="variable">gain_per_hour =</span> gain / hours</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="只保留变形后的列">只保留变形后的列</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">transmute(flights,</span><br><span class="line">          <span class="variable">gain =</span> arr_delay - dep_delay,</span><br><span class="line">          <span class="variable">hours =</span> air_time / <span class="number">60</span>,</span><br><span class="line">          <span class="variable">gain_per_hour =</span> gain / hours</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="1-5_汇总:_summarise()">1.5 汇总: summarise()</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summarise<span class="list">(<span class="keyword">flights</span>, delay = mean<span class="list">(<span class="keyword">dep_delay</span>, na.rm = TRUE)</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-6_分组:_group_by()">1.6 分组: group_by()</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">by_day &lt;- <span class="function"><span class="title">group_by</span><span class="params">(flights, year, month, day)</span></span></span><br><span class="line"><span class="function"><span class="title">summarise</span><span class="params">(by_day, delay = mean(dep_delay, na.rm = TRUE)</span></span>)</span><br><span class="line"><span class="function"><span class="title">filter</span><span class="params">(flights, year == <span class="number">2013</span>, month == <span class="number">1</span>, day == <span class="number">1</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7_管道函数(%&gt;%)_和_绘图">1.7 管道函数(%&gt;%) 和 绘图</h3><figure class="highlight"><figcaption><span>message=FALSE, warning=FALSE&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delays &#60;- flights %&#62;% &#10;  group_by(dest) %&#62;% &#10;  summarise(&#10;    count = n(),&#10;    dist = mean(distance, na.rm = TRUE),&#10;    delay = mean(arr_delay, na.rm = TRUE)&#10;  ) %&#62;% &#10;  filter(count &#62; 20, dest != &#34;HNL&#34;)&#10;library(ggplot2)&#10;ggplot(data = delays, mapping = aes(x = dist, y = delay)) +&#10;  geom_point(aes(size = count), alpha = 1/3) +&#10;  geom_smooth(se = FALSE)</span><br></pre></td></tr></table></figure>
+<h2 id="数据整形_(Reshaping_Data)">数据整形 (Reshaping Data)</h2><h3 id="tibble_型数据">tibble 型数据</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">library<span class="list">(<span class="keyword">tibble</span>)</span></span><br><span class="line">friends_data &lt;- data_frame<span class="list">(</span><br><span class="line">  <span class="keyword">name</span> = c<span class="list">(<span class="string">"Nicolas"</span>, <span class="string">"Thierry"</span>, <span class="string">"Bernard"</span>, <span class="string">"Jerome"</span>)</span>,</span><br><span class="line">  age = c<span class="list">(<span class="number">27</span>, <span class="number">25</span>, <span class="number">29</span>, <span class="number">26</span>)</span>,</span><br><span class="line">  height = c<span class="list">(<span class="number">180</span>, <span class="number">170</span>, <span class="number">185</span>, <span class="number">169</span>)</span>,</span><br><span class="line">  married = c<span class="list">(<span class="keyword">TRUE</span>, FALSE, TRUE, TRUE)</span></span><br><span class="line">)</span></span><br><span class="line"># Print</span><br><span class="line">friends_data</span><br></pre></td></tr></table></figure>
+<h3 id="tibble_与_常规_data_frame_的差别">tibble 与 常规 data frame 的差别</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">data</span><span class="params">(<span class="string">"iris"</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">class</span><span class="params">(iris)</span></span></span><br><span class="line">my_data &lt;- <span class="function"><span class="title">as_data_frame</span><span class="params">(iris)</span></span></span><br><span class="line"><span class="function"><span class="title">class</span><span class="params">(my_data)</span></span></span><br><span class="line">my_data2 &lt;- as<span class="class">.data</span><span class="class">.frame</span>(my_data)</span><br></pre></td></tr></table></figure>
+<h3 id="基本数据载入">基本数据载入</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(<span class="string">"tidyr"</span>)</span></span></span><br><span class="line">my_data &lt;- USArrests[<span class="function"><span class="title">c</span><span class="params">(<span class="number">1</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>)</span></span>, ]</span><br><span class="line">my_data</span><br><span class="line">my_data &lt;- <span class="function"><span class="title">cbind</span><span class="params">(state = rownames(my_data)</span></span>, my_data)</span><br><span class="line">my_data</span><br></pre></td></tr></table></figure>
+<h3 id="gather(data,_key,_value,_…)">gather(data, key, value, …)</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_data2 &lt;- gather<span class="list">(<span class="keyword">my_data</span>,</span><br><span class="line">                   key = <span class="string">"arrest_attribute"</span>,</span><br><span class="line">                   value = <span class="string">"arrest_estimate"</span>,</span><br><span class="line">                   -state)</span></span><br><span class="line">my_data2</span><br></pre></td></tr></table></figure>
+<h3 id="spread(data,_key,_value)">spread(data, key, value)</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_data3 &lt;- spread<span class="list">(<span class="keyword">my_data2</span>, </span><br><span class="line">                   key = <span class="string">"arrest_attribute"</span>,</span><br><span class="line">                   value = <span class="string">"arrest_estimate"</span></span><br><span class="line">)</span></span><br><span class="line">my_data3</span><br></pre></td></tr></table></figure>
+<h3 id="unite(data,_col,_…,_sep_=_“_”)">unite(data, col, …, sep = “_”)</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_data4 &lt;- unite<span class="list">(<span class="keyword">my_data</span>,</span><br><span class="line">                  col = <span class="string">"Murder_Assault"</span>,</span><br><span class="line">                  Murder, Assault,</span><br><span class="line">                  sep = <span class="string">"_"</span>)</span></span><br><span class="line">my_data4</span><br></pre></td></tr></table></figure>
+<h3 id="separate(data,_col,_into,_sep_=_“[^[:alnum:]]+”)">separate(data, col, into, sep = “[^[:alnum:]]+”)</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_data5 &lt;- separate<span class="list">(<span class="keyword">my_data4</span>,</span><br><span class="line">         col = <span class="string">"Murder_Assault"</span>,</span><br><span class="line">         into = c<span class="list">(<span class="string">"Murder"</span>, <span class="string">"Assault"</span>)</span>,</span><br><span class="line">         sep = <span class="string">"_"</span>)</span></span><br><span class="line">my_data5</span><br></pre></td></tr></table></figure>
+<h3 id="管道函数(%&gt;%)">管道函数(%&gt;%)</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_data6 &lt;- my_data %&gt;% gather(<span class="variable">key =</span> <span class="string">"arrest_attribute"</span>,</span><br><span class="line">                   <span class="variable">value =</span> <span class="string">"arrest_estimate"</span>,</span><br><span class="line">                   Murder:UrbanPop) %&gt;%</span><br><span class="line">  unite(<span class="variable">col =</span> <span class="string">"attribute_estimate"</span>,</span><br><span class="line">        arrest_attribute, arrest_estimate)</span><br></pre></td></tr></table></figure>
+<h2 id="关系型数据_(Relational_data)">关系型数据 (Relational data)</h2><h3 id="数据载入">数据载入</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">library(tidyverse)</span><br><span class="line">library(nycflights13)</span><br><span class="line"><span class="comment"># nycflights13 contains four tibbles that are related to the flights table.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span>(<span class="title">flights</span>)</span></span><br><span class="line">flights</span><br></pre></td></tr></table></figure>
+<h3 id="Mutating_joins">Mutating joins</h3><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flights2 &lt;- flights <span class="variable">%&gt;</span>% </span><br><span class="line">  <span class="keyword">select</span>(year:day, hour, origin, dest, tailnum, carrier)</span><br><span class="line">flights2</span><br><span class="line">flights2 <span class="variable">%&gt;</span>%</span><br><span class="line">  <span class="keyword">select</span>(-origin, -dest) <span class="variable">%&gt;</span>% </span><br><span class="line">  left_join(airlines, by = <span class="string">"carrier"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Filtering_joins">Filtering joins</h3><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">top_dest &lt;- flights <span class="var_expand">%&gt;%</span></span><br><span class="line">  count(dest, sort = <span class="literal">TRUE</span>) <span class="var_expand">%&gt;%</span></span><br><span class="line">  head(<span class="number">5</span>)</span><br><span class="line">flights <span class="var_expand">%&gt;%</span> </span><br><span class="line">  semi_join(top_dest)</span><br><span class="line">dim(flights)</span><br><span class="line">dim(flights <span class="var_expand">%&gt;%</span> semi_join(top_dest))</span><br><span class="line">flights <span class="var_expand">%&gt;%</span></span><br><span class="line">  anti_join(planes, by = <span class="string">"tailnum"</span>) <span class="var_expand">%&gt;%</span></span><br><span class="line">  count(tailnum, sort = <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Set_operations">Set operations</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">df1 &lt;- tribble(</span><br><span class="line">  ~x, ~y,</span><br><span class="line">  <span class="number">1</span>,  <span class="number">1</span>,</span><br><span class="line">  <span class="number">2</span>,  <span class="number">1</span></span><br><span class="line">)</span><br><span class="line">df2 &lt;- tribble(</span><br><span class="line">  ~x, ~y,</span><br><span class="line">  <span class="number">1</span>,  <span class="number">1</span>,</span><br><span class="line">  <span class="number">1</span>,  <span class="number">2</span></span><br><span class="line">)</span><br><span class="line">df1</span><br><span class="line">df2</span><br><span class="line"><span class="function"><span class="title">intersect</span><span class="params">(df1, df2)</span></span></span><br><span class="line"><span class="function"><span class="title">union</span><span class="params">(df1, df2)</span></span></span><br><span class="line"><span class="function"><span class="title">setdiff</span><span class="params">(df1, df2)</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="二、Plotting_in_R_for_Biologists">二、Plotting in R for Biologists</h1><h2 id="ggplot2绘图">ggplot2绘图</h2><h2 id="1-_散点图">1. 散点图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(ggplot2)</span></span></span><br><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(data=mpg, mapping=aes(x=cty, y=hwy)</span></span>)</span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_point</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="将年份映射到颜色属性">将年份映射到颜色属性</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(mpg,aes(x=cty, y=hwy, colour=factor(year)</span></span>))</span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_point</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="增加平滑曲线">增加平滑曲线</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_point</span><span class="params">()</span></span> + <span class="function"><span class="title">stat_smooth</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="分面">分面</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_point</span><span class="params">()</span></span> + <span class="function"><span class="title">stat_smooth</span><span class="params">()</span></span>+<span class="function"><span class="title">facet_wrap</span><span class="params">(~ year, ncol=<span class="number">1</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="2-_直方图">2. 直方图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(mpg,aes(x=hwy)</span></span>)</span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_histogram</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="统计变换+分面">统计变换+分面</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p + geom_histogram<span class="list">(<span class="keyword">aes</span><span class="list">(<span class="keyword">fill=factor</span><span class="list">(<span class="keyword">year</span>)</span>,y=..density..)</span>, alpha=0.<span class="number">3</span>,colour=<span class="quoted">'black</span>')</span> +</span><br><span class="line">  stat_density<span class="list">(<span class="keyword">geom=</span><span class="quoted">'line</span>',position=<span class="quoted">'identity</span>',size=1.<span class="number">5</span>, aes<span class="list">(<span class="keyword">colour=factor</span><span class="list">(<span class="keyword">year</span>)</span>)</span>)</span> +</span><br><span class="line">  facet_wrap<span class="list">(~year,ncol=1)</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-_条形图">3. 条形图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(mpg, aes(x=class)</span></span>)</span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_bar</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="根据计数排序后绘制的条形图">根据计数排序后绘制的条形图</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class2 &lt;- mpg<span class="variable">$class</span></span><br><span class="line">class2 &lt;- <span class="function"><span class="title">reorder</span><span class="params">(class2,class2,length)</span></span></span><br><span class="line">mpg<span class="variable">$class2</span> &lt;- class2</span><br><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(mpg, aes(x=class2)</span></span>)</span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_bar</span><span class="params">(aes(fill=class2)</span></span>)</span><br></pre></td></tr></table></figure>
+<h2 id="4-饼图">4.饼图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(mpg, aes(x = factor(<span class="number">1</span>)</span></span>, fill = <span class="function"><span class="title">factor</span><span class="params">(class)</span></span>)) +</span><br><span class="line">  <span class="function"><span class="title">geom_bar</span><span class="params">(width = <span class="number">1</span>)</span></span></span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">coord_polar</span><span class="params">(theta = <span class="string">"y"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="改变填充颜色">改变填充颜色</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">coord_polar</span><span class="params">(theta = <span class="string">"y"</span>)</span></span> + <span class="function"><span class="title">scale_fill_brewer</span><span class="params">(palette=<span class="string">"Dark2"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="5-箱线图">5.箱线图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(mpg, aes(class,hwy,fill=class)</span></span>)</span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_boxplot</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="6-小提琴图">6.小提琴图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">geom_violin</span><span class="params">(alpha=<span class="number">0.3</span>,width=<span class="number">0.9</span>)</span></span>+</span><br><span class="line">  <span class="function"><span class="title">geom_jitter</span><span class="params">(shape=<span class="number">21</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="7-密度图">7.密度图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">set.<span class="function"><span class="title">seed</span><span class="params">(<span class="number">1234</span>)</span></span></span><br><span class="line">df &lt;- data.frame(</span><br><span class="line">  sex=<span class="function"><span class="title">factor</span><span class="params">(rep(c(<span class="string">"F"</span>, <span class="string">"M"</span>)</span></span>, each=<span class="number">200</span>)),</span><br><span class="line">  weight=<span class="function"><span class="title">round</span><span class="params">(c(rnorm(<span class="number">200</span>, mean=<span class="number">55</span>, sd=<span class="number">5</span>)</span></span>,</span><br><span class="line">                 <span class="function"><span class="title">rnorm</span><span class="params">(<span class="number">200</span>, mean=<span class="number">65</span>, sd=<span class="number">5</span>)</span></span>))</span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="title">head</span><span class="params">(df)</span></span></span><br><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(df, aes(x=weight, color=sex)</span></span>) +</span><br><span class="line">  <span class="function"><span class="title">geom_density</span><span class="params">()</span></span></span><br><span class="line">p</span><br></pre></td></tr></table></figure>
+<h2 id="8-线图">8.线图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df2 &lt;- data.<span class="function"><span class="title">frame</span><span class="params">(sex = rep(c(<span class="string">"Female"</span>, <span class="string">"Male"</span>)</span></span>, each=<span class="number">3</span>),</span><br><span class="line">                  time=<span class="function"><span class="title">c</span><span class="params">(<span class="string">"breakfeast"</span>, <span class="string">"Lunch"</span>, <span class="string">"Dinner"</span>)</span></span>,</span><br><span class="line">                  bill=<span class="function"><span class="title">c</span><span class="params">(<span class="number">10</span>, <span class="number">30</span>, <span class="number">15</span>, <span class="number">13</span>, <span class="number">40</span>, <span class="number">17</span>)</span></span> )</span><br><span class="line"><span class="function"><span class="title">head</span><span class="params">(df2)</span></span></span><br><span class="line"><span class="function"><span class="title">ggplot</span><span class="params">(df2, aes(x=time, y=bill, group=sex)</span></span>) +</span><br><span class="line">  <span class="function"><span class="title">geom_line</span><span class="params">(aes(linetype=sex, color=sex)</span></span>)+</span><br><span class="line">  <span class="function"><span class="title">geom_point</span><span class="params">(aes(color=sex)</span></span>)+</span><br><span class="line">  <span class="function"><span class="title">theme</span><span class="params">(legend.position=<span class="string">"top"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="9-热图">9.热图</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(pheatmap)</span></span></span><br><span class="line">test = <span class="function"><span class="title">matrix</span><span class="params">(rnorm(<span class="number">200</span>)</span></span>, <span class="number">20</span>, <span class="number">10</span>)</span><br><span class="line"><span class="function"><span class="title">colnames</span><span class="params">(test)</span></span> = <span class="function"><span class="title">paste</span><span class="params">(<span class="string">"Test"</span>, <span class="number">1</span>:<span class="number">10</span>, sep = <span class="string">""</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">rownames</span><span class="params">(test)</span></span> = <span class="function"><span class="title">paste</span><span class="params">(<span class="string">"Gene"</span>, <span class="number">1</span>:<span class="number">20</span>, sep = <span class="string">""</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">pheatmap</span><span class="params">(test, color = colorRampPalette(c(<span class="string">"navy"</span>, <span class="string">"white"</span>, <span class="string">"firebrick3"</span>)</span></span>)(<span class="number">50</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="10-相关性分析图">10.相关性分析图</h2><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">library<span class="params">(corrplot)</span></span><br><span class="line">mydata &lt;- select<span class="params">(mtcars,hp,disp,wt,qsec,mpg,drat)</span></span><br><span class="line">source<span class="params">(<span class="string">"http://www.sthda.com/upload/rquery_cormat.r"</span>)</span></span><br><span class="line">rquery.cormat&lt;-<span class="function"><span class="keyword">function</span><span class="params">(x, type=c<span class="params">('lower', 'upper', 'full', 'flatten')</span>,</span><br><span class="line">                        graph=TRUE, graphType=c<span class="params">(<span class="string">"correlogram"</span>, <span class="string">"heatmap"</span>)</span>,</span><br><span class="line">                        col=NULL, ...)</span></span><br><span class="line">&#123;</span></span><br><span class="line">  library<span class="params">(corrplot)</span></span><br><span class="line">  <span class="built_in">#</span> Helper functions</span><br><span class="line">  <span class="built_in">#</span>+++++++++++++++++</span><br><span class="line">  <span class="built_in">#</span> Compute the matrix of correlation p-values</span><br><span class="line">  cor.pmat &lt;- <span class="function"><span class="keyword">function</span><span class="params">(x, ...)</span> &#123;</span></span><br><span class="line">    mat &lt;- as.matrix<span class="params">(x)</span></span><br><span class="line">    n &lt;- ncol<span class="params">(mat)</span></span><br><span class="line">    p.mat&lt;- matrix<span class="params">(NA, n, n)</span></span><br><span class="line">    diag<span class="params">(p.mat)</span> &lt;- <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> <span class="params">(i in <span class="number">1</span>:<span class="params">(n - <span class="number">1</span>)</span>)</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> <span class="params">(j in <span class="params">(i + <span class="number">1</span>)</span>:n)</span> &#123;</span><br><span class="line">        tmp &lt;- cor.test<span class="params">(mat[, i], mat[, j], ...)</span></span><br><span class="line">        p.mat[i, j] &lt;- p.mat[j, i] &lt;- tmp$p.value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    colnames<span class="params">(p.mat)</span> &lt;- rownames<span class="params">(p.mat)</span> &lt;- colnames<span class="params">(mat)</span></span><br><span class="line">    p.mat</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">#</span> Get lower triangle of the matrix</span><br><span class="line">  getLower.tri&lt;-<span class="function"><span class="keyword">function</span><span class="params">(mat)</span>&#123;</span></span><br><span class="line">    upper&lt;-mat</span><br><span class="line">    upper[upper.tri<span class="params">(mat)</span>]&lt;-<span class="string">""</span></span><br><span class="line">    mat&lt;-as.data.frame<span class="params">(upper)</span></span><br><span class="line">    mat</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">#</span> Get upper triangle of the matrix</span><br><span class="line">  getUpper.tri&lt;-<span class="function"><span class="keyword">function</span><span class="params">(mat)</span>&#123;</span></span><br><span class="line">    lt&lt;-mat</span><br><span class="line">    lt[lower.tri<span class="params">(mat)</span>]&lt;-<span class="string">""</span></span><br><span class="line">    mat&lt;-as.data.frame<span class="params">(lt)</span></span><br><span class="line">    mat</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">#</span> Get flatten matrix</span><br><span class="line">  flattenCorrMatrix &lt;- <span class="function"><span class="keyword">function</span><span class="params">(cormat, pmat)</span> &#123;</span></span><br><span class="line">    ut &lt;- upper.tri<span class="params">(cormat)</span></span><br><span class="line">    data.frame<span class="params">(</span><br><span class="line">      row = rownames<span class="params">(cormat)</span>[row<span class="params">(cormat)</span>[ut]],</span><br><span class="line">      column = rownames<span class="params">(cormat)</span>[col<span class="params">(cormat)</span>[ut]],</span><br><span class="line">      cor  =<span class="params">(cormat)</span>[ut],</span><br><span class="line">      p = pmat[ut]</span><br><span class="line">    )</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">#</span> Define <span class="built_in">color</span></span><br><span class="line">  <span class="keyword">if</span> <span class="params">(is.null<span class="params">(col)</span>)</span> &#123;</span><br><span class="line">    col &lt;- colorRampPalette<span class="params">(c<span class="params">(<span class="string">"#67001F"</span>, <span class="string">"#B2182B"</span>, <span class="string">"#D6604D"</span>, </span><br><span class="line">                              <span class="string">"#F4A582"</span>, <span class="string">"#FDDBC7"</span>, <span class="string">"#FFFFFF"</span>, <span class="string">"#D1E5F0"</span>, <span class="string">"#92C5DE"</span>, </span><br><span class="line">                              <span class="string">"#4393C3"</span>, <span class="string">"#2166AC"</span>, <span class="string">"#053061"</span>)</span>)</span><span class="params">(<span class="number">200</span>)</span></span><br><span class="line">    col&lt;-rev<span class="params">(col)</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">#</span> Correlation matrix</span><br><span class="line">  cormat&lt;-signif<span class="params">(cor<span class="params">(x, use = <span class="string">"complete.obs"</span>, ...)</span>,<span class="number">2</span>)</span></span><br><span class="line">  pmat&lt;-signif<span class="params">(cor.pmat<span class="params">(x, ...)</span>,<span class="number">2</span>)</span></span><br><span class="line">  <span class="built_in">#</span> Reorder correlation matrix</span><br><span class="line">  ord&lt;-corrMatOrder<span class="params">(cormat, order=<span class="string">"hclust"</span>)</span></span><br><span class="line">  cormat&lt;-cormat[ord, ord]</span><br><span class="line">  pmat&lt;-pmat[ord, ord]</span><br><span class="line">  <span class="built_in">#</span> Replace correlation coeff by symbols</span><br><span class="line">  sym&lt;-symnum<span class="params">(cormat, abbr.colnames=FALSE)</span></span><br><span class="line">  <span class="built_in">#</span> Correlogram</span><br><span class="line">  <span class="keyword">if</span><span class="params">(graph &amp; graphType[<span class="number">1</span>]==<span class="string">"correlogram"</span>)</span>&#123;</span><br><span class="line">    corrplot<span class="params">(cormat, type=ifelse<span class="params">(type[<span class="number">1</span>]==<span class="string">"flatten"</span>, <span class="string">"lower"</span>, type[<span class="number">1</span>])</span>,</span><br><span class="line">             tl.col=<span class="string">"black"</span>, tl.srt=<span class="number">45</span>,col=col,...)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span><span class="params">(graphType[<span class="number">1</span>]==<span class="string">"heatmap"</span>)</span></span><br><span class="line">    heatmap<span class="params">(cormat, col=col, symm=TRUE)</span></span><br><span class="line">  <span class="built_in">#</span> Get lower/upper triangle</span><br><span class="line">  <span class="keyword">if</span><span class="params">(type[<span class="number">1</span>]==<span class="string">"lower"</span>)</span>&#123;</span><br><span class="line">    cormat&lt;-getLower.tri<span class="params">(cormat)</span></span><br><span class="line">    pmat&lt;-getLower.tri<span class="params">(pmat)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span><span class="params">(type[<span class="number">1</span>]==<span class="string">"upper"</span>)</span>&#123;</span><br><span class="line">    cormat&lt;-getUpper.tri<span class="params">(cormat)</span></span><br><span class="line">    pmat&lt;-getUpper.tri<span class="params">(pmat)</span></span><br><span class="line">    sym=t<span class="params">(sym)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span><span class="params">(type[<span class="number">1</span>]==<span class="string">"flatten"</span>)</span>&#123;</span><br><span class="line">    cormat&lt;-flattenCorrMatrix<span class="params">(cormat, pmat)</span></span><br><span class="line">    pmat=NULL</span><br><span class="line">    sym=NULL</span><br><span class="line">  &#125;</span><br><span class="line">  list<span class="params">(r=cormat, p=pmat, sym=sym)</span></span><br><span class="line">&#125;</span><br><span class="line">rquery.cormat<span class="params">(mydata, type=<span class="string">"full"</span>)</span></span><br></pre></td></tr></table></figure>
+<h2 id="11-主成份分析(PCA)">11.主成份分析(PCA)</h2><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">z1 &lt;- rnorm<span class="params">(<span class="number">10000</span>, mean=<span class="number">1</span>, sd=<span class="number">1</span>)</span></span><br><span class="line">z2 &lt;- rnorm<span class="params">(<span class="number">10000</span>, mean=<span class="number">3</span>, sd=<span class="number">3</span>)</span></span><br><span class="line">z3 &lt;- rnorm<span class="params">(<span class="number">10000</span>, mean=<span class="number">5</span>, sd=<span class="number">5</span>)</span></span><br><span class="line">z4 &lt;- rnorm<span class="params">(<span class="number">10000</span>, mean=<span class="number">7</span>, sd=<span class="number">7</span>)</span></span><br><span class="line">z5 &lt;- rnorm<span class="params">(<span class="number">10000</span>, mean=<span class="number">9</span>, sd=<span class="number">9</span>)</span></span><br><span class="line">mydata &lt;- matrix<span class="params">(c<span class="params">(z1, z2, z3, z4, z5)</span>, <span class="number">2500</span>, <span class="number">20</span>, byrow=T, dimnames=list<span class="params">(paste<span class="params">(<span class="string">"R"</span>, <span class="number">1</span>:<span class="number">2500</span>, sep=<span class="string">""</span>)</span>, paste<span class="params">(<span class="string">"C"</span>, <span class="number">1</span>:<span class="number">20</span>, sep=<span class="string">""</span>)</span>)</span>)</span> </span><br><span class="line">pca &lt;- prcomp<span class="params">(mydata, scale=T)</span> </span><br><span class="line">summary<span class="params">(pca)</span></span><br><span class="line">summary<span class="params">(pca)</span>$importance[, <span class="number">1</span>:<span class="number">6</span>]</span><br><span class="line">x11<span class="params">(height=<span class="number">6</span>, width=<span class="number">12</span>, pointsize=<span class="number">12</span>)</span>; par<span class="params">(mfrow=c<span class="params">(<span class="number">1</span>,<span class="number">3</span>)</span>)</span></span><br><span class="line">mycolors &lt;- c<span class="params">(<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>, <span class="string">"magenta"</span>, <span class="string">"black"</span>)</span></span><br><span class="line">plot<span class="params">(pca$x[,<span class="number">1</span>:<span class="number">2</span>], pch=<span class="number">20</span>, col=mycolors[sort<span class="params">(rep<span class="params">(<span class="number">1</span>:<span class="number">5</span>, <span class="number">500</span>)</span>)</span>])</span></span><br><span class="line">pairs<span class="params">(pca$x[,<span class="number">1</span>:<span class="number">4</span>], pch=<span class="number">20</span>, col=mycolors[sort<span class="params">(rep<span class="params">(<span class="number">1</span>:<span class="number">5</span>, <span class="number">500</span>)</span>)</span>])</span></span><br><span class="line">library<span class="params">(scatterplot3d)</span></span><br><span class="line">scatterplot3d<span class="params">(pca$x[,<span class="number">1</span>:<span class="number">3</span>], pch=<span class="number">20</span>, color=mycolors[sort<span class="params">(rep<span class="params">(<span class="number">1</span>:<span class="number">5</span>, <span class="number">500</span>)</span>)</span>])</span></span><br></pre></td></tr></table></figure>
+<h2 id="12-气泡图_(Bubbles_)">12.气泡图 (Bubbles )</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">require</span><span class="params">(ggplot2)</span></span></span><br><span class="line">df&lt;- read.<span class="function"><span class="title">csv</span><span class="params">(<span class="string">"Bubbles.csv"</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">ggplot</span><span class="params">(df, aes(x = id,y=Term,label = Term)</span></span>) +</span><br><span class="line">  <span class="function"><span class="title">geom_point</span><span class="params">(aes(size = Input_number, colour = P.Value)</span></span>) + </span><br><span class="line">  #<span class="function"><span class="title">geom_text</span><span class="params">(hjust = <span class="number">1</span>, size = <span class="number">2</span>)</span></span> +</span><br><span class="line">  <span class="function"><span class="title">scale_size</span><span class="params">(range = c(<span class="number">1</span>,<span class="number">15</span>)</span></span>) +</span><br><span class="line">  <span class="function"><span class="title">scale_x_continuous</span><span class="params">(breaks = seq(<span class="number">1</span>, <span class="number">15</span>, <span class="number">2</span>)</span></span>) +</span><br><span class="line">  <span class="function"><span class="title">scale_colour_gradientn</span><span class="params">(colours=rainbow(<span class="number">4</span>)</span></span>) +</span><br><span class="line">  <span class="function"><span class="title">theme_bw</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="美化_(themes_and_background)">美化 (themes and background)</h2><h2 id="ggplot2自带主题">ggplot2自带主题</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span> &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(iris, aes(Sepal.Length, Sepal.Width, colour = Species)</span></span>)+</span><br><span class="line">  <span class="function"><span class="title">geom_point</span><span class="params">()</span></span></span><br><span class="line"><span class="tag">p</span></span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">theme_classic</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="主题包">主题包</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(ggthemes)</span></span></span><br><span class="line"><span class="tag">p</span> + <span class="function"><span class="title">theme_calc</span><span class="params">()</span></span>+ <span class="function"><span class="title">scale_colour_calc</span><span class="params">()</span></span>+</span><br><span class="line">  <span class="function"><span class="title">ggtitle</span><span class="params">(<span class="string">"Iris data"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="定制主题">定制主题</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p + theme(</span><br><span class="line">  panel.<span class="variable">background =</span> element_rect(<span class="variable">fill =</span> <span class="string">"lightblue"</span>,</span><br><span class="line">                                  <span class="variable">colour =</span> <span class="string">"lightblue"</span>,</span><br><span class="line">                                  <span class="variable">size =</span> <span class="number">0.5</span>, <span class="variable">linetype =</span> <span class="string">"solid"</span>),</span><br><span class="line">  panel.grid.<span class="variable">major =</span> element_line(<span class="variable">size =</span> <span class="number">0.5</span>, <span class="variable">linetype =</span> 'solid',</span><br><span class="line">                                  <span class="variable">colour =</span> <span class="string">"white"</span>), </span><br><span class="line">  panel.grid.<span class="variable">minor =</span> element_line(<span class="variable">size =</span> <span class="number">0.25</span>, <span class="variable">linetype =</span> 'solid',</span><br><span class="line">                                  <span class="variable">colour =</span> <span class="string">"white"</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1 id="三、复杂图形修改">三、复杂图形修改</h1><p></p><p></p><br><img src="http://7xk19o.com1.z0.glb.clouddn.com/20111210_WOC210.gif" alt=""><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(ggplot2)</span></span></span><br><span class="line"><span class="id">#dat</span> &lt;- read.<span class="function"><span class="title">csv</span><span class="params">(<span class="string">"https://github.com/tiramisutes/myscripts-R/blob/master/EconomistData.csv"</span>)</span></span></span><br><span class="line">dat &lt;- read.<span class="function"><span class="title">csv</span><span class="params">(<span class="string">"C:/Users/hope/Desktop/R-class//EconomistData.csv"</span>)</span></span></span><br></pre></td></tr></table></figure><p></p>
+<h2 id="Basic_plot">Basic plot</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pc1 &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(dat,aes(x = CPI, y = HDI, color = Region)</span></span>)+</span><br><span class="line">  <span class="function"><span class="title">geom_point</span><span class="params">()</span></span></span><br><span class="line">pc1</span><br></pre></td></tr></table></figure>
+<h2 id="Trend_line">Trend line</h2><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pc2 &lt;- pc1 +</span><br><span class="line">  geom_smooth(aes(group = <span class="number">1</span>),</span><br><span class="line">              <span class="keyword">method</span> = <span class="string">"lm"</span>,</span><br><span class="line">              formula = y ~ log(x),</span><br><span class="line">              se = <span class="type">FALSE</span>,</span><br><span class="line">              color = <span class="string">"red"</span>)</span><br><span class="line">pc2</span><br></pre></td></tr></table></figure>
+<h2 id="Open_points">Open points</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pc3 &lt;- <span class="function"><span class="title">ggplot</span><span class="params">(dat,aes(x = CPI, y = HDI, color = Region)</span></span>)+</span><br><span class="line">  <span class="function"><span class="title">geom_point</span><span class="params">(shape = <span class="number">1</span>, size = <span class="number">4</span>)</span></span> +</span><br><span class="line">  <span class="function"><span class="title">geom_smooth</span><span class="params">(aes(group = <span class="number">1</span>)</span></span>,</span><br><span class="line">              method = <span class="string">"lm"</span>,</span><br><span class="line">              formula = y ~ <span class="function"><span class="title">log</span><span class="params">(x)</span></span>,</span><br><span class="line">              se = FALSE,</span><br><span class="line">              <span class="attribute">color</span> = <span class="string">"red"</span>)</span><br><span class="line">pc3</span><br></pre></td></tr></table></figure>
+<h2 id="选择性的标注想要的点">选择性的标注想要的点</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pointsToLabel &lt;- c(<span class="string">"Russia"</span>, <span class="string">"Venezuela"</span>, <span class="string">"Iraq"</span>, <span class="string">"Myanmar"</span>, <span class="string">"Sudan"</span>,</span><br><span class="line">                   <span class="string">"Afghanistan"</span>, <span class="string">"Congo"</span>, <span class="string">"Greece"</span>, <span class="string">"Argentina"</span>, <span class="string">"Brazil"</span>,</span><br><span class="line">                   <span class="string">"India"</span>, <span class="string">"Italy"</span>, <span class="string">"China"</span>, <span class="string">"South Africa"</span>, <span class="string">"Spane"</span>,</span><br><span class="line">                   <span class="string">"Botswana"</span>, <span class="string">"Cape Verde"</span>, <span class="string">"Bhutan"</span>, <span class="string">"Rwanda"</span>, <span class="string">"France"</span>,</span><br><span class="line">                   <span class="string">"United States"</span>, <span class="string">"Germany"</span>, <span class="string">"Britain"</span>, <span class="string">"Barbados"</span>, <span class="string">"Norway"</span>, <span class="string">"Japan"</span>,</span><br><span class="line">                   <span class="string">"New Zealand"</span>, <span class="string">"Singapore"</span>)</span><br><span class="line"><span class="function"><span class="title">library</span><span class="params">(<span class="string">"ggrepel"</span>)</span></span></span><br><span class="line">pc4 &lt;- pc3 +  <span class="function"><span class="title">geom_text_repel</span><span class="params">(aes(label = Country)</span></span>,</span><br><span class="line">                              <span class="attribute">color</span> = <span class="string">"gray20"</span>,</span><br><span class="line">                              data = <span class="function"><span class="title">subset</span><span class="params">(dat, Country %in% pointsToLabel)</span></span>,</span><br><span class="line">                              force = <span class="number">10</span>)</span><br><span class="line">pc4</span><br></pre></td></tr></table></figure>
+<h2 id="修改图例值和顺序">修改图例值和顺序</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dat<span class="label">$Region</span> &lt;- <span class="keyword">factor</span>(dat<span class="label">$Region</span>,</span><br><span class="line">                     <span class="keyword">levels</span> = c(<span class="string">"EU W. Europe"</span>,</span><br><span class="line">                                <span class="string">"Americas"</span>,</span><br><span class="line">                                <span class="string">"Asia Pacific"</span>,</span><br><span class="line">                                <span class="string">"East EU Cemt Asia"</span>,</span><br><span class="line">                                <span class="string">"MENA"</span>,</span><br><span class="line">                                <span class="string">"SSA"</span>),</span><br><span class="line">                     labels = c(<span class="string">"OECD"</span>,</span><br><span class="line">                                <span class="string">"Americas"</span>,</span><br><span class="line">                                <span class="string">"Asia &amp;\nOceania"</span>,</span><br><span class="line">                                <span class="string">"Central &amp;\nEastern Europe"</span>,</span><br><span class="line">                                <span class="string">"Middle East &amp;\nnorth Africa"</span>,</span><br><span class="line">                                <span class="string">"Sub-Saharan\nAfrica"</span>))</span><br><span class="line">pc4<span class="label">$data</span> &lt;- dat</span><br><span class="line">pc4</span><br></pre></td></tr></table></figure>
+<h2 id="利用scale来修改x，y轴，颜色和标出title">利用scale来修改x，y轴，颜色和标出title</h2><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pc5 &lt;- pc4 +</span><br><span class="line">  scale_x_continuous<span class="list">(<span class="keyword">name</span> = <span class="string">"Corruption Perceptions Index, 2011 (10=least corrupt)"</span>,</span><br><span class="line">                     limits = c<span class="list">(.<span class="number">9</span>, <span class="number">10.5</span>)</span>,</span><br><span class="line">                     breaks = <span class="number">1</span>:<span class="number">10</span>)</span> +</span><br><span class="line">  scale_y_continuous<span class="list">(<span class="keyword">name</span> = <span class="string">"Human Development Index, 2011 (1=Best)"</span>,</span><br><span class="line">                     limits = c<span class="list">(<span class="number">0.2</span>, <span class="number">1.0</span>)</span>,</span><br><span class="line">                     breaks = seq<span class="list">(<span class="number">0.2</span>, <span class="number">1.0</span>, by = <span class="number">0.1</span>)</span>)</span> +</span><br><span class="line">  scale_color_manual<span class="list">(<span class="keyword">name</span> = <span class="string">""</span>,</span><br><span class="line">                     values = c<span class="list">(<span class="string">"#24576D"</span>,</span><br><span class="line">                                <span class="string">"#099DD7"</span>,</span><br><span class="line">                                <span class="string">"#28AADC"</span>,</span><br><span class="line">                                <span class="string">"#248E84"</span>,</span><br><span class="line">                                <span class="string">"#F2583F"</span>,</span><br><span class="line">                                <span class="string">"#96503F"</span>)</span>)</span> +</span><br><span class="line">  ggtitle<span class="list">(<span class="string">"Corruption and Human development"</span>)</span> +</span><br><span class="line">  theme<span class="list">(<span class="keyword">plot</span>.title = element_text<span class="list">(<span class="keyword">hjust</span> = <span class="number">0.5</span>)</span>)</span></span><br><span class="line">pc5</span><br></pre></td></tr></table></figure>
+<h2 id="微调主题">微调主题</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">library(grid)</span><br><span class="line">pc6 &lt;- pc5 +</span><br><span class="line">  theme_minimal() + <span class="comment"># start with a minimal theme and add what we need</span></span><br><span class="line">  theme(<span class="variable">text =</span> element_text(<span class="variable">color =</span> <span class="string">"gray20"</span>),</span><br><span class="line">        legend.<span class="variable">position =</span> c(<span class="string">"top"</span>), <span class="comment"># position the legend in the upper left </span></span><br><span class="line">        legend.<span class="variable">direction =</span> <span class="string">"horizontal"</span>,</span><br><span class="line">        legend.<span class="variable">justification =</span> <span class="number">0.1</span>, <span class="comment"># anchor point for legend.position.</span></span><br><span class="line">        legend.<span class="variable">text =</span> element_text(<span class="variable">size =</span> <span class="number">11</span>, <span class="variable">color =</span> <span class="string">"gray10"</span>),</span><br><span class="line">        axis.<span class="variable">text =</span> element_text(<span class="variable">face =</span> <span class="string">"italic"</span>),</span><br><span class="line">        axis.title.<span class="variable">x =</span> element_text(<span class="variable">vjust =</span> -<span class="number">1</span>), <span class="comment"># move title away from axis</span></span><br><span class="line">        axis.title.<span class="variable">y =</span> element_text(<span class="variable">vjust =</span> <span class="number">2</span>), <span class="comment"># move away for axis</span></span><br><span class="line">        axis.ticks.<span class="variable">y =</span> element_blank(), <span class="comment"># element_blank() is how we remove elements</span></span><br><span class="line">        axis.<span class="variable">line =</span> element_line(<span class="variable">color =</span> <span class="string">"gray40"</span>, <span class="variable">size =</span> <span class="number">0.5</span>),</span><br><span class="line">        axis.line.<span class="variable">y =</span> element_blank(),</span><br><span class="line">        panel.grid.<span class="variable">major =</span> element_line(<span class="variable">color =</span> <span class="string">"gray50"</span>, <span class="variable">size =</span> <span class="number">0.5</span>),</span><br><span class="line">        panel.grid.major.<span class="variable">x =</span> element_blank()</span><br><span class="line">  )</span><br><span class="line">pc6</span><br></pre></td></tr></table></figure>
+<h1 id="四、RNA-Seq_(DESeq2)">四、RNA-Seq (DESeq2)</h1><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">library</span><span class="params">(DESeq2)</span></span></span><br><span class="line"><span class="function"><span class="title">library</span><span class="params">(limma)</span></span></span><br><span class="line"><span class="function"><span class="title">library</span><span class="params">(pasilla)</span></span></span><br><span class="line"><span class="function"><span class="title">data</span><span class="params">(pasillaGenes)</span></span></span><br><span class="line">exprSet=<span class="function"><span class="title">counts</span><span class="params">(pasillaGenes)</span></span></span><br><span class="line"><span class="function"><span class="title">head</span><span class="params">(exprSet)</span></span></span><br><span class="line">colData &lt;- data.<span class="function"><span class="title">frame</span><span class="params">(row.names=colnames(exprSet)</span></span>, </span><br><span class="line">                      group_list=group_list</span><br><span class="line">)</span><br><span class="line">dds &lt;- DESeqDataSetFromMatrix(countData = exprSet,</span><br><span class="line">                              colData = colData,</span><br><span class="line">                              design = ~ group_list)</span><br><span class="line">dds</span><br><span class="line">dds2 &lt;- <span class="function"><span class="title">DESeq</span><span class="params">(dds)</span></span></span><br><span class="line"><span class="function"><span class="title">resultsNames</span><span class="params">(dds2)</span></span></span><br><span class="line">res &lt;-  <span class="function"><span class="title">results</span><span class="params">(dds2, contrast=c(<span class="string">"group_list"</span>,<span class="string">"treated"</span>,<span class="string">"untreated"</span>)</span></span>) </span><br><span class="line">resOrdered &lt;- res[<span class="function"><span class="title">order</span><span class="params">(res<span class="variable">$padj</span>)</span></span>,]</span><br><span class="line">resOrdered=as<span class="class">.data</span><span class="class">.frame</span>(resOrdered)</span><br><span class="line"><span class="function"><span class="title">head</span><span class="params">(resOrdered)</span></span></span><br></pre></td></tr></table></figure>
+<h1 id="五、写在最后">五、写在最后</h1><p></p><p></p><br><i class="fa fa-commenting-o" aria-hidden="true"></i>本页内容对应PPT详细请见<a href="http://tiramisutes.github.io/code/">A Beginner’s Guide to Learn R Programming</a>，其他更多优质资源请阅读 <a href="https://mp.weixin.qq.com/s/CZt7URZQIQwBmdQFceQUig" target="_blank" rel="external">R语言的最好资源，一个就够！</a><p></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2017/12/15/R-class.html" title="A Beginner’s Guide to Learn R Programming">http://tiramisutes.github.io/2017/12/15/R-class.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Basics-R/" rel="tag"># Basics_R</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/21/Oxford-Nanopore-sequencing.html" rel="next" title="Oxford Nanopore Sequencing">
+                <i class="fa fa-chevron-left"></i> Oxford Nanopore Sequencing
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/05/IGV.html" rel="prev" title="学IGV必看的初级教程">
+                学IGV必看的初级教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、数据操作"><span class="nav-number">1.</span> <span class="nav-text">一、数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环_(Loops)"><span class="nav-number">1.1.</span> <span class="nav-text">循环 (Loops)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据转换_(Data_transformation)_清洗和整理"><span class="nav-number">1.2.</span> <span class="nav-text">数据转换 (Data transformation) 清洗和整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据环境载入"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据环境载入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1_筛选:_filter()"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.1 筛选: filter()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2_排列:_arrange()"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2 排列: arrange()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3_选择:_select()"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.3 选择: select()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4_变形:_mutate()"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.4 变形: mutate()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新添加的列可以用于后续计算"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">新添加的列可以用于后续计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#只保留变形后的列"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">只保留变形后的列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5_汇总:_summarise()"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.5 汇总: summarise()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6_分组:_group_by()"><span class="nav-number">1.2.7.</span> <span class="nav-text">1.6 分组: group_by()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7_管道函数(%>%)_和_绘图"><span class="nav-number">1.2.8.</span> <span class="nav-text">1.7 管道函数(%>%) 和 绘图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据整形_(Reshaping_Data)"><span class="nav-number">1.3.</span> <span class="nav-text">数据整形 (Reshaping Data)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tibble_型数据"><span class="nav-number">1.3.1.</span> <span class="nav-text">tibble 型数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tibble_与_常规_data_frame_的差别"><span class="nav-number">1.3.2.</span> <span class="nav-text">tibble 与 常规 data frame 的差别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据载入"><span class="nav-number">1.3.3.</span> <span class="nav-text">基本数据载入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gather(data,_key,_value,_…)"><span class="nav-number">1.3.4.</span> <span class="nav-text">gather(data, key, value, …)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spread(data,_key,_value)"><span class="nav-number">1.3.5.</span> <span class="nav-text">spread(data, key, value)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unite(data,_col,_…,_sep_=_“_”)"><span class="nav-number">1.3.6.</span> <span class="nav-text">unite(data, col, …, sep = “_”)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#separate(data,_col,_into,_sep_=_“[^[:alnum:]]+”)"><span class="nav-number">1.3.7.</span> <span class="nav-text">separate(data, col, into, sep = “[^[:alnum:]]+”)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道函数(%>%)"><span class="nav-number">1.3.8.</span> <span class="nav-text">管道函数(%>%)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关系型数据_(Relational_data)"><span class="nav-number">1.4.</span> <span class="nav-text">关系型数据 (Relational data)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据载入"><span class="nav-number">1.4.1.</span> <span class="nav-text">数据载入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutating_joins"><span class="nav-number">1.4.2.</span> <span class="nav-text">Mutating joins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filtering_joins"><span class="nav-number">1.4.3.</span> <span class="nav-text">Filtering joins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set_operations"><span class="nav-number">1.4.4.</span> <span class="nav-text">Set operations</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Plotting_in_R_for_Biologists"><span class="nav-number">2.</span> <span class="nav-text">二、Plotting in R for Biologists</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ggplot2绘图"><span class="nav-number">2.1.</span> <span class="nav-text">ggplot2绘图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_散点图"><span class="nav-number">2.2.</span> <span class="nav-text">1. 散点图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将年份映射到颜色属性"><span class="nav-number">2.2.1.</span> <span class="nav-text">将年份映射到颜色属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加平滑曲线"><span class="nav-number">2.2.2.</span> <span class="nav-text">增加平滑曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分面"><span class="nav-number">2.2.3.</span> <span class="nav-text">分面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_直方图"><span class="nav-number">2.3.</span> <span class="nav-text">2. 直方图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计变换+分面"><span class="nav-number">2.3.1.</span> <span class="nav-text">统计变换+分面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_条形图"><span class="nav-number">2.4.</span> <span class="nav-text">3. 条形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据计数排序后绘制的条形图"><span class="nav-number">2.4.1.</span> <span class="nav-text">根据计数排序后绘制的条形图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-饼图"><span class="nav-number">2.5.</span> <span class="nav-text">4.饼图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变填充颜色"><span class="nav-number">2.5.1.</span> <span class="nav-text">改变填充颜色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-箱线图"><span class="nav-number">2.6.</span> <span class="nav-text">5.箱线图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-小提琴图"><span class="nav-number">2.7.</span> <span class="nav-text">6.小提琴图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-密度图"><span class="nav-number">2.8.</span> <span class="nav-text">7.密度图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-线图"><span class="nav-number">2.9.</span> <span class="nav-text">8.线图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-热图"><span class="nav-number">2.10.</span> <span class="nav-text">9.热图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-相关性分析图"><span class="nav-number">2.11.</span> <span class="nav-text">10.相关性分析图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-主成份分析(PCA)"><span class="nav-number">2.12.</span> <span class="nav-text">11.主成份分析(PCA)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-气泡图_(Bubbles_)"><span class="nav-number">2.13.</span> <span class="nav-text">12.气泡图 (Bubbles )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#美化_(themes_and_background)"><span class="nav-number">2.14.</span> <span class="nav-text">美化 (themes and background)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ggplot2自带主题"><span class="nav-number">2.15.</span> <span class="nav-text">ggplot2自带主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题包"><span class="nav-number">2.16.</span> <span class="nav-text">主题包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定制主题"><span class="nav-number">2.17.</span> <span class="nav-text">定制主题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、复杂图形修改"><span class="nav-number">3.</span> <span class="nav-text">三、复杂图形修改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic_plot"><span class="nav-number">3.1.</span> <span class="nav-text">Basic plot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trend_line"><span class="nav-number">3.2.</span> <span class="nav-text">Trend line</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Open_points"><span class="nav-number">3.3.</span> <span class="nav-text">Open points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择性的标注想要的点"><span class="nav-number">3.4.</span> <span class="nav-text">选择性的标注想要的点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改图例值和顺序"><span class="nav-number">3.5.</span> <span class="nav-text">修改图例值和顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用scale来修改x，y轴，颜色和标出title"><span class="nav-number">3.6.</span> <span class="nav-text">利用scale来修改x，y轴，颜色和标出title</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微调主题"><span class="nav-number">3.7.</span> <span class="nav-text">微调主题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、RNA-Seq_(DESeq2)"><span class="nav-number">4.</span> <span class="nav-text">四、RNA-Seq (DESeq2)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、写在最后"><span class="nav-number">5.</span> <span class="nav-text">五、写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2017/12/15/R-class.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

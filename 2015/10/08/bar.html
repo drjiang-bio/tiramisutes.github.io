@@ -1,0 +1,1511 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="b12Zu40L63PLgCtcn0IW8KCNRolmyQlaF22tf4rRLEg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="bar," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="hope" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y. stat_bin explains the details of these summaries in more detail. In particular, you can us">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bar">
+<meta property="og:url" content="http://tiramisutes.github.io/2015/10/08/bar.html">
+<meta property="og:site_name" content="hope">
+<meta property="og:description" content="The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y. stat_bin explains the details of these summaries in more detail. In particular, you can us">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/HPZWL.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/Xmn5v.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/unnamed-chunk-5-1.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/unnamed-chunk-5-2.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/colorblind_palette.jpg">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/gS0niDp.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/52ChlFe.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/9k0Y2le.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/pZAfWxF.png">
+<meta property="og:image" content="http://7xk19o.com1.z0.glb.clouddn.com/ggthemes.png">
+<meta property="og:updated_time" content="2015-10-26T14:27:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bar">
+<meta name="twitter:description" content="The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y. stat_bin explains the details of these summaries in more detail. In particular, you can us">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tiramisutes.github.io/2015/10/08/bar.html"/>
+
+
+
+
+
+  <title>bar | hope</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?08b17c69c7ba460d9ab5f188a048ee6d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">hope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">A new day is coming,whether we like it or not. The question is will you control it,or will it control you?</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-code">
+          <a href="/code" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            Code
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-footprint">
+          <a href="/footprint" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            Footprint
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tiramisutes.github.io/2015/10/08/bar.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiramisutes">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">bar</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-08T22:18:26+08:00">
+                2015-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/10/08/bar.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2015/10/08/bar.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2015/10/08/bar.html" class="leancloud_visitors" data-flag-title="bar">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article</span>
+                
+                <span title="Words count in article">
+                  4,122
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time</span>
+                
+                <span title="Reading time">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y. stat_bin explains the details of these summaries in more detail. In particular, you can use the weight aesthetic to create weighted histograms and barcharts where the height of the bar no longer represent a count of observations, but a sum over some other variable. See the examples for a practical example.</p>
+<h2 id="Usage">Usage</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geom_bar(mapping = NULL, data = NULL, <span class="built_in">stat</span> = <span class="string">"bin"</span>, position = <span class="string">"stack"</span>, ...)</span><br></pre></td></tr></table></figure>
+<h2 id="Aesthetics">Aesthetics</h2><p>geom_bar understands the following aesthetics (required aesthetics are in bold):</p>
+<p><li> <code><strong>x</strong></code><br>  </li></p>
+<p><li> <code>alpha</code><br>  </li></p>
+<p><li> <code>colour</code><br>  </li></p>
+<p><li> <code>fill</code><br>  </li></p>
+<p><li> <code>linetype</code><br>  </li></p>
+<p><li> <code>size</code><br>  </li></p>
+<p><li> <code>weight</code><br></li></p>
+<h2 id="Grouping_Bars_Together">Grouping Bars Together</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p&lt;- ggplot(df2, aes(x=sample, y=high, fill=sample)) + </span><br><span class="line">  geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>,fill=<span class="string">"lightblue"</span>, color=<span class="string">"black"</span>, </span><br><span class="line">           position=position_dodge()) +</span><br><span class="line">  geom_errorbar(aes(ymin=high-sd, ymax=high+sd), width=.<span class="number">2</span>,</span><br><span class="line">                position=position_dodge(.<span class="number">9</span>)) +</span><br><span class="line">  theme(legend.position=<span class="string">'none'</span>) +</span><br><span class="line">  labs(title=<span class="string">"Tooth length per dose"</span>, x=<span class="string">"Sample"</span>, y = <span class="string">"high"</span>)</span><br><span class="line"><span class="built_in">print</span>(p)</span><br></pre></td></tr></table></figure>
+<p><i class="fa fa-hand-o-right"></i>代码解释<br>aes中fill可指定不同类显示柱子颜色.<br>geom_bar()的fill修改柱子填充颜色，color修改柱子外围颜色.<br>theme()控制图例.<br>labs()添加x，y轴和主题标签.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scale_fill_brewer(palette=<span class="string">"Pastel1"</span>) <span class="comment">#亦可用来修改柱子颜色</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="在柱状图中使用不同颜色—把适当的变量映射到Fill中">在柱状图中使用不同颜色—把适当的变量映射到Fill中</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ggplot(upc, aes(x=reorder(Abb, Change), y=Change, fill=Region)) +</span><br><span class="line">	  geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>, colour=<span class="string">"black"</span>)  +</span><br><span class="line">	  scale_fill_manual(values=c(<span class="string">"#669933"</span>, <span class="string">"#FFCC66"</span>)) + </span><br><span class="line">	  xlab(<span class="string">"State"</span>)</span><br></pre></td></tr></table></figure>
+<p><i class="fa fa-hand-o-right"></i>代码解释<br>reorder函数，把柱状图按照大小排列.<br>xlab()对x轴修改坐标轴注释.<br>其方法随可以为不同柱子fill不同颜色，但所填充颜色是ggplot2系统自动生成，有时候颜色不好看想要修改为你自己制定的颜色，方法如下：<br><strong>方法1:breaks()</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">MYdata &lt;- data.frame(Age = rep(c(<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">12</span>), each=<span class="number">20</span>),</span><br><span class="line">                    Richness = rnorm(<span class="number">120</span>, <span class="number">10000</span>, <span class="number">2500</span>))</span><br><span class="line">ggplot(data = MYdata, aes(x = Age, y = Richness)) + </span><br><span class="line">  geom_boxplot(aes(fill=factor(Age))) + </span><br><span class="line">  geom_point(aes(color = factor(Age))) +</span><br><span class="line">  scale_x_continuous(breaks = c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>)) +</span><br><span class="line">  scale_colour_manual(breaks = c(<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"3"</span>, <span class="string">"6"</span>, <span class="string">"9"</span>, <span class="string">"12"</span>),</span><br><span class="line">                      labels = c(<span class="string">"0 month"</span>, <span class="string">"1 month"</span>, <span class="string">"3 months"</span>,</span><br><span class="line">                                 <span class="string">"6 months"</span>, <span class="string">"9 months"</span>, <span class="string">"12 months"</span>),</span><br><span class="line">                      values = c(<span class="string">"#E69F00"</span>, <span class="string">"#56B4E9"</span>, <span class="string">"#009E73"</span>, </span><br><span class="line">                                 <span class="string">"#F0E442"</span>, <span class="string">"#0072B2"</span>, <span class="string">"#D55E00"</span>)) +</span><br><span class="line">  scale_fill_manual(breaks = c(<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"3"</span>, <span class="string">"6"</span>, <span class="string">"9"</span>, <span class="string">"12"</span>),</span><br><span class="line">                      labels = c(<span class="string">"0 month"</span>, <span class="string">"1 month"</span>, <span class="string">"3 months"</span>,</span><br><span class="line">                                 <span class="string">"6 months"</span>, <span class="string">"9 months"</span>, <span class="string">"12 months"</span>),</span><br><span class="line">                      values = c(<span class="string">"#E69F00"</span>, <span class="string">"#56B4E9"</span>, <span class="string">"#009E73"</span>, </span><br><span class="line">                                 <span class="string">"#F0E442"</span>, <span class="string">"#0072B2"</span>, <span class="string">"#D55E00"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/HPZWL.png" alt=""><br>With this color scheme, the points that fall inside the boxplot are not visible (since they are the same color as the boxplot’s fill). Perhaps leaving the boxplot hollow and drawing its lines in the color would be better.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ggplot(data = MYdata, aes(x = Age, y = Richness)) + </span><br><span class="line">  geom_boxplot(aes(colour=factor(Age)), fill=NA) + </span><br><span class="line">  geom_point(aes(color = factor(Age))) +</span><br><span class="line">  scale_x_continuous(breaks = c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>)) +</span><br><span class="line">  scale_colour_manual(breaks = c(<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"3"</span>, <span class="string">"6"</span>, <span class="string">"9"</span>, <span class="string">"12"</span>),</span><br><span class="line">                      labels = c(<span class="string">"0 month"</span>, <span class="string">"1 month"</span>, <span class="string">"3 months"</span>,</span><br><span class="line">                                 <span class="string">"6 months"</span>, <span class="string">"9 months"</span>, <span class="string">"12 months"</span>),</span><br><span class="line">                      values = c(<span class="string">"#E69F00"</span>, <span class="string">"#56B4E9"</span>, <span class="string">"#009E73"</span>, </span><br><span class="line">                                 <span class="string">"#F0E442"</span>, <span class="string">"#0072B2"</span>, <span class="string">"#D55E00"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/Xmn5v.png" alt=""><br><i class="fa fa-hand-o-right"></i>代码解释<br>操作自己数据时可能会出现报错 “Continuous value supplied to discrete scale” ，Brian Diggs<i class="fa fa-thumbs-o-up"></i>大神给出的解释是：<br><i class="fa fa-commenting-o"></i>Age is a continuous variable, but you are trying to use it in a discrete scale (by specifying the color for specific values of age). In general, a scale maps the variable to the visual; for a continuous age, there is a corresponding color for every possible value of age, not just the ones that happen to appear in your data. However, you can simultaneously treat age as a categorical variable (factor) for some of the aesthetics. For the third part of your question, within the scale description, you can define specific labels corresponding to specific breaks in the scale.<br>也就是要转换连续型变量为因子变量.<br><strong>方法2：Change the default palettes</strong><br>These are color-blind-friendly palettes, one with gray, and one with black.</p>
+<p></p><p><img src="http://7xk19o.com1.z0.glb.clouddn.com/unnamed-chunk-5-1.png" alt=""><img src="http://7xk19o.com1.z0.glb.clouddn.com/unnamed-chunk-5-2.png" alt=""></p><br>To use with ggplot2, it is possible to store the palette in a variable, then use it later.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The palette with grey:</span></span><br><span class="line">cbPalette &lt;- c(<span class="string">"#999999"</span>, <span class="string">"#E69F00"</span>, <span class="string">"#56B4E9"</span>, <span class="string">"#009E73"</span>, <span class="string">"#F0E442"</span>, <span class="string">"#0072B2"</span>, <span class="string">"#D55E00"</span>, <span class="string">"#CC79A7"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># The palette with black:</span></span><br><span class="line">cbbPalette &lt;- c(<span class="string">"#000000"</span>, <span class="string">"#E69F00"</span>, <span class="string">"#56B4E9"</span>, <span class="string">"#009E73"</span>, <span class="string">"#F0E442"</span>, <span class="string">"#0072B2"</span>, <span class="string">"#D55E00"</span>, <span class="string">"#CC79A7"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># To use for fills, add</span></span><br><span class="line">  scale_fill_manual(values=cbPalette)</span><br><span class="line"></span><br><span class="line"><span class="comment"># To use for line and point colors, add</span></span><br><span class="line">  scale_colour_manual(values=cbPalette)</span><br></pre></td></tr></table></figure><p></p>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/colorblind_palette.jpg" alt=""></p>
+<h2 id="Coloring_Negative_and_Postive_Bars_Differently—设定新的变量，将新建变量映射到fill中">Coloring Negative and Postive Bars Differently—设定新的变量，将新建变量映射到fill中</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">csub &lt;- subset(climate, Source==<span class="string">"Berkeley"</span> &amp; Year &gt;= <span class="number">1900</span>)</span><br><span class="line">	csub<span class="variable">$pos</span> &lt;- csub<span class="variable">$Anomaly10y</span> &gt;= <span class="number">0</span></span><br><span class="line">	ggplot(csub, aes(x=Year, y=Anomaly10y, fill=pos)) +</span><br><span class="line">  	  geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>, position=<span class="string">"identity"</span>, colour=<span class="string">"black"</span>, size=<span class="number">0.25</span>) +</span><br><span class="line">	  scale_fill_manual(values=c(<span class="string">"#CCEEFF"</span>, <span class="string">"#FFDDDD"</span>), guide=FALSE)</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/gS0niDp.png" alt=""><br><i class="fa fa-hand-o-right"></i>代码解释<br>首先通过subset()函数选取一个数集赋值到csub，选取原则为：climate数据中Source这一列值为Berkeley并且Year这一列&gt;= 1900.<br>csub$pos为原数集添加pos这一列，若Anomaly10y &gt;= 0则其值为TRUE,否则为FALSE.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">      Source Year Anomaly1y Anomaly5y Anomaly10y Unc10y   pos</span><br><span class="line"><span class="number">155</span> Berkeley <span class="number">1954</span>        NA        NA     -<span class="number">0.032</span>  <span class="number">0.038</span> FALSE</span><br><span class="line"><span class="number">156</span> Berkeley <span class="number">1955</span>        NA        NA     -<span class="number">0.022</span>  <span class="number">0.035</span> FALSE</span><br><span class="line"><span class="number">157</span> Berkeley <span class="number">1956</span>        NA        NA      <span class="number">0.012</span>  <span class="number">0.031</span>  TRUE</span><br><span class="line"><span class="number">158</span> Berkeley <span class="number">1957</span>        NA        NA      <span class="number">0.007</span>  <span class="number">0.028</span>  TRUE</span><br><span class="line"><span class="number">159</span> Berkeley <span class="number">1958</span>        NA        NA      <span class="number">0.002</span>  <span class="number">0.027</span>  TRUE</span><br><span class="line"><span class="number">160</span> Berkeley <span class="number">1959</span>        NA        NA      <span class="number">0.002</span>  <span class="number">0.026</span>  TRUE</span><br><span class="line"><span class="number">161</span> Berkeley <span class="number">1960</span>        NA        NA     -<span class="number">0.019</span>  <span class="number">0.026</span> FALSE</span><br><span class="line"><span class="number">162</span> Berkeley <span class="number">1961</span>        NA        NA     -<span class="number">0.001</span>  <span class="number">0.021</span> FALSE</span><br><span class="line"><span class="number">163</span> Berkeley <span class="number">1962</span>        NA        NA      <span class="number">0.017</span>  <span class="number">0.018</span>  TRUE</span><br><span class="line"><span class="number">164</span> Berkeley <span class="number">1963</span>        NA        NA      <span class="number">0.004</span>  <span class="number">0.016</span>  TRUE</span><br><span class="line"><span class="number">165</span> Berkeley <span class="number">1964</span>        NA        NA     -<span class="number">0.028</span>  <span class="number">0.018</span> FALSE</span><br><span class="line"><span class="number">166</span> Berkeley <span class="number">1965</span>        NA        NA     -<span class="number">0.006</span>  <span class="number">0.017</span> FALSE</span><br><span class="line"><span class="number">167</span> Berkeley <span class="number">1966</span>        NA        NA     -<span class="number">0.024</span>  <span class="number">0.017</span> FALSE</span><br></pre></td></tr></table></figure></p>
+<p>最后将pos映射到fill，geom_bar()中size改变柱子外框黑线的厚度.<br>scale_fill_manual()进行修改颜色，通过设定guide=FALSE 去掉图例.<br>geom_bar(width=0.5)调整width改变柱子宽度，也就是改变了柱子之间的距离.</p>
+<h2 id="pylr改变图中堆积的颜色—order=desc()">pylr改变图中堆积的颜色—order=desc()</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">library(plyr) <span class="comment"># Needed for desc()</span></span><br><span class="line">ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar, order=desc(Cultivar))) +</span><br><span class="line">      geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>)</span><br></pre></td></tr></table></figure>
+<p></p><p><img src="http://7xk19o.com1.z0.glb.clouddn.com/52ChlFe.png" width="340"><img src="http://7xk19o.com1.z0.glb.clouddn.com/9k0Y2le.png" width="340"></p><p></p>
+<h2 id="Making_a_Propotional_Stacked_Bar_Graph">Making a Propotional Stacked Bar Graph</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">library(gcookbook) <span class="comment"># For the data set</span></span><br><span class="line">library(plyr)</span><br><span class="line"><span class="comment"># Do a group-wise transform(), splitting on "Date"</span></span><br><span class="line">ce &lt;- ddply(cabbage_exp, <span class="string">"Date"</span>, transform,</span><br><span class="line">            percent_weight = Weight / sum(Weight) * <span class="number">100</span>)</span><br><span class="line">ggplot(ce, aes(x=Date, y=percent_weight, fill=Cultivar)) +</span><br><span class="line">      geom_bar(<span class="built_in">stat</span>=<span class="string">"identity"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/pZAfWxF.png" alt=""><br><i class="fa fa-hand-o-right"></i>plyr里ddply的语法解析<br>cabbage是数据集<br>“Date” 通俗来说就是x轴的变量<br>transform是要做的变形，在ddply中还有summarize等<br>最后一项是是新建的变量和变型方法</p>
+<h2 id="柱条上添加文字">柱条上添加文字</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">library(ggplot2)</span><br><span class="line">library(ggthemes)</span><br><span class="line">dt = data.frame(obj = c(<span class="string">'A'</span>,<span class="string">'D'</span>,<span class="string">'B'</span>,<span class="string">'E'</span>,<span class="string">'C'</span>), val = c(<span class="number">2</span>,<span class="number">15</span>,<span class="number">6</span>,<span class="number">9</span>,<span class="number">7</span>))</span><br><span class="line">dt<span class="variable">$obj</span> = factor(dt<span class="variable">$obj</span>, levels=c(<span class="string">'D'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'A'</span>,<span class="string">'E'</span>))   <span class="comment">## 设置柱条的顺序</span></span><br><span class="line">p = ggplot(dt, aes(x = obj, y = val, fill = obj, group = factor(<span class="number">1</span>))) + </span><br><span class="line">    geom_bar(<span class="built_in">stat</span> = <span class="string">"identity"</span>, width = <span class="number">0.5</span>) +   <span class="comment">## 修改柱条的宽度</span></span><br><span class="line">    theme_pander() + </span><br><span class="line">    geom_text(aes(label = val, vjust = -<span class="number">0.8</span>, hjust = <span class="number">0.5</span>, color = obj), show_guide = FALSE) +   <span class="comment">## 显示柱条上的数字</span></span><br><span class="line">    ylim(min(dt<span class="variable">$val</span>, <span class="number">0</span>)*<span class="number">1.1</span>, max(dt<span class="variable">$val</span>)*<span class="number">1.1</span>)   <span class="comment">## 加大 Y 轴的范围，防止数字显示不齐全</span></span><br><span class="line">p</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xk19o.com1.z0.glb.clouddn.com/ggthemes.png" alt=""><br><i class="fa fa-hand-o-right"></i>代码解释<br><a style="line-height: 1.5;" href="https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html" target="_blank">ggthemes<i class="fa fa-link"></i></a>为ggplot2的一个主题包，通过theme_pander()修改ggplot2默认主题（theme）.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dt<span class="variable">$obj</span>是因子类型，ggplot2作图时按照因子水平顺序来的，所以修改因子水平的顺序即可修改作图顺序，具体可以输出dt<span class="variable">$obl</span>.</span><br></pre></td></tr></table></figure></p>
+<p>另一种改变柱子顺序方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p + scale_x_discrete(limits=c(<span class="string">'D'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'A'</span>,<span class="string">'E'</span>))</span><br></pre></td></tr></table></figure></p>
+<p></p><p></p><br><i class="fa fa-link"></i> Contribution from ：<a href="http://yangchao.me/2013/02/ggplot2-bar-chart/" target="_blank" rel="external">http://yangchao.me/2013/02/ggplot2-bar-chart/</a><br>                       <a href="http://www.bubuko.com/infodetail-1051940.html" target="_blank" rel="external">http://www.bubuko.com/infodetail-1051940.html</a><br>                       <a href="http://stackoverflow.com/questions/10805643/ggplot2-add-color-to-boxplot-continuous-value-supplied-to-discrete-scale-er" target="_blank" rel="external">http://stackoverflow.com/questions/10805643/ggplot2-add-color-to-boxplot-continuous-value-supplied-to-discrete-scale-er</a><p></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/Wechat.jpg" alt="tiramisutes wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎关注</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者:</strong>
+      tiramisutes
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文固定链接:</strong>
+      <a href="http://tiramisutes.github.io/2015/10/08/bar.html" title="bar">http://tiramisutes.github.io/2015/10/08/bar.html</a>
+      <strong>转载请注明出处！</strong>
+    </li>
+    <li class="post-copyright-license">
+      <strong>Copyright Notice: </strong>
+      All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/bar/" rel="tag"># bar</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/07/icon.html" rel="next" title="Icons">
+                <i class="fa fa-chevron-left"></i> Icons
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/08/ANOVA.html" rel="prev" title="ANOVA单因素方差分析与R实现">
+                ANOVA单因素方差分析与R实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.jpg"
+               alt="tiramisutes" />
+          <p class="site-author-name" itemprop="name">tiramisutes</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tiramisutes" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xzpgocxx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/tiramisutesTes" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tiramisutes.gitbooks.io/awk/content/" title="GitBook《awk学习总结》" target="_blank">GitBook《awk学习总结》</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cotton.hzau.edu.cn/" title="棉花遗传改良团队" target="_blank">棉花遗传改良团队</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bio-info-trainee.com/" title="生信菜鸟团-深圳大学城" target="_blank">生信菜鸟团-深圳大学城</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.biotrainee.com/forum.php" title="生信技能树" target="_blank">生信技能树</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iwhgao.com/" title="rabbit gao's blog" target="_blank">rabbit gao's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://huans.github.io/" title="Huans(代谢+GWAS)" target="_blank">Huans(代谢+GWAS)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.sequencing.uio.no/" title="NSC-sequenceing" target="_blank">NSC-sequenceing</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.jobbole.com/" title="伯乐在线" target="_blank">伯乐在线</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://linux.cn/" title="Linux开源中文社区" target="_blank">Linux开源中文社区</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.r-bloggers.com/" title="R-bloggers" target="_blank">R-bloggers</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cran.r-project.org/other-docs.html" title="R-resource" target="_blank">R-resource</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html" title="ggplot2" target="_blank">ggplot2</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lilibei.net/" title="pele' blog" target="_blank">pele' blog</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aesthetics"><span class="nav-number">2.</span> <span class="nav-text">Aesthetics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grouping_Bars_Together"><span class="nav-number">3.</span> <span class="nav-text">Grouping Bars Together</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在柱状图中使用不同颜色—把适当的变量映射到Fill中"><span class="nav-number">4.</span> <span class="nav-text">在柱状图中使用不同颜色—把适当的变量映射到Fill中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coloring_Negative_and_Postive_Bars_Differently—设定新的变量，将新建变量映射到fill中"><span class="nav-number">5.</span> <span class="nav-text">Coloring Negative and Postive Bars Differently—设定新的变量，将新建变量映射到fill中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pylr改变图中堆积的颜色—order=desc()"><span class="nav-number">6.</span> <span class="nav-text">pylr改变图中堆积的颜色—order=desc()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Making_a_Propotional_Stacked_Bar_Graph"><span class="nav-number">7.</span> <span class="nav-text">Making a Propotional Stacked Bar Graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#柱条上添加文字"><span class="nav-number">8.</span> <span class="nav-text">柱条上添加文字</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"> <a href="/about" target="_blank">tiramisutes</a></span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io" target="_blank">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank">
+    NexT.Muse 
+  </a>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+                </script>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a style="line-height: 1.5;" href="http://c4.gostats.cn/last_guests.xml?id=397056" target="_blank">The total visits <span id="busuanzi_value_site_pv"></span> times</a>
+                </span>
+    <!-- GoStats JavaScript Based Code -->
+                <script type="text/javascript" src="http://gostats.cn/js/counter.js"></script>
+                <script type="text/javascript">_gos='c4.gostats.cn';_goa=397056;
+                _got=5;_goi=1;_GoStatsRun();</script>
+                <noscript><a target="_blank" 
+                href="http://gostats.cn"><img src="http://c4.gostats.cn/bin/count/a_397056/t_5/i_1/counter.png" 
+                style="border-width:0" /></a></noscript>
+                <!-- End GoStats JavaScript Based Code -->  
+</div>
+<script>
+ host3 = window.location.href;
+  chinadomai3 = "http://tiramisutes.github.io/";
+  if (host3.indexOf(chinadomain3)!=-1)  {
+
+  (function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 91479, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 91479, xid: "2015/10/08/bar.html"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/91479/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("c7x0fPmO8Ci9avDBRuGWHqpG-gzGzoHsz", "iVJ6ST0e1O5xaiIhVwOyhbf3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>
